@@ -237,5 +237,13 @@
     }
     .auth--form-box {
         padding: 4rem 2.4rem;
+        background-color: #fff;
+    }
+    .auth--form {
+        padding: 2.4rem 0;
+        box-shadow: unset;
+    }
+    .form--heading {
+        text-align: left;
     }
 }

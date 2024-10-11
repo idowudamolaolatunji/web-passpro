@@ -204,3 +204,38 @@
 #checkbox.is-selected svg {
     font-size: 1rem;
 }
+
+
+
+
+@media screen and (max-width: 1050px) {
+    .auth--form-box {
+        padding: 3rem;
+    }
+    .form--clicks {
+        gap: 2rem;
+    }
+}
+
+
+@media screen and (max-width: 850px) {
+    .auth--image {
+        display: none;
+    }
+    .auth--container {
+        grid-template-columns: 1fr;
+        height: 100%;
+    }
+    .auth--form {
+        padding: 2rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .form--clicks {
+        gap: .64rem;
+    }
+    .auth--form-box {
+        padding: 4rem 2.4rem;
+    }
+}

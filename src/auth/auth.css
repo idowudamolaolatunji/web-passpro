@@ -166,10 +166,17 @@
 
 .form--flex a:link,
 .form--flex a:visited,
+.form--info a:link,
+.form--info a:visited,
 .form--info button {
     color: var(--primary-2);
     font-weight: 600;
     transition: text-shadow .35s;
+}
+.form--item-flex {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
 }
 .form--submit {
     background-color: var(--primary-1);

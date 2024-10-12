@@ -82,7 +82,7 @@ function index() {
                                 <div id="checkbox" className={isChecked ? 'is-selected' : ''}>
                                     {isChecked && <FaCheck />}
                                 </div>
-                                <label className='form--text' htmlFor="checkbox">Remember me</label>
+                                <label className='form--text' htmlFor="checkbox">Remember Me</label>
                             </div>
 
                             <Link to='/forgot-password'>Forgot Password?</Link>
@@ -90,7 +90,7 @@ function index() {
 
                         <button type="submit" className='form--submit'>Sign In</button>
 
-                        <div className="form--info">
+                        <div className="form--info" style={{ textAlign: "center" }}>
                             <p>Dont have an account? <Link to='/signup'>Signup</Link></p>
                         </div>
                     </form>

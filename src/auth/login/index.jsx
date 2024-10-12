@@ -53,12 +53,12 @@ function index() {
                         </div>
 
                         <div className="form--item">
-                            <label htmlFor="name" className="form--label">Email <Asterisk /></label>
-                            <input type="text" className="form--input" placeholder='taiwo@gmail.com' onChange={handleFormChange} name="name" id='name' value={formData.email} />
+                            <label htmlFor="email" className="form--label">Email <Asterisk /></label>
+                            <input type="email" className="form--input" placeholder='taiwo@gmail.com' onChange={handleFormChange} name="email" id='email' value={formData.email} />
 
                         </div>
                         <div className="form--item">
-                            <label htmlFor="name" className="form--label">Password <Asterisk /></label>
+                            <label htmlFor="Password" className="form--label">Password <Asterisk /></label>
 
                             <div className="form--input-box">
                                 <input

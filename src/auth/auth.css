@@ -288,7 +288,12 @@
         padding: 2.4rem 0;
         box-shadow: unset;
     }
+    .form--top {
+        gap: 1.2rem;
+        text-align: center;
+    }
     .form--heading {
-        text-align: left;
+        text-align: center;
+        font-size: 2.8rem;
     }
 }

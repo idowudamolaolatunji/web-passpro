@@ -44,7 +44,6 @@
     flex-direction: column;
     gap: 1.4rem;
     width: 80%;
-    height: auto;
     scrollbar-width: none;
 
     background-color: #fff;
@@ -52,6 +51,9 @@
     padding: 3rem;
     width: 100%;
     box-shadow: 0 0 2px #0000001e, 0 0 10px #0000000d;
+    
+    max-height: 80vh;
+    overflow-y: scroll;
 }
 .form--heading {
     font-size: 3.2rem;

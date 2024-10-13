@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './auth/login';
 import Signup from './auth/signup';
 import ForgotPassword from './auth/forgotPassword';
+import ChangePassword from './auth/changePassword';
 import VerifyOtp from './auth/otpVerification';
 
 
@@ -18,6 +19,8 @@ function App() {
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/forgot-password' element={<ForgotPassword />}></Route>
         <Route path='/verify-otp' element={<VerifyOtp />}></Route>
+        <Route path='/change-password' element={<ChangePassword />}></Route>
+        <Route path='/reset-password' element={<VerifyOtp />}></Route>
         <Route path="*" element={<Error />} />
 
         {/* PROTECTED ROUTES */}

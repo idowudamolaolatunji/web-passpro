@@ -22,7 +22,10 @@ body {
 	font-weight: 400;
 	color: #444;
     width: 100%;
-	transition: none !important;
+
+	/* temps */
+	height: 100vh;
+	overflow: hidden;
 }
 
 ul,

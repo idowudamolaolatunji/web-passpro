@@ -9,6 +9,7 @@ import ForgotPassword from './auth/forgotPassword';
 import ChangePassword from './auth/changePassword';
 import VerifyOtp from './auth/otpVerification';
 
+import HomePage from './pages/home';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <Route path='/change-password' element={<ChangePassword />}></Route>
         <Route path='/reset-password' element={<VerifyOtp />}></Route>
         <Route path="*" element={<Error />} />
+        
+        <Route path='/' element={<HomePage />}></Route>
+        <Route path='/dashboard' element={<HomePage />}></Route>
 
         {/* PROTECTED ROUTES */}
         {/* <Route element={<ProtectedRoute />}>

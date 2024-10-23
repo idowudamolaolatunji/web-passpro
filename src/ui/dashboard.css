@@ -62,7 +62,7 @@
 	cursor: pointer;
 }
 .notification--icon {
-	color: rgba(252, 100, 53, 1);
+	color: var(--primary-1);
 	justify-content: center;
 }
 .notification--icon svg {
@@ -77,7 +77,7 @@
 	object-fit: cover;
 }
 .user--profile svg {
-	color: rgba(252, 100, 53, 1);
+	color: var(--primary-1);
 	font-size: 1.6rem;
 }
 
@@ -117,7 +117,7 @@
 }
 .menu--item:hover,
 .menu--item.is-active {
-	color: rgba(255, 132, 88, 1);
+	color: var(--primary-2);
 }
 .menu--icon svg {
 	font-size: 2.6rem;
@@ -135,7 +135,7 @@
 .menu--item.is-active::before {
 	display: inline-block;
 	content: "";
-	background-color: rgba(255, 132, 88, 1);
+	background-color: var(--primary-2);
 	width: 1rem;
 	height: 100%;
 	border-top-right-radius: 5rem;

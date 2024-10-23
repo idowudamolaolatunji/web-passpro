@@ -3,6 +3,8 @@ import DashboardBase from '../../ui/DashboardBase'
 import PageTop from '../../components/PageTop'
 import OrganizationCard from './homeComponents/OrganizationCard'
 import HomeInsightGrid from './homeComponents/HomeInsightGrid'
+import UpcomingCalender from './homeComponents/UpcomingCalender'
+
 
 function index() {
     return (
@@ -28,9 +30,7 @@ function index() {
                         <div className="dashboard--card">
                             hi
                         </div>
-                        <div className="dashboard--card">
-                            hi
-                        </div>
+                        <UpcomingCalender />
                     </div>
 
                 </div>

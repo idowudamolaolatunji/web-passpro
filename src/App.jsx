@@ -25,7 +25,7 @@ function App() {
         <Route path="*" element={<Error />} />
         
         <Route path='/' element={<HomePage />}></Route>
-        <Route path='/dashboard' element={<HomePage />}></Route>
+        <Route path='/dashboard/' element={<HomePage />}></Route>
 
         {/* PROTECTED ROUTES */}
         {/* <Route element={<ProtectedRoute />}>

@@ -7,7 +7,8 @@ function MenuItem({ link, icon, text }) {
 
     return (
         <Link to={`/dashboard${link}`} className={`menu--item ${
-            (text === 'Dashboard' && (pathname === '/dashboard/' || pathname === '/')) && "is-active" || (text !== "Dashboard" && pathname == link) ? "is-active" : ""
+            (text === 'Dashboard' && (pathname == '/dashboard' || pathname == '/' || pathname == '/dashboard/')) && "is-active" || 
+            (text != "Dashboard" && pathname.includes(link)) ? "is-active" : ""
         }`}>
             <span className='menu--icon'>{icon}</span>
             <p className='menu--text'>{text}</p>

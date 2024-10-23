@@ -28,3 +28,108 @@
     font-size: 1.4rem;
     font-weight: 500;
 }
+
+
+.organization--card {
+    background-color: #fff;
+    padding: 1.4rem;
+    border-radius: .4rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.organization--card .card--left img {
+    width: 4.6rem;
+    height: 4.6rem;
+    border-radius: 50%;
+}
+.organization--card .card--left span {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.organization--card .card--left,
+.organization--card .card--right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.organization--card button {
+    border: none;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background-color: transparent;
+    padding: .6rem 1.2rem;
+    box-shadow: inset 0 0 0 .14rem #555;
+    border-radius: .4rem;
+    cursor: pointer;
+}
+
+
+.content--box {
+    grid-template-columns: 1fr;
+}
+
+.content--box,
+.dashboard--grid,
+.dashboard--grid-1 {
+    display: grid;
+    gap: 2rem;
+}
+
+.dashboard--grid {
+    grid-template-columns: 2.5fr 1fr;
+}
+.dashboard--grid-1 {
+    grid-template-columns: 1fr 1fr;
+}
+.dashboard--card {
+    background-color: #fff;
+    width: 100%;
+    min-height: 2rem;
+}
+
+
+.dashboard--grid .grid--left,
+.dashboard--grid .grid--right {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+
+.insight--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.insight--figure {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: .4rem;
+    min-height: 10rem;
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .dashboard--grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+@media screen and (max-width: 420px) {
+    .page__section--crumbs {
+        width: 100%;
+    }
+}

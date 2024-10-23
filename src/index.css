@@ -48,7 +48,20 @@ button:has(svg) {
 	line-height: 0;
 }
 
-
+::-webkit-scrollbar {
+	width: .68rem;
+	height: .4rem;
+}
+::-webkit-scrollbar-track {
+	background: none;
+	border: none;
+}
+::-webkit-scrollbar-thumb {
+	background: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #aaa;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

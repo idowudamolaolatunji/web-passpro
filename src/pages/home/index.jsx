@@ -13,8 +13,6 @@ function index() {
             {/* <section className=''></section> */}
 
 
-
-
             <div className='content--box'>
                 <div className="dashboard--grid">
                     <div className="grid--left">
@@ -42,8 +40,21 @@ function index() {
                     hi
                 </div>
 
-            </div>
+                <div className="dashboard--grid-1">
+                    <div className="dashboard--card">
+                        hi
+                    </div>
 
+                    <div className="dashboard--card">
+                        hi
+                    </div>
+                </div>
+
+
+                <div className="dashboard--card">
+                    hi
+                </div>
+            </div>
         </DashboardBase>
     )
 }

@@ -291,6 +291,10 @@
 		width: 4rem;
 		height: 4rem;
 	}
+
+	.content--block {
+		padding: 3rem 2rem 6rem;
+	}
 }
 
 @media screen and (max-width: 400px) {

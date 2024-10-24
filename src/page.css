@@ -401,14 +401,17 @@
 }
 
 
-@media screen and (max-width: 420px) {
-    .page__section--crumbs {
-        width: 100%;
-    }
-
+@media screen and (max-width: 450px) {
     .insight--grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+}
+
+
+@media screen and (max-width: 420px) {
+    .page__section--crumbs {
+        width: 100%;
     }
 
     .organization--card {

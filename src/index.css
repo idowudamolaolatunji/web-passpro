@@ -70,6 +70,27 @@ input::-webkit-inner-spin-button {
 }
 
 
+.spinner--container {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+
+	z-index: 200;
+	background-color: rgba(0, 0, 0, 0.1);
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
+	transition: all .2s;
+}
+
 .global--overlay {
 	position: fixed;
 	overflow: hidden;

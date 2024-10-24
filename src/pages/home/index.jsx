@@ -4,6 +4,7 @@ import PageTop from '../../components/PageTop'
 import OrganizationCard from './homeComponents/OrganizationCard'
 import HomeInsightGrid from './homeComponents/HomeInsightGrid'
 import UpcomingCalender from './homeComponents/UpcomingCalender'
+import TicketsSoldInfo from './homeComponents/TicketsSoldInfo'
 
 
 function index() {
@@ -23,13 +24,15 @@ function index() {
                         <div className="dashboard--card">
                             hi
                         </div>
+                        
+                        <div className="dashboard--card">
+                            hi
+                        </div>
                     </div>
 
 
                     <div className="grid--right">
-                        <div className="dashboard--card">
-                            hi
-                        </div>
+                        <TicketsSoldInfo />
                         <UpcomingCalender />
                     </div>
 
@@ -55,6 +58,7 @@ function index() {
                     hi
                 </div>
             </div>
+
         </DashboardBase>
     )
 }

@@ -1,4 +1,11 @@
+:root {
+    --primary-1: #FC6435;
+    --primary-2: #ff8458;
+    --primary-3: #FFB494;
+    --primary-4: #FFD8C8;
 
+    --ascent-1: rgba(22, 68, 115, 1);
+}
 
 .page__section--top {
     width: 100%;
@@ -21,7 +28,7 @@
 
 
 .page__section--crumbs a {
-    color: rgba(255, 132, 88, 1);
+    color: var(--primary-2);
 }
 .page__section--crumbs a,
 .page__section--crumbs p {
@@ -33,7 +40,7 @@
 .organization--card {
     background-color: #fff;
     padding: 1.4rem;
-    border-radius: .4rem;
+    border-radius: .6rem;
 
     display: flex;
     align-items: center;
@@ -81,7 +88,7 @@
 }
 
 .dashboard--grid {
-    grid-template-columns: 2.5fr 1fr;
+    grid-template-columns: 2.3fr 1fr;
 }
 .dashboard--grid-1 {
     grid-template-columns: 1fr 1fr;
@@ -90,6 +97,7 @@
     background-color: #fff;
     width: 100%;
     min-height: 2rem;
+    border-radius: .6rem;
 }
 
 
@@ -104,15 +112,153 @@
 .insight--grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
+    gap: 1.4rem;
 }
 
 .insight--figure {
     background-color: #fff;
-    padding: 1rem;
-    border-radius: .4rem;
+    padding: 1rem 1.4rem;
+    border-radius: .6rem;
     min-height: 10rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
+.insight--title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--primary-2);
+}
+.insight--figure .figure--detaills {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.insight--icon {
+    background-color: rgba(255, 237, 229, 1);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.insight--icon svg {
+    font-size: 3rem;
+    color: var(--primary-1);
+}
+.insight--value {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--ascent-1);
+}
+.insight--value span {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+
+
+.sold--figure {
+    padding: 3rem 2rem;
+    color: #fff;
+    background: rgba(242, 141, 67, 1);
+    border-radius: .6rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+.sold--head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.sold--head h3 {
+    font-size: 1.86rem;
+    font-weight: 500;
+}
+
+
+.sold--insight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+}
+.sold--insight span {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+.sold--insight p {
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+
+.sold--info {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.sold--info img {
+    width: 4.6rem;
+}
+
+.sold--info p {
+    color: var(--ascent-1);
+    display: flex;
+    gap: .3rem;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.sold--info p span {
+    font-size: 3.2rem;
+}
+
+.sold--range {
+    width: 100%;
+    height: 1.6rem;
+    border-radius: 10rem;
+    background-color: #fff;
+    overflow: hidden;
+}
+.sold--range span {
+    display: inline-block;
+    height: 100%;
+    /* background: rgba(255, 216, 200, 1); */
+    background-color: var(--primary-4);
+    border-radius: 10rem;
+
+}
+
+.sold--text {
+    font-size: 1.4rem;
+    line-height: 1.3;
+}
+
+.sold--link:link,
+.sold--link:visited {
+    font-size: 1.4rem;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -198,6 +344,8 @@
 
 
 
+
+
 @media screen and (max-width: 1030px) {
     .dashboard--grid {
         grid-template-columns: 1fr;
@@ -222,6 +370,21 @@
     }
 }
 
+
+@media screen and (max-width: 650px) {
+    .insight--grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .insight--figure .figure--detaills {
+        gap: 2rem;
+        justify-content: flex-start;
+    }
+    
+}
+
+
+
 @media screen and (max-width: 550px) {
     .rs-stack {
         grid-template-columns: 1fr;
@@ -241,6 +404,22 @@
 @media screen and (max-width: 420px) {
     .page__section--crumbs {
         width: 100%;
+    }
+
+    .insight--grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .organization--card {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+        margin-bottom: -1rem;
+    }
+
+    .organization--card button {
+        align-self: center;
     }
 
     

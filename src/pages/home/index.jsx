@@ -10,12 +10,10 @@ import AttendeesChart from './homeComponents/AttendeesChart'
 
 function index() {
     return (
-        <DashboardBase>
-
+        <>
             <PageTop title="Dashboard" />
             <OrganizationCard />
             {/* <section className=''></section> */}
-
 
             <div className='content--box'>
                 <div className="dashboard--grid">
@@ -58,7 +56,7 @@ function index() {
                 </div>
             </div>
 
-        </DashboardBase>
+        </>
     )
 }
 

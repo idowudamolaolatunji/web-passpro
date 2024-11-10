@@ -11,6 +11,7 @@
 	display: flex;
 	align-items: center;
 	gap: 2rem;
+	width: 22rem;
 }
 .header--hamburger svg {
 	font-size: 2.8rem;
@@ -87,23 +88,27 @@
 	gap: 0;
 }
 
+
+
+/*  */
 .dashboard--menu,
 .dashboard--sidemenu {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	gap: 4rem;
 }
 
 .dashboard--menu {
-	padding: 3.4rem 0;
-	height: 90vh;
+	padding: 3.4rem 2.4rem;
+	height: 100vh;
 	overflow-y: auto;
 	scrollbar-width: none;
+	background-color: var(--primary-1);
 }
 .menu--list {
 	display: flex;
 	flex-direction: column;
-	gap: 2.4rem;
+	gap: 1.6rem;
 }
 .menu--item,
 .menu--item:link,
@@ -111,55 +116,47 @@
 	display: flex;
 	align-items: center;
 	gap: 0.8rem;
-	color: rgba(143, 143, 143, 1);
+	color: #fff;
 	transition: all 0.3s;
-	padding: 0 2.4rem;
+	padding: 1rem;
+	border-radius: .4rem;
+	background-color: transparent;
 }
 .menu--item:hover,
 .menu--item.is-active {
-	color: var(--primary-2);
+	background-color: #B1350F;
 }
-.menu--icon svg {
-	font-size: 2.6rem;
+.menu--icon img {
+	width: 2.2rem;
+	height: 2.2rem;
 }
 .menu--text {
 	font-size: 1.42rem;
 	font-weight: 500;
 }
-.menu--list:nth-child(1) .menu--item:first-child svg {
-	font-size: 3.4rem;
+.menu--arrow {
+	width: 2rem;
+	margin-left: auto;
 }
-.menu--item.is-active {
-	position: relative;
-}
-.menu--item.is-active::before {
-	display: inline-block;
-	content: "";
-	background-color: var(--primary-2);
-	width: 1rem;
-	height: 100%;
-	border-top-right-radius: 5rem;
-	border-bottom-right-radius: 5rem;
-	position: absolute;
-	top: 0;
-	left: 0;
-	transform: translateY(-0.1rem);
-}
+
+
+
+
 
 .dashboard--sidemenu {
 	min-width: 34rem;
 	height: 100vh;
-	background-color: #fff;
+	background-color: var(--primary-1);
 
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
 
-	padding: 5.4rem 1.8rem 2rem 0;
+	padding: 3rem 2rem 2rem;
 	display: flex;
 	flex-direction: column;
-	gap: 1.4rem;
+	gap: 4rem;
 
 	overflow-y: auto;
 	scrollbar-width: none;
@@ -182,7 +179,7 @@
 }
 .sidemenu--hamburger {
 	position: absolute;
-	top: 1.6rem;
+	top: 2rem;
 	right: 2rem;
 	cursor: pointer;
 }
@@ -226,6 +223,7 @@
 		width: 12rem;
 	}
 	.header--search {
+		width: 100%;
 		min-width: 32rem;
 	}
 	.dashboard--base {

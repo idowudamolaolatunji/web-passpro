@@ -3,8 +3,6 @@ import ReactApexChart from 'react-apexcharts';
 import { dataPoint } from '../../../utils/data';
 
 
-
-
 function AttendeesChart() {
     const [series, setSeries] = useState([{
         data: [...dataPoint]
@@ -14,12 +12,12 @@ function AttendeesChart() {
         chart: {
             id: 'area-datetime',
             type: 'area',
-            height: 350,
+            height: 250,
             zoom: {
                 autoScaleYaxis: true
             }
         },
-        colors: ["#ff8458"],
+    colors: ["#FC6435"],
         annotations: {
             yaxis: [],
             xaxis: []
@@ -36,7 +34,7 @@ function AttendeesChart() {
         },
         xaxis: {
             type: 'datetime',
-            tickAmount: 10,
+            // tickAmount: 1,
         },
         grid: {
             xaxis: {
@@ -57,11 +55,11 @@ function AttendeesChart() {
         },
         fill: {
             type: 'solid',
-            color: "#ff8458",
             opacity: 1
         },
         stroke: {
-            show: false
+            show: false,
+            curve: 'smooth'
         },
 
     });
@@ -85,18 +83,16 @@ function AttendeesChart() {
     };
 
 
-
-
     return (
         <div>
             <div id="chart" className='dashboard--card'>
                 <div className="toolbar">
-                    <button id="one_month" onClick={() => updateData('one_month')} className={(selection === 'one_month' ? 'active' : '')}>Monthly</button>
-                    <button id="one_week" onClick={() => updateData('one_week')} className={(selection === 'one_week' ? 'active' : '')}>Weekly</button>
-                    <button id="one_day" onClick={() => updateData('one_day')} className={(selection === 'one_week' ? 'active' : '')}>Daily</button>
+                    <button id="one_month" onClick={() => updateData('one_month')} className={selection === 'one_month' ? 'active' : ''}>Monthly</button>
+                    <button id="one_week" onClick={() => updateData('one_week')} className={selection === 'one_week' ? 'active' : ''}>Weekly</button>
+                    <button id="one_day" onClick={() => updateData('one_day')} className={selection === 'one_week' ? 'active' : ''}>Daily</button>
                 </div>
                 <div id="chart-timeline">
-                    <ReactApexChart options={options} series={series} type="area" height={350} />
+                    <ReactApexChart options={options} series={series} type="area" height={250} />
                 </div>
             </div>
             <div id="html-dist"></div>

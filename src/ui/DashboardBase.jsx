@@ -6,17 +6,17 @@ import "./dashboard.css";
 
 function DashboardBase({ children }) {
   return (
-    <>
-        <DashboardHead />
+    <section className='dashboard--base'>
+        <DashboardMenu />
 
-        <section className='dashboard--base'>
-            <DashboardMenu />
+        <main>
+            <DashboardHead />
 
             <section className='content--block'>
-                {children}
+              {children}
             </section>
-        </section>
-    </>
+        </main>
+    </section>
   )
 }
 

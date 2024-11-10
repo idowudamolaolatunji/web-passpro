@@ -23,16 +23,17 @@ function DashboardHead() {
 
     return (
         <header className='dashboard--header'>
-            <div className="header--main">
                 {width <= 900 && (
-                    <span className='header--hamburger' onClick={handleToggleMenu}>
-                        <GiHamburgerMenu />
-                    </span>
+                    <div className="header--main">
+                        <span className='header--hamburger' onClick={handleToggleMenu}>
+                            <GiHamburgerMenu />
+                        </span>
+
+                        <div className="header--logo">
+                            <img src={logo} alt='Logo image' />
+                        </div>
+                    </div>
                 )}
-                <div className="header--logo">
-                    <img src={logo} alt='Logo image' />
-                </div>
-            </div>
 
             <div className="header--search">
                 <input type="text" className='form--input' placeholder='Search Events, Tickets and Occassions' />

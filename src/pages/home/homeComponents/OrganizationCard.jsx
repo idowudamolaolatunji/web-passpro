@@ -1,6 +1,7 @@
 import React from 'react';
 
 import img from '../../../assets/png/Ellipse 155.png'
+import { Link } from 'react-router-dom';
 
 function OrganizationCard() {
   return (
@@ -11,7 +12,7 @@ function OrganizationCard() {
         </div>
 
         <div className="card--right">
-            <button>Create Events</button>
+            <Link to="/dashboard/events/create">Create Events</Link>
         </div>
     </div>
   )

@@ -265,6 +265,67 @@
 
 
 
+.form__comtainer {
+    width: 100%;
+    border-radius: 1rem;
+    background-color: #fff;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+.form__container--headiing {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding-bottom: 1.2rem;
+    border-bottom: 1.2px solid #ccc;
+}
+
+/* the entire steps */
+.rs-steps {
+    font-family: sans-serif;
+    max-width: 45rem;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+}
+
+/* the tabs containers  */
+.rs-steps-small.rs-steps-horizontal .rs-steps-item {
+    padding: 0 !important;
+}
+.rs-steps-small.rs-steps-horizontal .rs-steps-item:last-child {
+    transform: translateX(-1rem);
+}
+
+/* all the tabs */
+.rs-steps-small .rs-steps-item-icon-wrapper {
+    border: none;
+    background-color: #8f8f8f;
+    color: #fff;
+    z-index: 2;
+}
+
+/* the line */
+.rs-steps-horizontal .rs-steps-item-title:after {
+    border-width: 1.2px;
+    border-color: #555;
+}
+
+/* the tab in-progress */
+.rs-steps-item-status-process .rs-steps-item-icon-wrapper {
+    background-color: var(--primary-1);
+}
+
+/* the description */
+.rs-steps-item-description {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+
+
+
+
+
 
 
 
@@ -343,6 +404,33 @@
 }
 
 /* ================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

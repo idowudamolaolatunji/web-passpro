@@ -10,6 +10,7 @@ import VerifyOtp from './auth/otpVerification';
 
 import HomePage from './pages/home';
 import Events from './pages/events';
+import CreateEvents from './pages/createEvent';
 import Withdrawals from './pages/withdrawals';
 import Supports from './pages/support';
 import Transactions from './pages/transactions';
@@ -36,7 +37,7 @@ function App() {
           <Route path='/' element={<HomePage />}></Route>
           <Route path='/dashboard' element={<HomePage />}></Route>
           <Route path='/dashboard/events' element={<Events />}></Route>
-          <Route path='/dashboard/events/create' element={<Events />}></Route>
+          <Route path='/dashboard/events/create' element={<CreateEvents />}></Route>
           <Route path='/dashboard/events/manage' element={<Events />}></Route>
           <Route path='/dashboard/withdrawals' element={<Withdrawals />}></Route>
           <Route path='/dashboard/support-tickets' element={<Supports />}></Route>

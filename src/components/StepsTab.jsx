@@ -3,7 +3,7 @@ import { Steps } from 'rsuite';
 
 function StepsTab({ step }) {
     return (
-        <Steps current={step} small>
+        <Steps current={step - 1} small>
             <Steps.Item description="Overview" />
             <Steps.Item description="Gallery" />
             <Steps.Item description="Tickets" />

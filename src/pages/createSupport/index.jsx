@@ -3,7 +3,7 @@ import PageTop from '../../components/PageTop'
 
 function index() {
   return (
-    <PageTop title="All Support Tickets" />
+    <PageTop title="Create Support Ticket" />
   )
 }
 

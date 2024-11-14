@@ -11,7 +11,6 @@ import AuthUI from '../authComponents/AuthUI';
 
 function index() {
     const [formData, setFormData] = useState({
-        // role: "user",
         email: "",
         password: ""
     });
@@ -32,20 +31,9 @@ function index() {
             <form className="auth--form">
                 <h2 className="form--heading">Sign In</h2>
 
-                {/* <div className="form--clicks">
-                    <div className={
-                        `form--click ${formData.role == "user" ? 'is-selected' : ''}`}
-                        onClick={() => setFormData({ ...formData, role: "user" })}
-                    >User <span></span></div>
-                    <div className={`
-                                form--click ${formData.role == "event-creator" ? 'is-selected' : ''}`}
-                        onClick={() => setFormData({ ...formData, role: "event-creator" })}
-                    >Event Creator <span></span></div>
-                </div> */}
-
                 <div className="form--item">
                     <label htmlFor="email" className="form--label">Email <Asterisk /></label>
-                    <input type="email" className="form--input" placeholder='taiwo@gmail.com' onChange={handleFormChange} name="email" id='email' value={formData.email} />
+                    <input type="email" className="form--input" placeholder='taiwo@gmail.com' required onChange={handleFormChange} name="email" id='email' value={formData.email} />
 
                 </div>
                 <div className="form--item">
@@ -53,6 +41,7 @@ function index() {
 
                     <div className="form--input-box">
                         <input
+                            required
                             type={showPassword ? "text" : "password"}
                             name='password'
                             id="password"

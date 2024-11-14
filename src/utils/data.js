@@ -21,3 +21,17 @@ export const dataPoint = [
 	[1359500400000, 2],
 	[1359586800000, 5],
 ];
+
+
+export const event_sub = [
+    { text: "Create Events", link: "/dashboard/events/create" },
+    { text: "Manage Events", link: "/dashboard/events/manage" }
+]
+export const withdrawal_sub = [
+    { text: "Withdraw Now", link: "/dashboard/withdrawals/new" },
+    { text: "Withdrawal History", link: "/dashboard/withdrawals/history" }
+]
+export const support_sub = [
+    { text: "Create ticket", link: "/dashboard/support-tickets/create" },
+    { text: "Manage ticket", link: "/dashboard/support-tickets/manage" }
+]

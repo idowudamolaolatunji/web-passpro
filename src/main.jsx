@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { FetchedProvider } from './context/FetchedContext.jsx';
 import { DataProvider } from './context/DataContext.jsx';
 import App from './App.jsx'
 
@@ -9,8 +10,10 @@ import './page.css';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <DataProvider>
-            <App />
-        </DataProvider>
+        <FetchedProvider>
+            <DataProvider>
+                <App />
+            </DataProvider>
+        </FetchedProvider>
     </StrictMode>
 )

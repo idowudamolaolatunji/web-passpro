@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function OrganizationCard() {
   return (
-    <div className='organization--card'>
+    <div className='organization--card' style={{ marginTop: "-1.8rem" }}>
         <div className="card--left">
             <img src={img} alt='my organization' />
             <span>Flexy Events</span>

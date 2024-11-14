@@ -11,8 +11,10 @@ import VerifyOtp from './auth/otpVerification';
 import HomePage from './pages/home';
 import Events from './pages/events';
 import CreateEvents from './pages/createEvent';
-import Withdrawals from './pages/withdrawals';
+import NewWithdrawal from './pages/withdrawal';
+import WithdrawalHistory from './pages/withdrawalHistory';
 import Supports from './pages/support';
+import CreateSupport from './pages/createSupport';
 import Transactions from './pages/transactions';
 import Profile from './pages/profile';
 import ProtectedRoute from './utils/ProtectedRoute';
@@ -36,11 +38,15 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path='/' element={<HomePage />}></Route>
           <Route path='/dashboard' element={<HomePage />}></Route>
-          <Route path='/dashboard/events' element={<Events />}></Route>
           <Route path='/dashboard/events/create' element={<CreateEvents />}></Route>
           <Route path='/dashboard/events/manage' element={<Events />}></Route>
-          <Route path='/dashboard/withdrawals' element={<Withdrawals />}></Route>
-          <Route path='/dashboard/support-tickets' element={<Supports />}></Route>
+
+          <Route path='/dashboard/withdrawals/new' element={<NewWithdrawal />}></Route>
+          <Route path='/dashboard/withdrawals/history' element={<WithdrawalHistory />}></Route>
+          
+          <Route path='/dashboard/support-tickets/create' element={<CreateSupport />}></Route>
+          <Route path='/dashboard/support-tickets/manage' element={<Supports />}></Route>
+
           <Route path='/dashboard/transactions' element={<Transactions />}></Route>
           <Route path='/dashboard/profile' element={<Profile />}></Route>
         </Route>

@@ -10,7 +10,7 @@ import { event_sub, support_sub, withdrawal_sub } from "../../utils/data";
 
 
 function DashboardMenu() {
-    const { showMenu, handleToggleMenu } = useDataContext();
+    const { showMenu, closeAnimate, handleToggleMenu } = useDataContext();
 
     return (
         <>
@@ -35,7 +35,7 @@ function DashboardMenu() {
             {showMenu && (
                 <>
                     <Overlay handleClose={handleToggleMenu} />
-                    <div className="dashboard--sidemenu">
+                    <div className={`dashboard--sidemenu ${closeAnimate ? 'animate-out' : ''}`}>
                         <div className="header--logo" style={{ width: "14.8rem"}}>
                             <img src={logo} alt='Logo image' />
                         </div>

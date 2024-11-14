@@ -128,7 +128,6 @@
 	border-radius: 0.4rem;
 	background-color: transparent;
 }
-.menu--item:hover,
 .menu--item.is-active {
 	background-color: #b1350f;
 }
@@ -174,9 +173,18 @@
 	border-radius: 0;
 	font-size: 1.4rem;
 }
-.menu--subs .menu--item.is-active,
-.menu--subs .menu--item:hover {
+.menu--subs .menu--item.is-active {
 	background-color: #ee5627;
+}
+
+@media screen and (min-width: 650px) {
+	.menu--item:hover {
+		background-color: #b1350f;
+	}
+
+	.menu--subs .menu--item:hover {
+		background-color: #ee5627;
+	}
 }
 
 .dashboard--sidemenu {
@@ -213,6 +221,16 @@
 		transform: translateX(0);
 	}
 }
+
+@keyframes menu-slide-out {
+    0% { opacity: 1; transform: translateX(0); }
+    100% { transform: translateX(-40rem); }
+}
+.dashboard--sidemenu.animate-out {
+    animation: menu-slide-out 0.25s ease-out forwards;
+}
+
+
 .sidemenu--hamburger {
 	position: absolute;
 	top: 2rem;

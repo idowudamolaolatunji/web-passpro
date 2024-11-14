@@ -11,8 +11,8 @@ import VerifyOtp from './auth/otpVerification';
 import HomePage from './pages/home';
 import Events from './pages/events';
 import CreateEvents from './pages/createEvent';
-import NewWithdrawal from './pages/withdrawal';
-import WithdrawalHistory from './pages/withdrawalHistory';
+import NewWithdrawal from './pages/newWithdrawal';
+import Withdrawals from './pages/withdrawals';
 import Supports from './pages/support';
 import CreateSupport from './pages/createSupport';
 import Transactions from './pages/transactions';
@@ -42,7 +42,7 @@ function App() {
           <Route path='/dashboard/events/manage' element={<Events />}></Route>
 
           <Route path='/dashboard/withdrawals/new' element={<NewWithdrawal />}></Route>
-          <Route path='/dashboard/withdrawals/history' element={<WithdrawalHistory />}></Route>
+          <Route path='/dashboard/withdrawals/history' element={<Withdrawals />}></Route>
           
           <Route path='/dashboard/support-tickets/create' element={<CreateSupport />}></Route>
           <Route path='/dashboard/support-tickets/manage' element={<Supports />}></Route>

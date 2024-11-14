@@ -3,10 +3,12 @@ import PageTop from '../../components/PageTop'
 import DataTable from 'react-data-table-component'
 import { useFetchedContext } from '../../context/FetchedContext'
 import Empty from '../../components/Empty';
+import { BsCalendarEvent } from 'react-icons/bs';
 
 function index() {
   const { events, loader, error } = useFetchedContext();
 
+  // const events = ["id"] 
   const [tab, setTab] = useState("all")
 
   const columns = [
@@ -32,19 +34,18 @@ function index() {
   ]
 
   return (
-    <div>
+    <>
 
       <PageTop title="All Events" />
 
       <DataTable
         data={events}
         columns={columns}
-        noDataComponent={<Empty text="No Event Yet" />}
-        noTableHead={false}
+        noDataComponent={<Empty text="No Event Yet" icon={<BsCalendarEvent />} />}
         fixedHeader
       />
 
-    </div>
+    </>
   )
 }
 

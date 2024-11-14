@@ -45,7 +45,7 @@ function index() {
 
 
     return (
-        <section>
+        <>
             {showTicketModal && (
                 <Modal handleClose={handleCloseModal} className="modal-add">
                     <TicketForm setTicketsData={setTicketsData} handleClose={handleCloseModal} />
@@ -68,7 +68,7 @@ function index() {
                     <button className='form--btn btn-next' type='button' onClick={handleNextStep}>Save and Continue <BiChevronRight /></button>
                 </div>
             </main>
-        </section>
+        </>
     )
 }
 

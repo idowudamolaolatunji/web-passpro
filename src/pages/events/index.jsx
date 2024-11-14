@@ -41,7 +41,7 @@ function index() {
       <DataTable
         data={events}
         columns={columns}
-        noDataComponent={<Empty text="No Event Yet" icon={<BsCalendarEvent />} />}
+        noDataComponent={<Empty text="No Events Yet" icon={<BsCalendarEvent />} />}
         fixedHeader
       />
 

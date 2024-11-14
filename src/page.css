@@ -447,8 +447,31 @@
 
 
 
+.preview__container {
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+}
+.preview--top {
+    height: 22rem;
+    position: relative;
+}
+.preview--cover {
+    border-radius: .4rem;
+    height: 100%;
+    border: 1px solid #000;
+}
+.preview--img {
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    transform: translate(-50%, 50%);
 
-
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
 
 
 
@@ -727,13 +750,13 @@
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+    .page__section--crumbs {
+        width: 80%;
+    }
 }
 
 
 @media screen and (max-width: 420px) {
-    .page__section--crumbs {
-        width: 100%;
-    }
 
     .organization--card {
         flex-direction: column;

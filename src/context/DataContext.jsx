@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { useLocation } from "react-use";
 
 
 //////////////////////////////////////////////
@@ -14,11 +15,17 @@ export default DataContext;
 
 
 export const DataProvider = ({ children }) => {
+    const { pathname } = useLocation();
     const [showMenu, setShowMenu] = useState(false);
 
     const handleToggleMenu = function () {
         setShowMenu(!showMenu);
     }
+
+
+    useEffect(function() {
+        setShowMenu(false);
+    }, [pathname]);
 
 
     

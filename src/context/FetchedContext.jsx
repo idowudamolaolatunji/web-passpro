@@ -35,10 +35,10 @@ export const FetchedProvider = ({ children }) => {
 
         try {
 
-            const res = await fetch(`${BASE_URL}/events`, {
-                method: "GET",
+            // const res = await fetch(`${BASE_URL}/events`, {
+            //     method: "GET",
 
-            });
+            // });
 
         } catch(err) {
             setEventError(true);
@@ -46,6 +46,10 @@ export const FetchedProvider = ({ children }) => {
             setEventLoader(true);
         }
     }
+
+    useEffect(function() {
+        // handleFetchEvents()
+    }, [])
     
     // CREATE CONTEXT DATA
     let contextData = {

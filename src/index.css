@@ -11,7 +11,7 @@
 
 html {
 	font-size: 63%;
-	scroll-behavior: smooth;
+	/* scroll-behavior: smooth; */
 }
 
 body {
@@ -22,10 +22,6 @@ body {
 	font-weight: 400;
 	color: #444;
     width: 100%;
-
-	/* temps */
-	height: 100vh;
-	overflow: hidden;
 }
 
 ul,
@@ -189,8 +185,8 @@ input::-webkit-inner-spin-button {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 1.8rem;
-	padding: 2.8rem 0;
+	gap: 1.2rem;
+	padding: 4rem 0;
 }
 .empty-box svg {
 	font-size: 3.4rem;

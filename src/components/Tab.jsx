@@ -2,7 +2,7 @@ import React from 'react'
 
 function Tab({ title, onClick, active }) {
   return (
-    <button className={`page--tab ${active ? "active" : ""}`} onClick={onClick}>{title}</button>
+    <button type='button' className={`page--tab ${active ? "active" : ""}`} onClick={onClick}>{title}</button>
   )
 }
 

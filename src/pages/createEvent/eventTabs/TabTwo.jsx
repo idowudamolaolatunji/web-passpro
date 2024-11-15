@@ -1,7 +1,21 @@
 import React from 'react'
 import ImageUpload from '../../../components/ImageUpload'
 
-function TabTwo() {
+function TabTwo({ setImages, images }) {
+
+    const handleImageChange = function (event) {
+        const file = event.target.files[0];
+        const name = event.target.name;
+
+        console.log(name, file);
+
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setImages({ ...images, [name]: { file, preview: imageUrl } });
+        }
+    };
+
+
     return (
         <>
             <span className="form__container--headiing">Media & Gallery</span>
@@ -14,7 +28,7 @@ function TabTwo() {
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px
                         </span>
                     </label>
-                    <ImageUpload preview={""} handleChange={""} handleRemove={""} />
+                    <ImageUpload name="cover_image" preview={images?.cover_image?.preview} handleChange={handleImageChange} handleRemove={()=>{}} />
                 </div>
 
 
@@ -26,7 +40,7 @@ function TabTwo() {
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px
                         </span>
                     </label>
-                    <ImageUpload preview={""} handleChange={""} handleRemove={""} />
+                    <ImageUpload name="event_image" preview={images?.event_image?.preview} handleChange={handleImageChange} handleRemove={()=>{}} />
                 </div>
             </div>
         </>

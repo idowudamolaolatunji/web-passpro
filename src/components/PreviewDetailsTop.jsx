@@ -1,14 +1,14 @@
 import React from 'react'
 
-function PreviewDetailsTop({ bannerUrl, imgUrl }) {
+function PreviewDetailsTop({ images }) {
   return (
     <div className='preview--top'>
         <div className='preview--cover'>
-            <img src={bannerUrl} />
+            <img src={images?.cover_image?.preview} />
         </div>
 
         <span className='preview--img'>
-            <img src={imgUrl} />
+            <img src={images?.event_image?.preview} />
         </span>
     </div>
   )

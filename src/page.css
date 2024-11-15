@@ -412,7 +412,7 @@
 }
 .form--img-box.img--preview .img {
     width: 100%;
-	height: 10rem;
+	height: 14rem;
 	cursor: pointer;
     object-fit: cover;
 }
@@ -450,34 +450,146 @@
 .preview__container {
     display: flex;
     flex-direction: column;
-    gap: 8rem;
 }
 .preview--top {
-    height: 22rem;
+    height: 26rem;
     position: relative;
+    margin-bottom: 10rem;
 }
 .preview--cover {
+    height: 26rem;
+}
+.preview--cover img {
     border-radius: .4rem;
     height: 100%;
-    border: 1px solid #000;
+    width: 100%;
+    object-fit: cover;
 }
 .preview--img {
     position: absolute;
     bottom: 0;
-    left: 15%;
+    left: 12%;
     transform: translate(-50%, 50%);
 
-    width: 12rem;
-    height: 12rem;
+    width: 15rem;
+    height: 15rem;
+}
+.preview--img img {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    border: 1px solid #000;
+    border: 1.2px solid #ddd;
 }
 
 
 
 
+.preview--grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+}
 
 
+.preview--figure {
+    padding: 1rem 1.4rem;
+    border-radius: .4rem;
+    border: 1.4px solid #eee;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-self: flex-start;
+}
+
+
+.preview--figure-heading {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+.preview--figure-heading .heading {
+    font-size: 2rem;
+    color: var(--primary-1);
+    margin-bottom: .2rem;
+
+}
+.preview--figure-heading p {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    gap: 0.6rem;
+    font-size: 1.5rem;
+    color: var(--ascent-1);
+    font-weight: 500;
+}
+.preview--figure-heading p svg {
+    font-size: 1.8rem;
+}
+.preview--figure-description {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    color: #555;
+}
+
+.preview--figure-socials {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--primary-1);
+}
+
+
+.preview--tickets {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.preview--ticket {
+    border: 1.4px solid #eee;
+    padding: 1rem;
+    border-radius: .4rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+.preview--figure-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.preview--figure-title svg {
+    color: var(--primary-1);
+    font-size: 1.8rem;
+}
+.preview--ticket .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.preview--ticket .description {
+    font-size: 1.3rem;
+    line-height: 1.3;
+}
+.preview--ticket .price {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: .4rem;
+}
+.preview--ticket .info {
+    color: var(--primary-1);
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+.preview--line {
+    border-right: 1.4px dotted #ccc;
+    min-height: 5.4rem;
+}
 
 
 

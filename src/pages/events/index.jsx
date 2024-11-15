@@ -38,12 +38,14 @@ function index() {
 
       <PageTop title="All Events" />
 
+    <div className="table--container">
       <DataTable
         data={events}
         columns={columns}
         noDataComponent={<Empty text="No Events Yet" icon={<BsCalendarEvent />} />}
         fixedHeader
-      />
+        />
+      </div>
 
     </>
   )

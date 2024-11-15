@@ -8,11 +8,11 @@ function TabOne({ eventData, setEventData }) {
             <div className='form'>
                 <div className="inform--item">
                     <label className="form--label">Event Name</label>
-                    <input type="text" className="form--input" />
+                    <input type="text" className="form--input" placeholder='Enter an event name' />
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Description</label>
-                    <textarea className="form--input" />
+                    <textarea className="form--input" placeholder='Enter an event description' />
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Type</label>
@@ -20,7 +20,7 @@ function TabOne({ eventData, setEventData }) {
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Location</label>
-                    <input type="text" className="form--input" />
+                    <input type="text" className="form--input" placeholder='Enter an event location' />
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Type</label>
@@ -28,7 +28,7 @@ function TabOne({ eventData, setEventData }) {
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Location Tips</label>
-                    <textarea className="form--input" />
+                    <textarea className="form--input" placeholder='Give your attendees a location tip' />
                 </div>
 
 

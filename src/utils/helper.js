@@ -1,12 +1,10 @@
 import moment from "moment";
 
-export function formatNumber(amount, dec=0) {
+export function formatNumber(amount, dec = 0) {
 	return Number(amount)
 		.toFixed(dec)
 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
-
 
 export function getInitials(bizName) {
 	const nameArray = bizName?.split(" ");
@@ -14,7 +12,6 @@ export function getInitials(bizName) {
 	const secondInitial = nameArray[1]?.charAt(0);
 	return `${firstInitial}${secondInitial}`;
 }
-
 
 export function validateEventForm(data) {
 	const errors = {};
@@ -74,13 +71,19 @@ export function validateTicketForm(data) {
 	if (data?.ticket_category == "Group Ticket" && !data?.group_size?.trim()) {
 		errors.group_size = "No group size is selected";
 	}
-	
 
 	return errors;
 }
 
 export function formatDateTime(date, time) {
-	const dateTime = moment(`${date} ${time}`, 'YYYY-MM-DD HH:mm');
-	return dateTime.format('YYYY-MM-DD  h:mmA');
+	const dateTime = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm");
+	return dateTime.format("YYYY-MM-DD  h:mmA");
 }
-  
+
+export function truncateString(input, num = 30) {
+	if (input?.length > num) {
+		return input?.substring(0, num) + "...";
+	} else {
+		return input;
+	}
+}

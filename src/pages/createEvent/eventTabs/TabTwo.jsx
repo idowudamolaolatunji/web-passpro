@@ -1,5 +1,6 @@
 import React from 'react'
 import ImageUpload from '../../../components/ImageUpload'
+import Asterisk from '../../../components/Asterisk';
 
 function TabTwo({ setImages, images }) {
 
@@ -22,7 +23,7 @@ function TabTwo({ setImages, images }) {
             <div className='form'>
                 <div className="inform--item">
                     <label className="form--label">
-                        <p>Upload Cover Photo</p>
+                        <p>Upload Cover Photo <Asterisk /></p>
                         <span>
                             Supported Files:{" "}
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px
@@ -34,7 +35,7 @@ function TabTwo({ setImages, images }) {
 
                 <div className="inform--item">
                     <label className="form--label">
-                        <p>Upload Event Image</p>
+                        <p>Upload Event Image <Asterisk /></p>
                         <span>
                             Supported Files:{" "}
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px

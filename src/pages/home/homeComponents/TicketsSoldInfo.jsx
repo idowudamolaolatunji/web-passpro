@@ -8,8 +8,6 @@ function TicketsSoldInfo() {
 
     const rangePercent = (450000 / 1000000) * 100;
 
-
-
   return (
     <div className='sold--figure'>
         <div className="sold--head">
@@ -30,7 +28,6 @@ function TicketsSoldInfo() {
         <div className="sold--range">
             <span style={{ width: rangePercent+ "%" }} />
         </div>
-
 
         <p className='sold--text'>ticket sales for various events, including concerts, sports games, and theater performances, are available through multiple platforms...</p>
 

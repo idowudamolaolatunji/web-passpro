@@ -23,7 +23,7 @@ function DashboardMenu() {
                     <MenuItem icon={home} text="Dashboard" link="/" />
                     <MenuItem icon={calender} text="Events" link="/events" arrow isBtn sub={event_sub} />
                     <MenuItem icon={withdrawal} text="Withdrawals" link="/withdrawals" arrow isBtn sub={withdrawal_sub} />
-                    <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow isBtn />
+                    {/* <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow isBtn /> */}
                     <MenuItem icon={support_ticket} text="Support Tickets" link="/support-tickets" arrow isBtn sub={support_sub} />
                     <MenuItem icon={signout} text="Logout" isBtn />
                 </ul>
@@ -47,7 +47,7 @@ function DashboardMenu() {
                             <MenuItem icon={home} text="Dashboard" link="/" />
                             <MenuItem icon={calender} text="Events" link="/events" arrow isBtn sub={event_sub} />
                             <MenuItem icon={withdrawal} text="Withdrawals" link="/withdrawals" arrow isBtn sub={withdrawal_sub} />
-                            <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow isBtn />
+                            {/* <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow isBtn /> */}
                             <MenuItem icon={support_ticket} text="Support Tickets" link="/support-tickets" arrow isBtn sub={support_sub} />
                             <MenuItem icon={signout} text="Logout" isBtn />
                         </ul>

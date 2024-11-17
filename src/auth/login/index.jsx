@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import logo from '../../assets/logo/logo-img.png';
 import img from '../../assets/resources/auth-img.png';
@@ -6,17 +6,25 @@ import '../auth.css'
 import Asterisk from '../../components/Asterisk';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { FaCheck } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthUI from '../authComponents/AuthUI';
+import { useAuthContext } from '../../context/AuthContext';
+import Spinner from '../../components/Spinner';
+import CustomAlert from '../../components/CustomAlert';
 
 function index() {
+    const navigate = useNavigate();
+    const { user, handleChange } = useAuthContext();
+
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
 
     const [showPassword, setShowPassword] = useState(false);
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(false);
+    const [response, setResponse] = useState({ status: '', message: '' });
+    const [loading, setLoading] = useState(false);
 
     const handleFormChange = function (e) {
         const { name, value } = e.target;
@@ -26,9 +34,73 @@ function index() {
         });
     };
 
+    const handleResetResponse = function() {
+        setResponse({ status: "", message: "" })
+    }
+
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        try {
+            setLoading(true);
+
+            const { password, email } = formData;
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL}/login`, {
+                method: 'POST',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ identifier: email, password  })
+            });
+            
+            handleResetResponse();
+
+            const data = await res.json();
+            console.log(data)
+            if(data?.error) {
+                // IF THE USER IS NOT VERIFIED, REDIRECT THE TO THE VERIFICATION PAGE
+                if(data?.error == "Email not verified") {
+                    setTimeout(function() {
+                        navigate('/verify-otp');
+                    }, 1500);
+                }
+
+                // IF AND ELSE THROW NEW ERROR
+                throw new Error(data?.error);
+            }
+            
+
+            // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
+            setResponse({ status: "success", message: "Login Successful" });
+            setTimeout(function() {
+                handleChange(data?.user, data?.token);
+            }, 2000);
+
+        } catch (err) {
+            setResponse({ status: 'error', message: err.message })
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(function() {
+        if (user) {
+            navigate("/");
+        }
+    }, [user])
+
     return (
         <AuthUI>
-            <form className="auth--form">
+
+            {loading && <Spinner />}
+
+            {(response.status || response.message) && (
+                <CustomAlert type={response.status} message={response.message} />
+            )}
+
+            <form className="auth--form" onSubmit={handleSubmit}>
                 <h2 className="form--heading">Sign In</h2>
 
                 <div className="form--item">

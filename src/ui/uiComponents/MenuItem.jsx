@@ -3,10 +3,12 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { right_arrow } from "../../assets/svg/index";
 import { BsDot } from 'react-icons/bs';
+import { useAuthContext } from '../../context/AuthContext';
 
 
 function MenuItem({ link, icon, text, arrow, isBtn, sub }) {
     const { pathname } = useLocation();
+  const { logoutUser } = useAuthContext();
 
     const [showSubs, setShowSubs] = useState(false);
     const [currLink, setCurrentLink] = useState(null);
@@ -30,7 +32,7 @@ function MenuItem({ link, icon, text, arrow, isBtn, sub }) {
         <>
             {isBtn ? (
 
-                <button className={`menu--item ${pathname.includes(link) && "is-active"} ${showSubs && "show is-active"}`} onClick={() => sub && handleShowSubs(link)}>
+                <button className={`menu--item ${pathname.includes(link) && "is-active"} ${showSubs && "show is-active"}`} onClick={() => sub ? handleShowSubs(link) : logoutUser()}>
                     <span className='menu--icon'>
                         <img src={icon} alt={text} />
                     </span>

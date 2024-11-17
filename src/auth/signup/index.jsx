@@ -4,21 +4,26 @@ import Asterisk from '../../components/Asterisk';
 import logo from '../../assets/logo/logo-img.png';
 import img from '../../assets/resources/auth-img.png';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import '../auth.css';
 import AuthUI from '../authComponents/AuthUI';
 import CustomAlert from '../../components/CustomAlert';
+import Spinner from '../../components/Spinner';
 
 function index() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
-        name: "",
-        phone: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        businessName: ""
+        first_name: "test",
+        last_name: "acct",
+        username: "test_acct",
+        phone_number: "234059584874",
+        email: "test@mail.com",
+        password: "test1234",
+        password_confirmation: "test1234",
+        organization_name: "test biz"
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -36,9 +41,14 @@ function index() {
         });
     };
 
+    const handleResetResponse = function() {
+        setResponse({ status: "", message: "" })
+    }
 
-    async function handleSubmit() {
+
+    async function handleSubmit(e) {
         e.preventDefault();
+        console.log(formData)
 
         if (!isChecked) {
             // IF THE CHECKED IS NOT CHECKED
@@ -51,31 +61,32 @@ function index() {
             // RUN THE LOADING SPINNER
             setLoading(true);
 
-            const res = await fetch(`${import.meta.env.VITE_BASE_URL}/users/signup`, {
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL}/register`, {
                 method: 'POST',
-                headers: {
-                    "Content-type": "application/json"
+                headers: { 
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ ...formData })
+                body: JSON.stringify({ ...formData }),
             });
-            if (!res.ok) {
-                throw new Error("Something went wrong, Check internet connection");
-            }
 
-            // RESET THE RESPONSE STATE HERE
-            handleResetResponse();
-
+            handleResetResponse()
             const data = await res.json();
             const { status, message } = data;
+            console.log(data)
             if (!status || status !== 'success') {
-                throw new Error(data.message);
+                throw new Error(message);
             }
 
-            // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
-            setResponse({ status: data.status, message: data.message });
+            // // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
+            setResponse({ status: "success", message });
+
+            // SAVE USER NEEDED INFO IN LOCALSTORAGE
+            localStorage.setItem("otp_user", JSON.stringify({ email: formData?.email, firstname: formData?.first_name }));;
+            setTimeout(() => navigate('/verify-otp'), 1000);
 
         } catch (err) {
-
+            setResponse({ status: "error", message: err?.message })
         } finally {
             setLoading(false);
         }
@@ -83,26 +94,41 @@ function index() {
 
     return (
         <AuthUI>
+
+            {loading && <Spinner />}
+
             {(response.status || response.message) && (
                 <CustomAlert type={response.status} message={response.message} />
             )}
 
-
-            <form className="auth--form">
-                <h2 className="form--heading">SignUp</h2>
+            <form className="auth--form" onSubmit={handleSubmit}>
+                <h2 className="form--heading">Register</h2>
 
                 <div className="form--item">
-                    <label htmlFor="name" className="form--label">Full name <Asterisk /></label>
-                    <input type="text" className="form--input" placeholder='taiwo mujaideen' required onChange={handleFormChange} name="name" id='name' value={formData.name} />
+                    <label htmlFor="fname" className="form--label">First Name <Asterisk /></label>
+                    <input type="text" className="form--input" placeholder='taiwo' required onChange={handleFormChange} name="first_name" id='fname' value={formData.first_name} />
                 </div>
                 <div className="form--item">
-                    <label htmlFor="phone" className="form--label">Telephone Number <Asterisk /></label>
-                    <input type="tel" className="form--input" placeholder='+234908473652' required onChange={handleFormChange} name="phone" id='phone' value={formData.phone} />
+                    <label htmlFor="lname" className="form--label">Last Name <Asterisk /></label>
+                    <input type="text" className="form--input" placeholder='mujaideen' required onChange={handleFormChange} name="last_name" id='lname' value={formData.last_name} />
+                </div>
+                <div className="form--item">
+                    <label htmlFor="username" className="form--label">Username <Asterisk /></label>
+                    <input type="text" className="form--input" placeholder='@mujaideen_taiwo' required onChange={handleFormChange} name="username" id='username' value={formData.username} />
+                </div>
+                <div className="form--item">
+                    <label htmlFor="phone_number" className="form--label">Telephone Number <Asterisk /></label>
+                    <input type="tel" className="form--input" placeholder='+234908473652' required onChange={handleFormChange} name="phone_number" id='phone_number' value={formData.phone_number} />
                 </div>
                 <div className="form--item">
                     <label htmlFor="email" className="form--label">Email <Asterisk /></label>
-                    <input type="email" className="form--input" placeholder='taiwo@gmail.com' required onChange={handleFormChange} name="email" id='email' value={formData.email} />
+                    <input type="email" className="form--input" placeholder='taiwo1234@gmail.com' required onChange={handleFormChange} name="email" id='email' value={formData.email} />
                 </div>
+                <div className="form--item">
+                    <label htmlFor="organization_name" className="form--label">Company Name <Asterisk /></label>
+                    <input type="text" className="form--input" placeholder='Enter Company Name' required onChange={handleFormChange} name="organization_name" id='organization_name' value={formData.organization_name} />
+                </div>
+
                 <div className="form--item">
                     <label htmlFor="password" className="form--label">Password <Asterisk /></label>
 
@@ -123,18 +149,17 @@ function index() {
                     </div>
                 </div>
 
-
                 <div className="form--item">
                     <label htmlFor="confirm-password" className="form--label">Confirm Password <Asterisk /></label>
 
                     <div className="form--input-box">
                         <input
                             type={showConfirmPassword ? "text" : "password"}
-                            name='confirmPassword'
+                            name='password_confirmation'
                             id="confirm-password"
                             className='form--input'
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                            value={formData.confirmPassword}
+                            value={formData.password_confirmation}
                             onChange={handleFormChange}
                             required
                         />
@@ -142,11 +167,6 @@ function index() {
                             {showConfirmPassword ? <ImEye /> : <ImEyeBlocked />}
                         </div>
                     </div>
-                </div>
-
-                <div className="form--item">
-                    <label htmlFor="businessName" className="form--label">Business Name <Asterisk /></label>
-                    <input type="text" className="form--input" placeholder='Enter Business Name' required onChange={handleFormChange} name="businessName" id='businessName' value={formData.businessName} />
                 </div>
 
                 <div className="form--flex">
@@ -158,7 +178,7 @@ function index() {
                     </div>
                 </div>
 
-                <button type="submit" className='form--submit' onSubmit={handleSubmit}>SignUp</button>
+                <button type="submit" className='form--submit'>SignUp</button>
 
                 <div className="form--info" style={{ textAlign: "center" }}>
                     <p>Already have an account? <Link to='/login'>Sign In</Link></p>

@@ -7,13 +7,16 @@ import App from './App.jsx'
 import 'rsuite/dist/rsuite.min.css';
 import './index.css';
 import './page.css';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <FetchedProvider>
-            <DataProvider>
-                <App />
-            </DataProvider>
-        </FetchedProvider>
+        <AuthProvider>
+            <FetchedProvider>
+                <DataProvider>
+                    <App />
+                </DataProvider>
+            </FetchedProvider>
+        </AuthProvider>
     </StrictMode>
 )

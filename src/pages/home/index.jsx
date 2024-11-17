@@ -13,7 +13,6 @@ function index() {
         <>
             <PageTop title="Dashboard" />
             <OrganizationCard />
-            {/* <section className=''></section> */}
 
             <div className='content--box'>
                 <div className="dashboard--grid">

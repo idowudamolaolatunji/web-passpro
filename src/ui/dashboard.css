@@ -53,7 +53,7 @@
 .header--others {
 	display: flex;
 	align-items: center;
-	gap: 2.4rem;
+	gap: 2rem;
 }
 .notification--icon,
 .user--profile img {
@@ -306,7 +306,7 @@
 		padding: 1.6rem 2rem;
 	}
 	.header--others {
-		gap: 1.4rem;
+		gap: 1.2rem;
 	}
 	.header--search {
 		display: none;
@@ -346,10 +346,6 @@
 	}
 	.notification--icon {
 		font-size: 2rem;
-	}
-
-	.notification--icon,
-	.user--profile img {
 		width: 4rem;
 		height: 4rem;
 	}

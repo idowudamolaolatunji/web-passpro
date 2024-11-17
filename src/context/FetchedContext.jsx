@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { useAuthContext } from "./AuthContext";
 
 
 //////////////////////////////////////////////
@@ -14,8 +15,10 @@ export default FetchedContext;
 
 
 export const FetchedProvider = ({ children }) => {
-    const BASE_URL = import.meta.env.VITE_BASE_URL;
+    const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
+    const { headers } = useAuthContext();
 
+    const [categories, setCategories] = useState([]);
     const [events, setEvents] = useState([]);
     const [eventLoader, setEventLoader] = useState(false);
     const [eventError, setEventError] = useState(false);
@@ -28,18 +31,23 @@ export const FetchedProvider = ({ children }) => {
         eventError,
     }
 
+    async function handleFetchCategoryList() {
+        const res = await fetch(`${BASE_URL}/categories`, {
+            method: "GET", headers
+        });
+        const data = await res.json();
+        console.log(data?.data)
+        setCategories(data?.data);
+    }
+
     async function handleFetchEvents() {
         setEventError(false);
         setEventLoader(true);
         setEvents([]);
-
         try {
-
-            // const res = await fetch(`${BASE_URL}/events`, {
-            //     method: "GET",
-
-            // });
-
+            const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
+            const data = await res.json();
+            setEvents(data?.data)
         } catch(err) {
             setEventError(true);
         } finally {
@@ -49,6 +57,7 @@ export const FetchedProvider = ({ children }) => {
 
     useEffect(function() {
         // handleFetchEvents()
+        // handleFetchCategoryList()
     }, [])
     
     // CREATE CONTEXT DATA
@@ -56,7 +65,13 @@ export const FetchedProvider = ({ children }) => {
        
         loader,
         error,
-        events
+        events,
+
+        ////////////////////////
+        categories,
+
+        ///////////////////////
+        handleFetchEvents
     }
 
 

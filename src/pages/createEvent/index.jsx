@@ -10,12 +10,14 @@ import Modal from '../../components/Modal';
 import TicketForm from './eventTabs/TicketForm';
 import TabPreview from './eventTabs/TabPreview';
 import CustomAlert from '../../components/CustomAlert';
+import { useFetchedContext } from '../../context/FetchedContext';
 
 function index() {
     const [step, setStep] = useState(1);
     const [showTicketModal, setShowTicketModal] = useState(false);
     const [selectedTicketId, setSelectedTicketId] = useState(null);
     const [response, setResponse] = useState({ status: "", message: "" });
+    const [loading, setLoading] = useState(false);
 
     const [images, setImages] = useState({
         event_image: { file: "", preview: "" },
@@ -23,18 +25,18 @@ function index() {
     });
 
     const [eventData, setEventData] = useState({
-        category_id: 2,
-        event_name: "Tech Conference 2024",
-        event_description: "A conference for tech enthusiasts, developers, and entrepreneurs to network and learn about the latest trends in technology.",
-        status: "Pending",
+        category_id: null,
+        event_name: "",
+        event_description: "",
+        status: "",
         featured: false,
-        price: 99.99,
-        event_type: "physical",
-        event_location: "Tech Arena, Downtown City",
-        start_date: "2024-12-01",
-        start_date_time: "09:00:00",
-        end_date: "2024-12-01",
-        end_date_time: "18:00:00",
+        price: "",
+        event_type: "",
+        event_location: "",
+        start_date: "",
+        start_date_time: "",
+        end_date: "",
+        end_date_time: "",
         cover_photo: "path_to_cover_photo.jpg",
         event_image: "path_to_event_image.jpg",
         tickets: [],
@@ -56,7 +58,7 @@ function index() {
 
     const handleNextStep = function () {
         if(step == 2 && (!images?.cover_photo.file && !images?.event_image.file)) {
-            setResponse({ status: "error", message: "Choose Both images for the event" });
+            setResponse({ status: "error", message: "Choose both images for the event" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
         if(step == 3 && eventData.tickets.length == 0) {
@@ -66,6 +68,8 @@ function index() {
 
         if (step < 4) {
             setStep(step + 1);
+        } else {
+            handleSubmit()
         }
     }
 
@@ -77,6 +81,17 @@ function index() {
         window.scrollTo(0, 0);
     }, [step]);
 
+    
+    async function handleSubmit() {
+        setLoaing(true);
+        try {
+            const res = await fetch()
+        } catch(err) {
+
+        } finally {
+            setLoaing(false);
+        }
+    }
 
 
     return (

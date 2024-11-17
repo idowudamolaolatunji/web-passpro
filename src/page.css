@@ -69,6 +69,26 @@
     justify-content: space-between;
 }
 
+.item--user-img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+}
+img.item--user-img {
+    object-fit: 100%;
+}
+span.item--user-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    background-color: var(--primary-1);
+    color: #fff;
+    text-transform: uppercase;
+}
+
+
 .organization--card .card--left img {
     width: 4.6rem;
     height: 4.6rem;
@@ -864,6 +884,10 @@
     }
     .page__section--crumbs {
         width: 80%;
+    }
+    .organization--card .card--left,
+    .organization--card .card--right {
+        gap: 1rem;
     }
 }
 

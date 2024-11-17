@@ -1,17 +1,18 @@
 import React from 'react'
-
-import { orbit } from 'ldrs'
+import { ring } from 'ldrs'
 
 function Spinner() {
-    orbit.register()
+    ring.register();
+
     return (
         <div className="spinner--container">
-            <l-orbit
-                size="45"
-                stroke="3.5"
-                speed="1.4"
+            <l-ring
+                size="50"
+                stroke="5"
+                bg-opacity="0"
+                speed="2"
                 color="#FC6435"
-            ></l-orbit>
+            ></l-ring>
         </div>
     )
 }

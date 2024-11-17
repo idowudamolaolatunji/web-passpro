@@ -790,10 +790,49 @@ span.item--user-img {
 
 
 
+.event-table-actions {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
 
+.event-table-actions button {
+    padding: 0.4rem .8rem;
+    border-radius: 0.48rem;
+    background-color: transparent;
+    box-shadow: inset 0 0 0 .14rem var(--primary-1);
+    color: var(--primary-1);
+    transition: all .3s;
+}
+.event-table-actions button:hover {
+    background-color: var(--primary-1);
+    color: #fff;
+    box-shadow: none;
+}
 
-
-
+.status p,
+.featured p {
+	min-width: 70px;
+	display: inline-block;
+	padding: 0.6rem;
+	border-radius: 0.6rem;
+	font-weight: 500;
+	font-size: 1.32rem;
+	text-transform: capitalize;
+}
+.featured p {
+    border-radius: 10rem;
+}
+.featured--yes p {
+    color: #008001;
+	background-color: #d7ecd1b7;
+    box-shadow: inset 0 0 0 .14rem;
+}
+.featured--no p {
+    box-shadow: inset 0 0 0 .14rem red;
+	background-color: #ff9797b7;
+	color: red;
+}
 
 
 

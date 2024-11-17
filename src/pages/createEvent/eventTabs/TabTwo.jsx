@@ -8,8 +8,6 @@ function TabTwo({ setImages, images }) {
         const file = event.target.files[0];
         const name = event.target.name;
 
-        console.log(name, file);
-
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setImages({ ...images, [name]: { file, preview: imageUrl } });
@@ -20,7 +18,7 @@ function TabTwo({ setImages, images }) {
     return (
         <>
             <span className="form__container--headiing">Media & Gallery</span>
-            <div className='form'>
+            <form className='form'>
                 <div className="inform--item">
                     <label className="form--label">
                         <p>Upload Cover Photo <Asterisk /></p>
@@ -29,7 +27,7 @@ function TabTwo({ setImages, images }) {
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px
                         </span>
                     </label>
-                    <ImageUpload name="cover_image" preview={images?.cover_image?.preview} handleChange={handleImageChange} handleRemove={()=>{}} />
+                    <ImageUpload name="cover_photo" preview={images?.cover_photo?.preview} handleChange={handleImageChange} handleRemove={()=>{}} />
                 </div>
 
 
@@ -43,7 +41,7 @@ function TabTwo({ setImages, images }) {
                     </label>
                     <ImageUpload name="event_image" preview={images?.event_image?.preview} handleChange={handleImageChange} handleRemove={()=>{}} />
                 </div>
-            </div>
+            </form>
         </>
     )
 }

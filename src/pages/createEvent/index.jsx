@@ -11,8 +11,14 @@ import TicketForm from './eventTabs/TicketForm';
 import TabPreview from './eventTabs/TabPreview';
 import CustomAlert from '../../components/CustomAlert';
 import { useFetchedContext } from '../../context/FetchedContext';
+import { useAuthContext } from '../../context/AuthContext';
+import { validateEventForm } from '../../utils/helper';
+import Spinner from '../../components/Spinner';
 
 function index() {
+    const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
+    const { token } = useAuthContext();
+
     const [step, setStep] = useState(1);
     const [showTicketModal, setShowTicketModal] = useState(false);
     const [selectedTicketId, setSelectedTicketId] = useState(null);
@@ -26,28 +32,48 @@ function index() {
 
     const [eventData, setEventData] = useState({
         category_id: null,
-        event_name: "",
-        event_description: "",
-        status: "",
-        featured: false,
-        price: "",
-        event_type: "",
-        event_location: "",
-        start_date: "",
-        start_date_time: "",
-        end_date: "",
-        end_date_time: "",
-        cover_photo: "path_to_cover_photo.jpg",
-        event_image: "path_to_event_image.jpg",
-        tickets: [],
+        // event_name: "",
+        // event_description: "",
+        // featured: false,
+        // event_type: "",
+        // event_location: "",
+        // start_date: "",
+        // start_date_time: "",
+        // end_date: "",
+        // end_date_time: "",
+        // tickets: [],
+
+            event_name: "Tech Conference 2024",
+        event_description: "A conference for tech enthusiasts, developers, and entrepreneurs to network and learn about the latest trends in technology.",
+        status: "Pending",
+        event_type: "physical",
+        event_location: "Tech Arena, Downtown City",
+        start_date: "2024-12-01",
+        start_date_time: "09:00:00",
+        end_date: "2024-12-01",
+        end_date_time: "18:00:00",
+        tickets: [
+    {
+        ticket_category: "Single Ticket",
+        ticket_type: "paid",
+        ticket_name: "General Admission",
+        ticket_description: "General access to all sessions and workshops.",
+        ticket_stock: "Limited Stock",
+        ticket_quantity: 500,
+        ticket_price: 99.99,
+        ticket_purchase_limit: 5,
+        transfers_fees_to_guest: false,
+        group_size: null
+    },
+    ]
     });
 
-    const handleShowTicketModal = function() {
+    const handleShowTicketModal = function () {
         setShowTicketModal(!showTicketModal);
     }
 
-    const handleRemoveTicket = function(id) {
-        setEventData({...eventData, tickets: eventData.tickets.filter(ticket => ticket?.ticket_id != id) });
+    const handleRemoveTicket = function (id) {
+        setEventData({ ...eventData, tickets: eventData.tickets.filter(ticket => ticket?.ticket_id != id) });
     }
 
     const handlePrevStep = function () {
@@ -57,11 +83,17 @@ function index() {
     }
 
     const handleNextStep = function () {
-        if(step == 2 && (!images?.cover_photo.file && !images?.event_image.file)) {
+        const error = validateEventForm(eventData);
+        if (step == 1 && Object.keys(error).length >= 1) {
+            setResponse({ status: "error", message: "Fill required fields to proceed!" });
+            return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
+        }
+
+        if (step == 2 && (!images?.cover_photo.file && !images?.event_image.file)) {
             setResponse({ status: "error", message: "Choose both images for the event" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
-        if(step == 3 && eventData.tickets.length == 0) {
+        if (step == 3 && eventData.tickets.length == 0) {
             setResponse({ status: "error", message: "There must be at least 1 ticket" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         };
@@ -73,7 +105,7 @@ function index() {
         }
     }
 
-    const handleCloseModal = function() {
+    const handleCloseModal = function () {
         setShowTicketModal(false)
     }
 
@@ -81,34 +113,60 @@ function index() {
         window.scrollTo(0, 0);
     }, [step]);
 
-    
     async function handleSubmit() {
-        setLoaing(true);
-        try {
-            const res = await fetch()
-        } catch(err) {
+        setLoading(true);
 
+        var formData = new FormData();
+        formData.append('event_name', eventData.event_name);
+        formData.append('event_description', eventData.event_description);
+        formData.append('event_type', eventData.event_type);
+        formData.append('event_location', eventData.event_location);
+        formData.append('start_date', eventData.start_date);
+        formData.append('start_date_time', eventData.start_date_time);
+        formData.append('end_date', eventData.end_date);
+        formData.append('end_date_time', eventData.end_date_time);
+        formData.append('tickets', eventData.tickets);
+        formData.append('cover_photo', images.cover_photo.file[0]);
+        formData.append('event_image', images.event_image.file[0]);
+
+        try {
+            const res = await fetch(`${BASE_URL}/events`, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            const data = await res.json();
+            console.log(res, data);
+        } catch (err) {
+            setResponse({ status: "error", message: err?.message })
         } finally {
-            setLoaing(false);
+            setLoading(false);
         }
     }
 
 
     return (
         <>
+            {loading && <Spinner />}
+
             {(response.status || response.message) && (
                 <CustomAlert type={response.status} message={response.message} />
             )}
 
             {showTicketModal && (
                 <Modal handleClose={handleCloseModal} className="modal-add">
-                    <TicketForm setEventData={setEventData} handleClose={handleCloseModal} />
+                    <TicketForm setEventData={setEventData} handleClose={handleCloseModal} setResponse={setResponse} />
                 </Modal>
             )}
 
             <PageTop title="Create Event" />
 
-            <main className="form__container">
+            <form className="form__container" onSubmit={(e) => e.preventDefault()}>
                 <StepsTab step={step} />
 
                 {step == 1 && <TabOne setEventData={setEventData} eventData={eventData} />}
@@ -116,16 +174,16 @@ function index() {
                 {step == 2 && <TabTwo setImages={setImages} images={images} />}
 
                 {step == 3 && <TabThree eventData={eventData} handleDelete={handleRemoveTicket} handleShowModal={handleShowTicketModal} />}
-                
+
                 {step == 4 && <TabPreview eventData={eventData} images={images} />}
 
                 <div className="form--actions">
                     {step > 1 && (
                         <button className='form--btn btn-prev' type='button' onClick={handlePrevStep}><BiChevronLeft /> Previous </button>
                     )}
-                    <button className='form--btn btn-next' type='button' onClick={handleNextStep}>{ step == 4 ? "Submit" : "Save and Continue"} <BiChevronRight /></button>
+                    <button className='form--btn btn-next' type='button' onClick={handleNextStep}>{step == 4 ? "Submit" : "Save and Continue"} <BiChevronRight /></button>
                 </div>
-            </main>
+            </form>
         </>
     )
 }

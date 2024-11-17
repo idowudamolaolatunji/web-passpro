@@ -92,7 +92,7 @@ function TabThree({ eventData, handleDelete, handleShowModal }) {
     return (
         <>
             <span className="form__container--headiing">
-                Tickets <button className='form--add-btn' onClick={handleShowModal}>Add new ticket</button>
+                Tickets <button type='button' className='form--add-btn' onClick={handleShowModal}>Add new ticket</button>
             </span>
 
             <div className='table--container'>

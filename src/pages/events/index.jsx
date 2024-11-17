@@ -7,6 +7,47 @@ import { BsCalendarEvent } from 'react-icons/bs';
 import Tab from '../../components/Tab';
 import { useWindowSize } from 'react-use';
 import Spinner from '../../components/Spinner';
+import SpinnerMini from '../../components/SpinnerMini';
+import { formatDateTime } from '../../utils/helper';
+
+const customStyles = {
+    table: {
+        style: {
+            overflowX: 'auto',
+            fontFamily: "inherit",
+            color: "inherit",
+        },
+    },
+    head: {
+        style: {
+            fontSize: "1.38rem",
+            fontWeight: "500",
+            height: "5rem",
+        },
+    },
+    rows: {
+        style: {
+            minHeight: "6rem",
+            cursor: 'pointer',
+            fontSize: "1.32rem",
+            fontWeight: 500,
+            color: "#444444"
+        },
+    },
+    headCells: {
+        style: {
+            paddingRight: '0.5rem',
+            backgroundColor: '#FC6435',
+            color: '#fff',
+            height: "5rem",
+        },
+    },
+    cells: {
+        style: {
+            textAlign: 'center'
+        }
+    }
+};
 
 
 function index() {
@@ -28,15 +69,26 @@ function index() {
         },
         {
             name: "Featured",
-            selector: row => row?.featured
+            selector: row => (
+                <span className={`featured featured--${row?.featured ? "yes" : "no"}`}>
+                    <p>{row?.featured ? "yes" : "no"}</p>
+                </span>
+            )
         },
         {
             name: "Event Date",
-            selector: row => row?.event_type
+            selector: row => formatDateTime(row?.start_date, row?.start_date_time)
         },
         {
             name: "Actions",
-            selector: row => { }
+            selector: row => (
+                <div className='event-table-actions'>
+                    <button>{row?.featured ? "featured" : "unfeatured"}</button>
+                    <button>details</button>
+                    <button>ticket</button>
+                </div>
+            ),
+            width: "250px"
         }
     ];
 
@@ -64,6 +116,9 @@ function index() {
                     columns={columns}
                     noDataComponent={<Empty text={`No ${tab == "all" ? "" : tab} events yet`} icon={<BsCalendarEvent />} />}
                     fixedHeader
+				    progressComponent={<SpinnerMini />}
+                    progressPending={loader?.eventLoader}
+                    customStyles={customStyles}
                 />
             </div>
         </>

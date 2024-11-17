@@ -4,7 +4,7 @@ function PreviewDetailsTop({ images }) {
   return (
     <div className='preview--top'>
         <div className='preview--cover'>
-            <img src={images?.cover_image?.preview} />
+            <img src={images?.cover_photo?.preview} />
         </div>
 
         <span className='preview--img'>

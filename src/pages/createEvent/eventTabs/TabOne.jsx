@@ -7,30 +7,10 @@ function TabOne({ eventData, setEventData }) {
 
     const { categories } = useFetchedContext();
 
-    const eventTypes = [
-        { name: "physical", value: "physical" },
-        { name: "online", value: "online" },
-    ];
-
-    const [selectedCategory, setSelectedCategory] = useState([]);
-    const [selectedType, setSelectedType] = useState([]);
-
-    // Limited and unlimited | 1 - 5 | 2 - 5 |
-
     const handleChangeData = function(e) {
         const { value, name } = e?.target;
         setEventData({ ...eventData, [name]: value });
     }
-
-    useEffect(function() {
-        if(selectedType) {
-            setEventData({...eventData, event_type: selectedType?.value })
-        }
-        if(selectedCategory) {
-            setEventData({...eventData, category_id: selectedCategory?.id })
-        }
-        console.log(eventData)
-    }, [selectedCategory, selectedType]);
 
 
     return (
@@ -47,7 +27,11 @@ function TabOne({ eventData, setEventData }) {
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Type <Asterisk /></label>
-                    <MainDropdownSelect title="a Type" field="name" options={eventTypes} value={selectedType} setValue={setSelectedType} />
+                    <select className='form--select' name="event_type" value={eventData?.event_type} onChange={handleChangeData}>
+                        <option hidden>Select a type</option>
+                        <option value="online">Online</option>
+                        <option value="physical">Physical</option>
+                    </select>
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Location <Asterisk /></label>
@@ -55,22 +39,27 @@ function TabOne({ eventData, setEventData }) {
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Category <Asterisk /></label>
-                    <MainDropdownSelect title="a Category" field="category_name" options={categories} value={selectedCategory} setValue={setSelectedCategory} />
+                    <select className='form--select' name="category_id" value={eventData?.category_name} onChange={handleChangeData}>
+                        <option hidden>Select a category</option>
+                        {categories?.length > 0 && categories?.map((el, i) => (
+                            <option value={el?.id} key={i}>{el?.category_name}</option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="inform--item">
                     <label className="form--label">Start Date <Asterisk /></label>
                     <span className="form--subitem">
-                        <input type="date" className="form--input" required name='start_date' value={eventData?.start_date} onChange={handleChangeData} />
+                        <input type="date" className="form--input" required name='start_date' min={new Date().toISOString().slice(0, 16)} value={eventData?.start_date} onChange={handleChangeData} />
                         <label className="form--label">Time</label>
                         <input type="time" className="form--input" required name='start_date_time' value={eventData?.start_date_time} onChange={handleChangeData} />
                     </span>
                 </div>
 
                 <div className="inform--item">
-                    <label className="form--label">End Date</label>
+                    <label className="form--label">End Date <Asterisk /></label>
                     <span className="form--subitem">
-                        <input type="date" className="form--input" required name='end_date' value={eventData?.end_date} onChange={handleChangeData} />
+                        <input type="date" className="form--input" required name='end_date' min={eventData?.start_date} value={eventData?.end_date} onChange={handleChangeData} />
                         <label className="form--label">Time</label>
                         <input type="time" className="form--input" required name='end_date_time' value={eventData?.end_date_time} onChange={handleChangeData} />
                     </span>

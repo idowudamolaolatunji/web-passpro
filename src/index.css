@@ -101,6 +101,12 @@ input::-webkit-inner-spin-button {
 	backdrop-filter: blur(2px);
 	transition: all .2s;
 }
+.spinner-mini {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4rem 0;
+}
 
 .global--overlay {
 	position: fixed;

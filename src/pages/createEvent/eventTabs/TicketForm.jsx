@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NumberInputField from '../../../components/NumberInputField';
 import Tab from '../../../components/Tab';
 import { FaCheck } from 'react-icons/fa';
+import MainDropdownSelect from '../../../components/MainDropdownSelect';
+import Asterisk from '../../../components/Asterisk';
+import { validateTicketForm } from '../../../utils/helper';
 
-function TicketForm({ setEventData, handleClose }) {
+function TicketForm({ setEventData, handleClose, setResponse }) {
 
     const [ticket, setTicket] = useState({
-        ticket_id: 1,
+        ticket_id: null,
         ticket_category: "Single Ticket",
-        ticket_type: "paid",
-        ticket_name: "General Admission",
-        ticket_description: "General access to all sessions and workshops.",
-        ticket_stock: "Limited Stock",
-        ticket_quantity: 500,
-        ticket_price: 99.99,
-        ticket_purchase_limit: 5,
+        ticket_type: "free",
+        ticket_name: "",
+        ticket_description: "",
+        ticket_stock: null,
+        ticket_quantity: null,
+        ticket_price: "",
+        ticket_purchase_limit: null,
         transfers_fees_to_guest: false,
         group_size: null
     });
@@ -34,31 +37,39 @@ function TicketForm({ setEventData, handleClose }) {
         });
     }
     
-    const handleAddTicket = function() {
+    const handleAddTicket = function(e) {
+
+        const error = validateTicketForm(ticket);
+        if(Object.keys(error).length >= 1) {
+            setResponse({ status: "error", message: "Fill required fields to proceed!" });
+            return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
+        }
+
         const newTicket = { ...ticket, ticket_id: Math.floor(Math.random() * 1000) }
         setEventData((prevState) => ({ ...prevState, tickets: [...prevState.tickets, newTicket] }));
         handleClose();
     }
 
+
     return (
         <>
             <div className="form--grid">
                 <div className="form--clicks" style={{ gap: "1rem", marginBottom: "1.6rem" }}>
-                    <div className={`form--click ${ticket?.ticket_category == "single" ? 'is-selected' : ''}`}
-                        onClick={() => setTicket({ ...ticket, ticket_category: "single" })}
+                    <div className={`form--click ${ticket?.ticket_category == "Single Ticket" ? 'is-selected' : ''}`}
+                        onClick={() => setTicket({ ...ticket, ticket_category: "Single Ticket" })}
                     >Single Ticket <span></span></div>
-                    <div className={`form--click ${ticket?.ticket_category == "group" ? 'is-selected' : ''}`}
-                        onClick={() => setTicket({ ...ticket, ticket_category: "group" })}
+                    <div className={`form--click ${ticket?.ticket_category == "Group Ticket" ? 'is-selected' : ''}`}
+                        onClick={() => setTicket({ ...ticket, ticket_category: "Group Ticket" })}
                     >Group Ticket <span></span></div>
                 </div>
             </div>
 
 
-            <form className="form--grid">
+            <div className="form--grid">
                 <div className="form">
 
                     <div className="form--item">
-                        <label htmlFor="" className="form--label">Ticket Type</label>
+                        <label htmlFor="" className="form--label">Ticket Type <Asterisk /> </label>
 
                         <div className="page__tabs">
                             <Tab title="Free" active={ticket?.ticket_type == "free"} onClick={() => setTicket({ ...ticket, ticket_type: "free" })} />
@@ -67,12 +78,12 @@ function TicketForm({ setEventData, handleClose }) {
                     </div>
 
                     <div className="form--item">
-                        <label htmlFor="" className="form--label">Ticket Name</label>
+                        <label htmlFor="" className="form--label">Ticket Name <Asterisk /> </label>
                         <input className='form--input' placeholder='Enter your ticket name' name='ticket_name' value={ticket?.ticket_name} onChange={handleSetFormData} />
                     </div>
 
                     <div className="form--item">
-                        <label htmlFor="" className="form--label">Ticket Description</label>
+                        <label htmlFor="" className="form--label">Ticket Description <Asterisk /> </label>
                         <textarea className='form--input' placeholder='Describe your ticket here' name='ticket_description' value={ticket?.ticket_description} onChange={handleSetFormData} />
                     </div>
                 </div>
@@ -81,31 +92,48 @@ function TicketForm({ setEventData, handleClose }) {
                 <div className="form">
                     <div className="form--flex">
                         <div className="form--item">
-                            <label htmlFor="" className="form--label">Ticket Stock</label>
-                            <NumberInputField placeholder="Enter stock amount" />
+                            <label htmlFor="" className="form--label">Ticket Stock <Asterisk /> </label>
+                            <select name="ticket_stock" className='form--select' id="" value={ticket?.ticket_stock} onChange={handleSetFormData}>
+                                <option hidden selected>Select a stock type</option>   
+                                <option value="Limited Stock">Limited Stock</option>
+                                <option value="Unlimited Stock">Unlimited Stock</option>
+                            </select>
                         </div>
                         <div className="form--item">
-                            <label htmlFor="" className="form--label">Quantity</label>
-                            <NumberInputField placeholder="Enter quantity" />
+                            <label htmlFor="" className="form--label">Quantity <Asterisk /> </label>
+                            <NumberInputField name="ticket_quantity" placeholder="Enter quantity" onChange={handleSetFormData}/>
                         </div>
                     </div>
 
                     {ticket?.ticket_type == "paid" && (
                         <div className="form--item">
-                            <label htmlFor="" className="form--label">{ticket?.ticket_category == "group" ? "Group" : "Ticket"} Price</label>
-                            <NumberInputField prefix placeholder="Enter price" />
+                            <label htmlFor="" className="form--label">{ticket?.ticket_category == "Group Size" ? "Group" : "Ticket"} Price <Asterisk /></label>
+                            <NumberInputField name="ticket_price" prefix placeholder="Enter price" onChange={handleSetFormData}/>
                         </div>
                     )}
 
                     <div className="form--item">
-                        <label htmlFor="" className="form--label">Ticket purchase Limit</label>
-                        <NumberInputField placeholder="Set purchase limit" />
+                        <label htmlFor="" className="form--label">Ticket purchase Limit <Asterisk /></label>
+                        <select name="ticket_purchase_limit" className='form--select' id="" value={ticket?.ticket_purchase_limit} onChange={handleSetFormData}>
+                            <option hidden selected>Select a purchase limit</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>
 
-                    {ticket?.ticket_category == "group" && (
+                    {ticket?.ticket_category == "Group Size" && (
                         <div className="form--item">
-                            <label htmlFor="" className="form--label">Group Size</label>
-                            <NumberInputField placeholder="Set Size" />
+                            <label htmlFor="" className="form--label">Group Size <Asterisk /></label>
+                            <select name="ticket_purchagroup_sizese_limit" className='form--select' id="" value={ticket?.group_size} onChange={handleSetFormData}>
+                                <option hidden selected>Select a group size</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
                     )}
 
@@ -121,11 +149,11 @@ function TicketForm({ setEventData, handleClose }) {
                     )}
 
                 </div>
-            </form>
+            </div>
 
             <div className="form--actions" style={(ticket?.ticket_category == "group" && ticket?.ticket_type == "paid") ? { margin: "-3rem 0 0" } : {}}>
-                <button className='form--btn btn-next' type='button' onClick={handleAddTicket}>Add new ticket </button>
-                <button className='form--btn btn-prev' type='button' onClick={handleClose}>Cancel</button>
+                <button className='form--btn btn-next' onClick={handleAddTicket}>Add new ticket </button>
+                <button className='form--btn btn-prev' onClick={handleClose}>Cancel</button>
             </div>
         </>
     )

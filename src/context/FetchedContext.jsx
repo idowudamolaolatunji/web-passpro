@@ -51,13 +51,13 @@ export const FetchedProvider = ({ children }) => {
         } catch(err) {
             setEventError(true);
         } finally {
-            setEventLoader(true);
+            setEventLoader(false);
         }
     }
 
     useEffect(function() {
         // handleFetchEvents()
-        // handleFetchCategoryList()
+        handleFetchCategoryList()
     }, [])
     
     // CREATE CONTEXT DATA

@@ -9,45 +9,7 @@ import { useWindowSize } from 'react-use';
 import Spinner from '../../components/Spinner';
 import SpinnerMini from '../../components/SpinnerMini';
 import { formatDateTime } from '../../utils/helper';
-
-const customStyles = {
-    table: {
-        style: {
-            overflowX: 'auto',
-            fontFamily: "inherit",
-            color: "inherit",
-        },
-    },
-    head: {
-        style: {
-            fontSize: "1.38rem",
-            fontWeight: "500",
-            height: "5rem",
-        },
-    },
-    rows: {
-        style: {
-            minHeight: "6rem",
-            cursor: 'pointer',
-            fontSize: "1.32rem",
-            fontWeight: 500,
-            color: "#444444"
-        },
-    },
-    headCells: {
-        style: {
-            paddingRight: '0.5rem',
-            backgroundColor: '#FC6435',
-            color: '#fff',
-            height: "5rem",
-        },
-    },
-    cells: {
-        style: {
-            textAlign: 'center'
-        }
-    }
-};
+import TableUI from '../../components/TableUI';
 
 
 function index() {
@@ -110,17 +72,12 @@ function index() {
                 <Tab title="Rejected" active={tab == "rejected"} onClick={() => setTab("rejected")} />
             </div>
 
-            <div className="table--container">
-                <DataTable
-                    data={data}
-                    columns={columns}
-                    noDataComponent={<Empty text={`No ${tab == "all" ? "" : tab} events yet`} icon={<BsCalendarEvent />} />}
-                    fixedHeader
-				    progressComponent={<SpinnerMini />}
-                    progressPending={loader?.eventLoader}
-                    customStyles={customStyles}
-                />
-            </div>
+            <TableUI 
+                data={data}
+                columns={columns}
+                loader={loader?.eventLoader}
+                EmptyComponent={<Empty text={`No ${tab == "all" ? "" : tab} events yet`} icon={<BsCalendarEvent />} />}
+            />
         </>
     )
 }

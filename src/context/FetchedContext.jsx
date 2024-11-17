@@ -20,16 +20,12 @@ export const FetchedProvider = ({ children }) => {
 
     const [categories, setCategories] = useState([]);
     const [events, setEvents] = useState([]);
-    const [eventLoader, setEventLoader] = useState(false);
-    const [eventError, setEventError] = useState(false);
+    const [withdrawals, setWithdrawals] = useState([]);
+    const [supportTickets, setSupportTickets] = useState([]);
 
-    const loader = {
-        eventLoader,
-    }
+    const [loader, setLoader] = useState(false);
+    const [error, setError] = useState(false);
 
-    const error = {
-        eventError,
-    }
 
     async function handleFetchCategoryList() {
         const res = await fetch(`${BASE_URL}/categories`, {
@@ -40,25 +36,57 @@ export const FetchedProvider = ({ children }) => {
         setCategories(data?.data);
     }
 
+
     async function handleFetchEvents() {
-        setEventError(false);
-        setEventLoader(true);
+        setError(false);
+        setLoader(true);
         setEvents([]);
         try {
             const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
             const data = await res.json();
             setEvents(data?.data)
         } catch(err) {
-            setEventError(true);
+            setError(true);
         } finally {
-            setEventLoader(false);
+            setLoader(false);
+        }
+    }
+
+    async function handleFetchWithdrawalData() {
+        setError(false);
+        setLoader(true);
+        setWithdrawals([]);
+        try {
+            // const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
+            // const data = await res.json();
+            // setWithdrawals(data?.data)
+        } catch(err) {
+            setError(true);
+        } finally {
+            setLoader(false);
+        }
+    }
+
+
+    async function handleFetchSupportData() {
+        setError(false);
+        setLoader(true);
+        setSupportTickets([]);
+        try {
+            // const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
+            // const data = await res.json();
+            // setSupportTickets(data?.data)
+        } catch(err) {
+            setError(true);
+        } finally {
+            setLoader(false);
         }
     }
 
     useEffect(function() {
-        // handleFetchEvents()
         handleFetchCategoryList()
-    }, [])
+    }, []);
+
     
     // CREATE CONTEXT DATA
     let contextData = {
@@ -66,12 +94,16 @@ export const FetchedProvider = ({ children }) => {
         loader,
         error,
         events,
+        withdrawals,
+        supportTickets,
 
         ////////////////////////
         categories,
 
         ///////////////////////
-        handleFetchEvents
+        handleFetchEvents,
+        handleFetchSupportData,
+        handleFetchWithdrawalData,
     }
 
 

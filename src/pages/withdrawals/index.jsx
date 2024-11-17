@@ -1,70 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageTop from '../../components/PageTop'
-import DataTable from 'react-data-table-component'
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import Empty from '../../components/Empty';
-
-
-const customStyles = {
-  table: {
-      style: {
-          overflowX: 'auto',
-          fontFamily: "inherit",
-          color: "inherit",
-      },
-  },
-  head: {
-      style: {
-          fontSize: "1.38rem",
-          fontWeight: "500",
-          height: "5rem",
-      },
-  },
-  rows: {
-      style: {
-          minHeight: "6rem",
-          cursor: 'pointer',
-          fontSize: "1.32rem",
-          fontWeight: 500,
-          color: "#444444"
-      },
-  },
-  headCells: {
-      style: {
-          paddingRight: '0.5rem',
-          backgroundColor: '#FFEDE5',
-          color: '#555',
-          height: "5rem",
-      },
-  },
-  cells: {
-      style: {
-          textAlign: 'center'
-      }
-  }
-};
+import TableUI from '../../components/TableUI';
+import { useFetchedContext } from '../../context/FetchedContext';
 
 function index() {
-  const withdrawals = [];
+    const { withdrawals, error, loader, handleFetchWithdrawalData } = useFetchedContext();
 
-  const columns = [];
+    const columns = [];
+
+    useEffect(function() {
+        document.title = "Passpro | Withdrawal History"
+        handleFetchWithdrawalData()
+    }, [])
+
+    return (
+        <>
+            <PageTop title="Withdrawal History" />
 
 
-  return (
-    <>
-    <PageTop title="Withdrawal History" />
-  
+            <TableUI
+                data={withdrawals}
+                columns={columns}
+                loader={loader}
+                EmptyComponent={<Empty text="No Withdrawal Yet" icon={<BiMoneyWithdraw />} />}
+            />
 
-    <DataTable
-        data={withdrawals}
-        columns={columns}
-        noDataComponent={<Empty text="No Withdrawal Yet" icon={<BiMoneyWithdraw />} />}
-        fixedHeader
-        customStyles={customStyles}
-      />
-
-    </>
-  )
+        </>
+    )
 }
 
 export default index

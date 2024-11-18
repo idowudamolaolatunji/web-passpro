@@ -352,6 +352,18 @@ input::-webkit-inner-spin-button {
 	font-weight: 600;
 	color: var(--primary-1);
 }
+a.table--view-btn {
+	font-size: 1.4rem;
+	color: var(--primary-1);
+}
+.table--head-flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.2rem .8rem;
+	font-size: 1.6rem;
+	font-weight: 500;
+}
 
 
 

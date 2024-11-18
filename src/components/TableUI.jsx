@@ -42,10 +42,11 @@ const customStyles = {
     }
 };
 
-function TableUI({ data, columns, loader, EmptyComponent }) {
+function TableUI({ title, data, columns, loader, EmptyComponent }) {
   return (
     <div className="table--container">
         <DataTable
+            title={title}
             data={data}
             columns={columns}
             noDataComponent={EmptyComponent}

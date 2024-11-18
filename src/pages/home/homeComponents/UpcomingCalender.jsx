@@ -17,7 +17,6 @@ function UpcomingCalender() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [avail, setAvail] = useState(false);
 
-    console.log(avail)
 
     // SELECT AN UPCOMING
     const handleSelect = function(date) {

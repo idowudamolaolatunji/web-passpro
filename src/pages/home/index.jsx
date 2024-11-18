@@ -5,6 +5,7 @@ import HomeInsightGrid from './homeComponents/HomeInsightGrid'
 import UpcomingCalender from './homeComponents/UpcomingCalender'
 import TicketsSoldInfo from './homeComponents/TicketsSoldInfo'
 import AttendeesChart from './homeComponents/AttendeesChart'
+import RecentEvents from './homeComponents/RecentEvents'
 
 
 function index() {
@@ -17,8 +18,7 @@ function index() {
                 <div className="dashboard--grid">
                     <div className="grid--left">
                         <HomeInsightGrid />
-
-                        {/* <AttendeesChart /> */}
+                        <RecentEvents />
 
                         {/* <div className="dashboard--card">hi</div> */}
                     </div>

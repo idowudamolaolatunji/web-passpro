@@ -12,14 +12,12 @@ function index() {
 
     const handleAddFiles = function(event) {
         const newFile = event.target.files[0];
-        console.log(newFile);
 
         if (newFile) {
           setFiles((prevFiles) => [...prevFiles, newFile]);
         }
     }
 
-    console.log(files)
 
 
     return (

@@ -48,7 +48,6 @@ function index() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log(formData)
 
         if (!isChecked) {
             // IF THE CHECKED IS NOT CHECKED

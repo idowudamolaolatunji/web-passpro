@@ -16,8 +16,6 @@ function MenuItem({ link, icon, text, arrow, isBtn, sub, action }) {
         setShowSubs(!showSubs);
     }
 
-    console.log(showSubs, currLink)
-
     useEffect(function() {
         if(pathname.includes(currLink)) {
             setShowSubs(true);

@@ -86,7 +86,6 @@ function index() {
 
     const handleNextStep = function () {
         const error = validateEventForm(eventData);
-        console.log(error)
         if (step == 1 && Object.keys(error).length > 1) {
             setResponse({ status: "error", message: "Fill required fields to proceed!" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
@@ -149,7 +148,6 @@ function index() {
             });
 
             const data = await res.json();
-            console.log(res, data);
         } catch (err) {
             setResponse({ status: "error", message: err?.message })
         } finally {

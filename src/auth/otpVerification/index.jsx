@@ -69,7 +69,6 @@ function index() {
     async function handleRequestOtp() {
         setLoading(true);
         try {
-            console.log(formData)
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/send-otp`, {
                 method: 'POST', headers,
                 body: JSON.stringify({ email: formData?.email }),

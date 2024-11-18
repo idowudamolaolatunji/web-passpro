@@ -9,8 +9,6 @@ function index() {
     const { token } = useParams();
     const [searchParams] = useSearchParams();
     const email = searchParams.get('email');
-    console.log(email, token);
-
 
     const [formData, setFormData] = useState({
         password: "",

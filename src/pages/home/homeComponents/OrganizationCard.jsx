@@ -10,7 +10,7 @@ function OrganizationCard() {
   const { user } = useAuthContext();
 
   return (
-    <div className='organization--card' style={{ marginTop: "-1.8rem" }}>
+    <div className='organization--card'>
       <div className="card--left">
 
         <ProfileImage />

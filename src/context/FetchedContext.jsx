@@ -32,7 +32,6 @@ export const FetchedProvider = ({ children }) => {
             method: "GET", headers
         });
         const data = await res.json();
-        console.log(data?.data)
         setCategories(data?.data);
     }
 

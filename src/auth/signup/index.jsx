@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 
 import Asterisk from '../../components/Asterisk';
-import logo from '../../assets/logo/logo-img.png';
-import img from '../../assets/resources/auth-img.png';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import '../auth.css';
 import AuthUI from '../authComponents/AuthUI';
-import CustomAlert from '../../components/CustomAlert';
-import Spinner from '../../components/Spinner';
 
 function index() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        first_name: "test",
-        last_name: "acct",
-        username: "test_acct",
-        phone_number: "234059584874",
-        email: "test@mail.com",
-        password: "test1234",
-        password_confirmation: "test1234",
-        organization_name: "test biz"
+        first_name: "",
+        last_name: "",
+        username: "",
+        phone_number: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        organization_name: ""
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +26,11 @@ function index() {
     const [isChecked, setIsChecked] = useState(false);
     const [response, setResponse] = useState({ status: '', message: '' });
     const [loading, setLoading] = useState(false);
+
+    const headers = { 
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
 
 
     const handleFormChange = function (e) {
@@ -62,27 +62,21 @@ function index() {
             setLoading(true);
 
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/register`, {
-                method: 'POST',
-                headers: { 
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
+                method: 'POST', headers,
                 body: JSON.stringify({ ...formData }),
             });
 
             handleResetResponse()
             const data = await res.json();
-            const { status, message } = data;
-            console.log(data)
-            if (!status || status !== 'success') {
-                throw new Error(message);
+            if (res.status !== 200 && res.status !== 201) {
+                throw new Error(data?.message || data?.error);
             }
 
             // // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
-            setResponse({ status: "success", message });
+            setResponse({ status: "success", message: data?.message });
 
             // SAVE USER NEEDED INFO IN LOCALSTORAGE
-            localStorage.setItem("otp_user", JSON.stringify({ email: formData?.email, firstname: formData?.first_name }));;
+            localStorage.setItem("otp_user", JSON.stringify({ email: formData?.email }));
             setTimeout(() => navigate('/verify-otp'), 1000);
 
         } catch (err) {
@@ -93,14 +87,7 @@ function index() {
     }
 
     return (
-        <AuthUI>
-
-            {loading && <Spinner />}
-
-            {(response.status || response.message) && (
-                <CustomAlert type={response.status} message={response.message} />
-            )}
-
+        <AuthUI loading={loading} response={response}>
             <form className="auth--form" onSubmit={handleSubmit}>
                 <h2 className="form--heading">Register</h2>
 

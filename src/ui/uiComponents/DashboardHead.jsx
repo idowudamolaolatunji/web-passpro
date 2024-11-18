@@ -12,6 +12,7 @@ import Dropdown from '../../components/Dropdown';
 import ProfileImage from '../../components/ProfileImage';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/Spinner';
+import { RxHamburgerMenu } from 'react-icons/rx';
 
 function DashboardHead() {
     const { width } = useWindowSize();
@@ -37,7 +38,7 @@ function DashboardHead() {
                 {width <= 900 && (
                     <div className="header--main">
                         <span className='header--hamburger' onClick={handleToggleMenu}>
-                            <GiHamburgerMenu />
+                            <RxHamburgerMenu />
                         </span>
 
                         <div className="header--logo">
@@ -60,15 +61,16 @@ function DashboardHead() {
                     )}
 
                     {width < 750 && (
-                        <span className='notification--icon' onClick={() => setShowSearchBar(true)}>
+                        <span className='header--icon' onClick={() => setShowSearchBar(true)}>
                             <BiSearch />
                         </span>
                     )}
 
 
-                    <span className='notification--icon'>
+                    {/* FOR THE NEXT MILESTONE */}
+                    {/* <span className='header--icon'>
                         <BsBell />
-                    </span>
+                    </span> */}
 
                     <div className="user--profile" onClick={() => setShowDropdown(!showDropdown)}>
                         <ProfileImage />

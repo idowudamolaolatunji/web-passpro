@@ -57,9 +57,9 @@ export const FetchedProvider = ({ children }) => {
         setLoader(true);
         setWithdrawalsHistory([]);
         try {
-            // const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
-            // const data = await res.json();
-            // setWithdrawalsHistory(data?.data)
+            const res = await fetch(`${BASE_URL}/transactions`, { method: "GET", headers });
+            const data = await res.json();
+            setWithdrawalsHistory(data?.data)
         } catch(err) {
             setError(true);
         } finally {

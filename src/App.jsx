@@ -23,16 +23,15 @@ import ProtectedRoute from './utils/ProtectedRoute';
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
+      <Routes>
         {/* UNPROTECTED ROUTES */}
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/forgot-password' element={<ForgotPassword />}></Route>
         <Route path='/verify-otp' element={<VerifyOtp />}></Route>
-        <Route path='/change-password' element={<ChangePassword />}></Route>
-        <Route path='/reset-password' element={<VerifyOtp />}></Route>
+        <Route path='/password-reset/:token' element={<ChangePassword />}></Route>
         <Route path="*" element={<Error />} />
-        
+
 
         {/* PROTECTED ROUTES */}
         <Route element={<ProtectedRoute />}>
@@ -43,14 +42,14 @@ function App() {
 
           <Route path='/dashboard/withdrawals/new' element={<NewWithdrawal />}></Route>
           <Route path='/dashboard/withdrawals/history' element={<Withdrawals />}></Route>
-          
+
           <Route path='/dashboard/support-tickets/create' element={<CreateSupport />}></Route>
           <Route path='/dashboard/support-tickets/manage' element={<Supports />}></Route>
 
           <Route path='/dashboard/transactions' element={<Transactions />}></Route>
           <Route path='/dashboard/profile' element={<Profile />}></Route>
         </Route>
-    </Routes>
+      </Routes>
     </BrowserRouter>
   )
 }

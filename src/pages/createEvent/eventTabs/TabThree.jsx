@@ -57,7 +57,7 @@ function TabThree({ eventData, handleDelete, handleShowModal }) {
             selector: row => (
                 <p className='table--title'><FaExpandArrowsAlt className='rotate-45' />{row?.ticket_name}</p>
             ),
-            width: "220px"
+            width: "22rem"
         },
         {
             name: "Ticket Details",

@@ -71,7 +71,7 @@ function DashboardMenu() {
                             <MenuItem icon={withdrawal} text="Withdrawals" link="/withdrawals" arrow isBtn sub={withdrawal_sub} />
                             {/* <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow isBtn /> */}
                             <MenuItem icon={support_ticket} text="Support Tickets" link="/support-tickets" arrow isBtn sub={support_sub} />
-                            <MenuItem icon={signout} text="Logout" isBtn />
+                            <MenuItem icon={signout} text="Logout" isBtn action={handleLogout} />
                         </ul>
                     </div>
                 </>

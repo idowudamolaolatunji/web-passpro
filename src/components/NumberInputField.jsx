@@ -4,6 +4,7 @@ import CurrencyInput from 'react-currency-input-field'
 function NumberInputField({ name, prefix, placeholder, value, onChange, readOnly }) {
   return (
     <CurrencyInput
+    min={1}
       name={name}
       readOnly={readOnly}
       className="form--input"

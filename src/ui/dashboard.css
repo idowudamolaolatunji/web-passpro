@@ -21,7 +21,7 @@
 }
 .header--hamburger svg {
 	font-size: 2.8rem;
-	color: #555;
+	color: var(--primary-1);
 	cursor: pointer;
 }
 .header--logo {
@@ -55,24 +55,24 @@
 	align-items: center;
 	gap: 2rem;
 }
-.notification--icon,
+.header--icon,
 .user--profile img {
 	width: 4.4rem;
 	height: 4.4rem;
 	border-radius: 50%;
 }
-.notification--icon,
+.header--icon,
 .user--profile {
 	background-color: rgba(255, 250, 249, 1);
 	display: flex;
 	align-items: center;
 	cursor: pointer;
 }
-.notification--icon {
+.header--icon {
 	color: var(--primary-1);
 	justify-content: center;
 }
-.notification--icon svg {
+.header--icon svg {
 	font-size: 2.4rem;
 }
 .user--profile {
@@ -257,7 +257,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: stretch;
-	gap: 3rem;
+	gap: 2.4rem;
     width: calc(100% - 24rem);
 	margin-left: auto;
 
@@ -344,7 +344,7 @@
 	.header--others .header--search {
 		width: 90%;
 	}
-	.notification--icon {
+	.header--icon {
 		font-size: 2rem;
 		width: 4rem;
 		height: 4rem;

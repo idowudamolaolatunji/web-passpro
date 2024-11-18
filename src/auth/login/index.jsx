@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import logo from '../../assets/logo/logo-img.png';
-import img from '../../assets/resources/auth-img.png';
 import '../auth.css'
 import Asterisk from '../../components/Asterisk';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
@@ -9,8 +7,6 @@ import { FaCheck } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthUI from '../authComponents/AuthUI';
 import { useAuthContext } from '../../context/AuthContext';
-import Spinner from '../../components/Spinner';
-import CustomAlert from '../../components/CustomAlert';
 
 function index() {
     const navigate = useNavigate();
@@ -25,6 +21,11 @@ function index() {
     const [isChecked, setIsChecked] = useState(false);
     const [response, setResponse] = useState({ status: '', message: '' });
     const [loading, setLoading] = useState(false);
+
+    const headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
 
     const handleFormChange = function (e) {
         const { name, value } = e.target;
@@ -41,39 +42,35 @@ function index() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
 
         try {
-            setLoading(true);
-
             const { password, email } = formData;
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/login`, {
-                method: 'POST',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
+                method: 'POST', headers,
                 body: JSON.stringify({ identifier: email, password  })
             });
             
             handleResetResponse();
 
             const data = await res.json();
-            console.log(data)
-            if(data?.error) {
+            if(data?.error || res.status !== 200) {
                 // IF THE USER IS NOT VERIFIED, REDIRECT THE TO THE VERIFICATION PAGE
                 if(data?.error == "Email not verified") {
                     setTimeout(function() {
+                        localStorage.setItem("otp_user", JSON.stringify({ email: formData?.email }));
                         navigate('/verify-otp');
                     }, 1500);
                 }
 
                 // IF AND ELSE THROW NEW ERROR
-                throw new Error(data?.error);
+                throw new Error(data?.error || data?.message);
             }
             
 
             // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
             setResponse({ status: "success", message: "Login Successful" });
+
             setTimeout(function() {
                 handleChange(data?.user, data?.token);
             }, 2000);
@@ -92,14 +89,7 @@ function index() {
     }, [user])
 
     return (
-        <AuthUI>
-
-            {loading && <Spinner />}
-
-            {(response.status || response.message) && (
-                <CustomAlert type={response.status} message={response.message} />
-            )}
-
+        <AuthUI loading={loading} response={response}>
             <form className="auth--form" onSubmit={handleSubmit}>
                 <h2 className="form--heading">Sign In</h2>
 

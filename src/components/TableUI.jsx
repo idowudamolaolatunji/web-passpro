@@ -50,6 +50,7 @@ function TableUI({ data, columns, loader, EmptyComponent }) {
             columns={columns}
             noDataComponent={EmptyComponent}
             fixedHeader
+            pagination
             progressComponent={<SpinnerMini />}
             progressPending={loader}
             customStyles={customStyles}

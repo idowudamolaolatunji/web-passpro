@@ -17,7 +17,7 @@ function index() {
         {
             name: "Subject",
             selector: row => {},
-            width: "250px"
+            width: "25rem"
         },
         {
             name: "Status",
@@ -30,7 +30,7 @@ function index() {
         {
             name: "Last reply",
             selector: row => {},
-            width: "350px"
+            width: "35rem"
         },
         {
             name: "Action",

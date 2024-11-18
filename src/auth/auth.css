@@ -221,6 +221,7 @@
     color: var(--primary-2);
     font-weight: 600;
     transition: text-shadow .35s;
+    background-color: transparent;
 }
 .form--item-flex {
     display: flex;

@@ -8,6 +8,7 @@ import { AiFillInstagram } from 'react-icons/ai'
 import { FaXTwitter } from 'react-icons/fa6'
 import { HiOutlineGlobeAlt } from 'react-icons/hi'
 import { formatNumber } from '../../../utils/helper'
+import PreviewTicket from './PreviewTicket'
 
 function TabPreview({ eventData, images }) {
 
@@ -45,19 +46,7 @@ function TabPreview({ eventData, images }) {
                     {eventData?.tickets?.length > 0 && (
                         <div className='preview--tickets'>
                             {eventData?.tickets?.map(ticket => (
-                                <figure className='preview--ticket'>
-                                    <div>
-                                        <h4 className='title'>{ticket?.ticket_name}</h4>
-                                        <p className='description'>{ticket?.ticket_description}</p>
-                                    </div>
-
-                                    <span className='preview--line' />
-
-                                    <div>
-                                        <span className='price'>₦{formatNumber(ticket?.ticket_price)}</span>
-                                        <p className='info'>{ticket?.ticket_quantity} units availble</p>
-                                    </div>
-                                </figure>
+                                <PreviewTicket data={ticket} key={ticket?.ticket_name} />
                             ))}
                         </div>
                     )}

@@ -44,7 +44,7 @@ function index() {
     }
 
     const handleShowModal = function() {
-        if(!withdrawalData?.amount) {
+        if(!withdrawalData?.amount || +withdrawalData?.amount < 1) {
             setResponse({ status: "error", message: "Enter an amount!" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
@@ -80,11 +80,11 @@ function index() {
             });
 
             const data = await res.json();
-            if(!data?.data) {
+            if(!data?.success) {
                 throw new Error(data?.message || data?.error)
             }
 
-            setResponse({ status: "success", message: "Withdrawal Successful" });
+            setResponse({ status: "success", message: data?.success });
             setShowModal({ success: true })
 
         } catch(err) {

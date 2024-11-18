@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import logo from '../../assets/logo/logo-img.png';
 import img from '../../assets/resources/auth-img.png';
 import '../auth.css'
+import Spinner from '../../components/Spinner';
+import CustomAlert from '../../components/CustomAlert';
 
-function AuthUI({ children }) {
+function AuthUI({ response, loading, children }) {
 
     return (
-        <section className='auth--section'>
-            <div className="auth--container">
-                <div className="auth--image">
-                    <img src={img} alt="authentication women image" />
-                </div>
+        <>
+            {loading && <Spinner />}
 
-                <div className="auth--form-box">
-                    <img className='auth--logo' src={logo} alt="logo image" />
-                    {children}
+            {(response?.status || response?.message) && (
+                <CustomAlert type={response.status} message={response.message} />
+            )}
+
+            <section className='auth--section'>
+                <div className="auth--container">
+                    <div className="auth--image">
+                        <img src={img} alt="authentication women image" />
+                    </div>
+
+                    <div className="auth--form-box">
+                        <img className='auth--logo' src={logo} alt="logo image" />
+                        {children}
+                    </div>
                 </div>
-            </div>
-        </section>
-  )
+            </section>
+        </>
+    )
 }
 
 export default AuthUI

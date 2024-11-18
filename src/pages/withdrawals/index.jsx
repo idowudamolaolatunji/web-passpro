@@ -6,48 +6,57 @@ import TableUI from '../../components/TableUI';
 import { useFetchedContext } from '../../context/FetchedContext';
 import DetailsModal from "./DetailsModal"
 import TableSearch from '../../components/TableSearch';
+import { formatDateTime, formatNumber } from '../../utils/helper';
 
 function index() {
     const { withdrawalsHistory, error, loader, setLoader, handleFetchWithdrawalsHistory } = useFetchedContext();
 
     const [showDetails, setShowDetails] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedData, setSelectedData] = useState(null);
     const [input, setInput] = useState("");
 
 
-    const handleToggle = function(id) {
+    const handleToggle = function(data) {
         setShowDetails(!showDetails);
-        setSelectedId(id)
+        setSelectedData(data)
     }
 
     const columns = [
         {
             name: "Transaction ID",
-            selector: row => {}
+            selector: row => `#${row?.transaction_reference}`,
+            width: "22rem"
         },
         {
             name: "Gateway",
-            selector: row => {}
+            selector: () => "Bank Account"
         },
         {
             name: "Date Initiated",
-            selector: row => {}
+            selector: row => formatDateTime(row?.initiated_at),
+            width: "20rem"
         },
         {
             name: "Amount Initiated",
-            selector: row => {}
+            selector: row => `₦${formatNumber(row?.amount)}`
         },
         {
             name: "Amount Recieved",
-            selector: row => {}
+            selector: row => `₦${formatNumber(row?.net_amount)}`
         },
         {
             name: "Status",
-            selector: row => {}
+            selector: row => (
+                <div className={`status status--${row?.status}`}>
+                    <p>{row?.status}</p>
+                </div>
+            )
         },
         {
             name: "Action",
-            selector: row => {}
+            selector: row => (
+                <button className='table--view-btn' onClick={() => handleToggle(row)}>View Details</button>
+            )
         },
     ];
 
@@ -66,7 +75,7 @@ function index() {
 
     return (
         <>
-            {(showDetails && selectedId) && <DetailsModal title="9156788004" handleClose={handleToggle} />}
+            {(showDetails && selectedData) && <DetailsModal data={selectedData} handleClose={handleToggle} />}
 
             <PageTop title="Withdrawal History" />
 

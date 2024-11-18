@@ -15,6 +15,11 @@ function TabTwo({ setImages, images }) {
     };
 
 
+    const handleImageRemove = function(name) {
+        setImages({ ...images, [name]: { file: "", preview: ""} })
+    }
+
+
     return (
         <>
             <span className="form__container--headiing">Media & Gallery</span>
@@ -27,7 +32,7 @@ function TabTwo({ setImages, images }) {
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px
                         </span>
                     </label>
-                    <ImageUpload name="cover_photo" preview={images?.cover_photo?.preview} handleChange={handleImageChange} handleRemove={()=>{}} />
+                    <ImageUpload name="cover_photo" preview={images?.cover_photo?.preview} handleChange={handleImageChange} handleRemove={()=>handleImageRemove("cover_photo")} />
                 </div>
 
 
@@ -39,7 +44,7 @@ function TabTwo({ setImages, images }) {
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px
                         </span>
                     </label>
-                    <ImageUpload name="event_image" preview={images?.event_image?.preview} handleChange={handleImageChange} handleRemove={()=>{}} />
+                    <ImageUpload name="event_image" preview={images?.event_image?.preview} handleChange={handleImageChange} handleRemove={()=>handleImageRemove("event_image")} />
                 </div>
             </form>
         </>

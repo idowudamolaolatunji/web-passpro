@@ -29,7 +29,8 @@ function index() {
         },
         {
             name: "Event location",
-            selector: row => row?.event_location
+            selector: row => row?.event_location,
+            width: "25rem"
         },
         {
             name: "Featured",
@@ -52,7 +53,7 @@ function index() {
                     <button>ticket</button>
                 </div>
             ),
-            width: "250px"
+            width: "25rem"
         }
     ];
 

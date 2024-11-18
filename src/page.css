@@ -887,27 +887,35 @@ span.item--user-img {
 .featured p {
 	min-width: 70px;
 	display: inline-block;
-	padding: 0.6rem;
+	padding: 0.48rem;
 	border-radius: 0.6rem;
 	font-weight: 500;
 	font-size: 1.32rem;
-	text-transform: capitalize;
-}
-.featured p {
     border-radius: 10rem;
 }
+.status--success p,
+.status--completed p,
+.status--approved p,
 .featured--yes p {
     color: #008001;
 	background-color: #d7ecd1b7;
-    box-shadow: inset 0 0 0 .14rem;
+    box-shadow: inset 0 0 0 .14rem #008001;
 }
+
+.status--failed p,
+.status--rejected p,
 .featured--no p {
     box-shadow: inset 0 0 0 .14rem red;
 	background-color: #ff9797b7;
 	color: red;
 }
 
-
+.status--pending p,
+.status--processing p {
+	background-color: #eef1ff;
+	color: #655dbb;
+    box-shadow: inset 0 0 0 .14rem #655dbb;
+}
 
 
 .profile--head {

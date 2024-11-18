@@ -33,7 +33,7 @@ function index() {
     });
 
     const [eventData, setEventData] = useState({
-        category_id: null,
+        category_id: "1",
         // event_name: "",
         // event_description: "",
         // featured: false,
@@ -51,9 +51,9 @@ function index() {
         event_type: "physical",
         event_location: "Tech Arena, Downtown City",
         start_date: "2024-12-01",
-        start_date_time: "09:00:00",
+        start_date_time: "09:00",
         end_date: "2024-12-01",
-        end_date_time: "18:00:00",
+        end_date_time: "18:00",
         tickets: [
     {
         ticket_category: "Single Ticket",
@@ -86,8 +86,13 @@ function index() {
 
     const handleNextStep = function () {
         const error = validateEventForm(eventData);
-        if (step == 1 && Object.keys(error).length >= 1) {
+        console.log(error)
+        if (step == 1 && Object.keys(error).length > 1) {
             setResponse({ status: "error", message: "Fill required fields to proceed!" });
+            return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
+        } else if(Object.keys(error).length == 1) {
+            const errMessage = Object.values(error)[0];
+            setResponse({ status: "error", message: errMessage });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
 
@@ -118,25 +123,26 @@ function index() {
     async function handleSubmit() {
         setLoading(true);
 
-        var formData = new FormData();
+        const formData = new FormData();
         formData.append('event_name', eventData.event_name);
+        formData.append('category_id', eventData.category_id);
         formData.append('event_description', eventData.event_description);
         formData.append('event_type', eventData.event_type);
         formData.append('event_location', eventData.event_location);
         formData.append('start_date', eventData.start_date);
-        formData.append('start_date_time', eventData.start_date_time);
+        formData.append('start_date_time', eventData.start_date_time + ":00");
         formData.append('end_date', eventData.end_date);
-        formData.append('end_date_time', eventData.end_date_time);
+        formData.append('end_date_time', eventData.end_date_time + ":00");
         formData.append('tickets', eventData.tickets);
-        formData.append('cover_photo', images.cover_photo.file[0]);
-        formData.append('event_image', images.event_image.file[0]);
+
+        formData.append('cover_photo', images.cover_photo.file);
+        formData.append('event_image', images.event_image.file);
 
         try {
             const res = await fetch(`${BASE_URL}/events`, {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
-                    "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`
                 },
                 body: formData

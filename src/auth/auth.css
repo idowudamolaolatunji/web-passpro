@@ -171,8 +171,8 @@
 }
 .form--click span {
     display: inline-block;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     border: 2px solid #ddd;
     position: relative;
@@ -187,6 +187,15 @@
 }
 
 
+.form--click.click-left {
+    width: fit-content;
+    gap: .8rem;
+    border-radius: 0;
+    border: none;
+    border-left: 1.4px solid var(--primary-2);
+    font-weight: 500;
+}
+
 
 
 .form--flex {
@@ -194,6 +203,7 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    gap: 1.2rem;
 }
 .form--flex,
 .form--info {

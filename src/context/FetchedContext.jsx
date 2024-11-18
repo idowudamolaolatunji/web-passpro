@@ -20,7 +20,7 @@ export const FetchedProvider = ({ children }) => {
 
     const [categories, setCategories] = useState([]);
     const [events, setEvents] = useState([]);
-    const [withdrawals, setWithdrawals] = useState([]);
+    const [withdrawalsHistory, setWithdrawalsHistory] = useState([]);
     const [supportTickets, setSupportTickets] = useState([]);
 
     const [loader, setLoader] = useState(false);
@@ -52,14 +52,14 @@ export const FetchedProvider = ({ children }) => {
         }
     }
 
-    async function handleFetchWithdrawalData() {
+    async function handleFetchWithdrawalsHistory() {
         setError(false);
         setLoader(true);
-        setWithdrawals([]);
+        setWithdrawalsHistory([]);
         try {
             // const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
             // const data = await res.json();
-            // setWithdrawals(data?.data)
+            // setWithdrawalsHistory(data?.data)
         } catch(err) {
             setError(true);
         } finally {
@@ -92,9 +92,12 @@ export const FetchedProvider = ({ children }) => {
     let contextData = {
        
         loader,
+        setLoader,
         error,
+        setError,
+
         events,
-        withdrawals,
+        withdrawalsHistory,
         supportTickets,
 
         ////////////////////////
@@ -103,7 +106,7 @@ export const FetchedProvider = ({ children }) => {
         ///////////////////////
         handleFetchEvents,
         handleFetchSupportData,
-        handleFetchWithdrawalData,
+        handleFetchWithdrawalsHistory,
     }
 
 

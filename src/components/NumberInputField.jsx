@@ -1,11 +1,11 @@
 import React from 'react'
 import CurrencyInput from 'react-currency-input-field'
 
-function NumberInputField({ name, prefix, placeholder, value, onChange }) {
+function NumberInputField({ name, prefix, placeholder, value, onChange, readOnly }) {
   return (
     <CurrencyInput
-      id="price"
       name={name}
+      readOnly={readOnly}
       className="form--input"
       placeholder={placeholder}
       prefix={prefix ? "₦" : ""}

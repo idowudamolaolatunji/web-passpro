@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import MainDropdownSelect from '../../../components/MainDropdownSelect'
 import Asterisk from '../../../components/Asterisk';
 import { useFetchedContext } from '../../../context/FetchedContext';
+import { useWindowSize } from 'react-use';
 
 function TabOne({ eventData, setEventData }) {
-
+    const { width } = useWindowSize();
     const { categories } = useFetchedContext();
 
     const handleChangeData = function(e) {
@@ -51,7 +52,9 @@ function TabOne({ eventData, setEventData }) {
                     <label className="form--label">Start Date <Asterisk /></label>
                     <span className="form--subitem">
                         <input type="date" className="form--input" required name='start_date' min={new Date().toISOString().slice(0, 16)} value={eventData?.start_date} onChange={handleChangeData} />
-                        <label className="form--label">Time</label>
+
+                        {width < 400 && <br />}
+                        <label className="form--label m-top-bottom">Time</label>
                         <input type="time" className="form--input" required name='start_date_time' value={eventData?.start_date_time} onChange={handleChangeData} />
                     </span>
                 </div>
@@ -60,7 +63,9 @@ function TabOne({ eventData, setEventData }) {
                     <label className="form--label">End Date <Asterisk /></label>
                     <span className="form--subitem">
                         <input type="date" className="form--input" required name='end_date' min={eventData?.start_date} value={eventData?.end_date} onChange={handleChangeData} />
-                        <label className="form--label">Time</label>
+
+                        {width < 400 && <br />}
+                        <label className="form--label m-top-bottom">Time</label>
                         <input type="time" className="form--input" required name='end_date_time' value={eventData?.end_date_time} onChange={handleChangeData} />
                     </span>
                 </div>

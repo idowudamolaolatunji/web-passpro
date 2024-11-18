@@ -14,10 +14,12 @@ import { useFetchedContext } from '../../context/FetchedContext';
 import { useAuthContext } from '../../context/AuthContext';
 import { validateEventForm } from '../../utils/helper';
 import Spinner from '../../components/Spinner';
+import { useWindowSize } from 'react-use';
 
 function index() {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
     const { token } = useAuthContext();
+    const { width } = useWindowSize();
 
     const [step, setStep] = useState(1);
     const [showTicketModal, setShowTicketModal] = useState(false);
@@ -166,7 +168,7 @@ function index() {
 
             <PageTop title="Create Event" />
 
-            <form className="form__container" onSubmit={(e) => e.preventDefault()}>
+            <form className="form__container event--form" onSubmit={(e) => e.preventDefault()}>
                 <StepsTab step={step} />
 
                 {step == 1 && <TabOne setEventData={setEventData} eventData={eventData} />}
@@ -181,7 +183,7 @@ function index() {
                     {step > 1 && (
                         <button className='form--btn btn-prev' type='button' onClick={handlePrevStep}><BiChevronLeft /> Previous </button>
                     )}
-                    <button className='form--btn btn-next' type='button' onClick={handleNextStep}>{step == 4 ? "Submit" : "Save and Continue"} <BiChevronRight /></button>
+                    <button className='form--btn btn-next' type='button' onClick={handleNextStep}>{step == 4 ? "Submit" : (width < 600 && step != 1) ? "Continue" : "Save and Continue"} <BiChevronRight /></button>
                 </div>
             </form>
         </>

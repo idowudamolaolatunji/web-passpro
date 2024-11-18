@@ -10,15 +10,17 @@ import Spinner from '../../components/Spinner';
 import SpinnerMini from '../../components/SpinnerMini';
 import { formatDateTime } from '../../utils/helper';
 import TableUI from '../../components/TableUI';
+import TableSearch from '../../components/TableSearch';
 
 
 function index() {
     const { width } = useWindowSize();
-    const { events, loader, error, handleFetchEvents } = useFetchedContext();
+    const { events, loader, setLoader, error, handleFetchEvents } = useFetchedContext();
     const [tab, setTab] = useState("all");
+    const [input, setInput] = useState("");
 
     const filteredEvents = events?.filter(event => event?.status == (tab));
-    const data = tab == "all" ? events : filteredEvents;
+    let data = tab == "all" ? events : filteredEvents;
 
     const columns = [
         {
@@ -55,27 +57,37 @@ function index() {
     ];
 
 
+    const handleSearch = function() {
+        if(!input) return;
+        setLoader(true)
+
+        setLoader(false)
+    }
+
+
     useEffect(function() {
         handleFetchEvents();
     }, []);
 
     return (
         <>  
-            {loader?.event && <Spinner />}
-
             <PageTop title="All Events" />
 
-            <div className="page__tabs">
-                <Tab title={`All ${width > 400 ? "Events" : ""}`} active={tab == "all"} onClick={() => setTab("all")} />
-                <Tab title="Pending" active={tab == "pending"} onClick={() => setTab("pending")} />
-                <Tab title="Approved" active={tab == "approved"} onClick={() => setTab("approved")} />
-                <Tab title="Rejected" active={tab == "rejected"} onClick={() => setTab("rejected")} />
+            <div className="table--top">
+                <div className="page__tabs">
+                    <Tab title={`All ${width > 400 ? "Events" : ""}`} active={tab == "all"} onClick={() => setTab("all")} />
+                    <Tab title="Pending" active={tab == "pending"} onClick={() => setTab("pending")} />
+                    <Tab title="Approved" active={tab == "approved"} onClick={() => setTab("approved")} />
+                    <Tab title="Rejected" active={tab == "rejected"} onClick={() => setTab("rejected")} />
+                </div>
+
+                <TableSearch title="Events" value={input} setValue={setInput} action={handleSearch} />
             </div>
 
             <TableUI 
                 data={data}
                 columns={columns}
-                loader={loader?.eventLoader}
+                loader={loader}
                 EmptyComponent={<Empty text={`No ${tab == "all" ? "" : tab} events yet`} icon={<BsCalendarEvent />} />}
             />
         </>

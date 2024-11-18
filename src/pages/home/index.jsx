@@ -1,5 +1,4 @@
 import React from 'react'
-import DashboardBase from '../../ui/DashboardBase'
 import PageTop from '../../components/PageTop'
 import OrganizationCard from './homeComponents/OrganizationCard'
 import HomeInsightGrid from './homeComponents/HomeInsightGrid'
@@ -19,11 +18,9 @@ function index() {
                     <div className="grid--left">
                         <HomeInsightGrid />
 
-                        <AttendeesChart />
+                        {/* <AttendeesChart /> */}
 
-                        <div className="dashboard--card">
-                            hi
-                        </div>
+                        {/* <div className="dashboard--card">hi</div> */}
                     </div>
 
 
@@ -35,23 +32,12 @@ function index() {
                 </div>
 
 
-                <div className="dashboard--card">
-                    hi
-                </div>
+                {/* <div className="dashboard--card">hi</div> */}
 
                 <div className="dashboard--grid-1">
-                    <div className="dashboard--card">
-                        hi
-                    </div>
+                    {/* <div className="dashboard--card">hi</div> */}
 
-                    <div className="dashboard--card">
-                        hi
-                    </div>
-                </div>
-
-
-                <div className="dashboard--card">
-                    hi
+                    {/* <div className="dashboard--card">hi</div> */}
                 </div>
             </div>
 

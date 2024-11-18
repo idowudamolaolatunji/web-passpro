@@ -26,7 +26,7 @@ function index() {
 
         <>
 
-            <PageTop title="Create Support Ticket" />
+            <PageTop title="Create Ticket" />
 
             <div className="form__container">
 
@@ -41,9 +41,9 @@ function index() {
                         <div className="form--item">
                             <label className="form--label">Priority <Asterisk /></label>
                             <select name="" id="" className='form--select'>
-                                <option type="high priority">High Priority</option>
-                                <option type="medium priority">Medium Priority</option>
-                                <option type="low priority">Low Priority</option>
+                                <option type="high">High</option>
+                                <option type="medium">Medium</option>
+                                <option type="low">Low</option>
                             </select>
                         </div>
                     </div>
@@ -76,6 +76,9 @@ function index() {
 
                         <p className='add-extra'>Allowed File Extensions: .jpg, .jpeg, .png, .pdf, .doc, .docx</p>
                     </div>
+
+
+                    <button className='form--btn btn-next' type='button' style={{ marginTop: "1rem" }}>Submit</button>
                 </div>
 
             </div>

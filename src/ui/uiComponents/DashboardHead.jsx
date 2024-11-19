@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import logo from '../../assets/logo/logo-img.png';
 import user_img from '../../assets/png/Ellipse 155.png'
@@ -13,12 +13,15 @@ import ProfileImage from '../../components/ProfileImage';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/Spinner';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { useAuthContext } from '../../context/AuthContext';
 
 function DashboardHead() {
     const { width } = useWindowSize();
+    const { headers } = useAuthContext();
     const { handleToggleMenu } = useDataContext();
     const [showSearchBar, setShowSearchBar] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [searchQuery, setSearchQuery] = useState([])
 
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState({ status: "", message: "" });
@@ -28,6 +31,40 @@ function DashboardHead() {
     function handleClose() {
         setShowSearchBar(false);
     }
+
+    useEffect(function () {
+		const handleFetchSearchQuery = setTimeout(async function () {
+			try {
+				// if (searchQuery.trim() === '' || !setSearchQuery) {
+				// 	setShowSearchModal(false)
+				// 	setResults({});
+				// 	return;
+				// }
+
+				// setLoading(true);
+				// setShowSearchModal(true);
+
+				const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/search?query=${searchQuery}`, { method: 'GET', headers });
+
+
+				const data = await res.json();
+				console.log(data);
+
+			} catch (err) {
+				// if (err.name !== "AbortError") {
+				// 	setMessage(err.message)
+				// 	setShowSearchModal(false)
+				// }
+			} finally {
+				setLoading(false);
+			}
+		}, 350)
+
+		return function () {
+			clearTimeout(handleFetchSearchQuery)
+		};
+
+	}, [searchQuery]);
 
     return (
         <>
@@ -48,14 +85,14 @@ function DashboardHead() {
                 )}
 
                 <div className="header--search">
-                    <input type="text" className='form--input' placeholder='Search Events, Tickets and Occassions' />
+                    <input type="text" className='form--input' placeholder='Search Events, Tickets and Occassions' value={searchQuery} onChange={(e) => setSearchQuery(e?.target?.value)} />
                     <BiSearch />
                 </div>
 
                 <div className="header--others">
                     {showSearchBar && (
                         <div className="header--search" ref={ref}>
-                            <input type="text" className='form--input' placeholder='Search Events, Tickets and Occassions' />
+                            <input type="text" className='form--input' placeholder='Search Events, Tickets and Occassions' value={searchQuery} onChange={(e) => setSearchQuery(e?.target?.value)} />
                             <BiSearch />
                         </div>
                     )}

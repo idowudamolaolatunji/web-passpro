@@ -10,7 +10,7 @@ function index() {
     const [response, setResponse] = useState({ status: '', message: '' });
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({ email: "" });
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     const headers = {
         "Accept": "application/json",

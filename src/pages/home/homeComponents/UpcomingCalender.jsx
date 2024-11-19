@@ -40,7 +40,7 @@ function UpcomingCalender() {
 
         let upcoming = [];
 
-        comingEventDays.forEach((evtDay, index) => {
+        comingEventDays?.forEach((evtDay, index) => {
             if (day === evtDay && month === comingEventMonths[index]) {
                 return upcoming = [{
                     name: events[index]?.event_name,

@@ -148,6 +148,7 @@ function index() {
             });
 
             const data = await res.json();
+            console.log(res, data)
         } catch (err) {
             setResponse({ status: "error", message: err?.message })
         } finally {
@@ -172,7 +173,7 @@ function index() {
 
             <PageTop title="Create Event" />
 
-            <form className="form__container event--form" onSubmit={(e) => e.preventDefault()}>
+            <div className="form__container event--form">
                 <StepsTab step={step} />
 
                 {step == 1 && <TabOne setEventData={setEventData} eventData={eventData} />}
@@ -189,7 +190,7 @@ function index() {
                     )}
                     <button className='form--btn btn-next' type='button' onClick={handleNextStep}>{step == 4 ? "Submit" : (width < 600 && step != 1) ? "Continue" : "Save and Continue"} <BiChevronRight /></button>
                 </div>
-            </form>
+            </div>
         </>
     )
 }

@@ -24,7 +24,7 @@ export const FetchedProvider = ({ children }) => {
     const [withdrawalsHistory, setWithdrawalsHistory] = useState([]);
     const [supportTickets, setSupportTickets] = useState([]);
 
-    const [loader, setLoader] = useState(false);
+    const [loader, setLoader] = useState(true);
     const [error, setError] = useState(false);
 
 

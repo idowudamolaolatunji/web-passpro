@@ -15,7 +15,8 @@ function index() {
     const [showDetails, setShowDetails] = useState(false);
     const [selectedData, setSelectedData] = useState(null);
     const [input, setInput] = useState("");
-
+    const [searched, setSearched] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleToggle = function(data) {
         setShowDetails(!showDetails);
@@ -65,7 +66,13 @@ function index() {
         if(!input) return;
         setLoader(true)
 
-        setLoader(false)
+        const searchResult = withdrawalsHistory?.filter(data => data?.transaction_reference.includes(input) || data?.status.includes(input) || data?.amount.includes(+input))
+        setSearchTerm(input);
+        setSearched(searchResult)
+
+        setTimeout(() => {
+            setLoader(false)
+        }, 1000);
     }
 
     useEffect(function() {
@@ -74,27 +81,30 @@ function index() {
     }, []);
 
 
+    useEffect(function() {
+        !input && setSearched(null)
+    }, [input])
+
+
     return (
         <>
             {(showDetails && selectedData) && <DetailsModal data={selectedData} handleClose={handleToggle} />}
 
-            <PageTop title="Withdrawal History" />
-
-            <div className="table--top">
-                <div />
+            <div className="table--top" style={{ alignItems: "flex-end" }}>
+                <PageTop title="Withdrawal History" />
 
                 <TableSearch title="Withdrawal History" value={input} setValue={setInput} action={handleSearch} />
             </div>
 
             <TableUI
-                data={withdrawalsHistory}
+                data={searched ? searched : withdrawalsHistory}
                 columns={columns}
                 loader={loader}
                 EmptyComponent={
                     error ? 
                     <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
                     :
-                    <Empty text="No Withdrawal Hsitory Yet" icon={<BiMoneyWithdraw />} />
+                    <Empty text={`No ${searched ? "search result for: " + searchTerm : "Withdrawal Hsitory Yet"}`} icon={<BiMoneyWithdraw />} />
                 }
             />
 

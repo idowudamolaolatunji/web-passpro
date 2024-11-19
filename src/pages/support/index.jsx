@@ -59,10 +59,8 @@ function index() {
 
     return (
         <>
-            <PageTop title="All Tickets" />
-
-            <div className="table--top">
-                <div />
+            <div className="table--top" style={{ alignItems: "flex-end" }}>
+                <PageTop title="All Tickets" />
 
                 <TableSearch title="Tickets" value={input} setValue={setInput} action={handleSearch} />
             </div>

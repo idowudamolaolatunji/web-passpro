@@ -15,6 +15,7 @@ import CustomAlert from '../../components/CustomAlert'
 import { FiCheckCircle } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { useWindowSize } from 'react-use'
+import { formatNumber } from '../../utils/helper'
 
 function index() {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ function index() {
             setResponse({ status: "error", message: "Enter an amount!" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
-        if((user?.balance < withdrawalData?.amount)) {
+        if((user?.balance < +withdrawalData?.amount)) {
             setResponse({ status: "error", message: "Insufficient balance!" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
@@ -58,9 +59,13 @@ function index() {
     
 
     useEffect(function() {
-        if(withdrawalData?.amount && (user?.balance >= withdrawalData?.amount)) {
-            setWithdrawalData({...withdrawalData, amount_receivable: withdrawalData?.amount})
+        if(withdrawalData?.amount && +user?.balance >= +withdrawalData?.amount) {
+            const fee = (+withdrawalData?.amount * 0.1) / 100;
+            const amount_receivable = Math.floor(withdrawalData?.amount - fee);
+            
+            setWithdrawalData((prevData) => ({ ...prevData, amount_receivable }));
         }
+
     }, [withdrawalData?.amount]);
 
 
@@ -103,10 +108,10 @@ function index() {
                             <IoCloseCircleOutline  />
                         </span>
 
-                        <h4>You are withdrawing 1,000,000. please enter your password to confirm withdrawal</h4>
+                        <h4>You are withdrawing ₦{formatNumber(+withdrawalData?.amount)}. please enter your password to confirm withdrawal</h4>
                         <div className='form--input-box'>
-                            <input type={showPassword ? "password" : "text"} name='password' className='form--input' placeholder='Enter password' value={withdrawalData?.password} onChange={handleChangeData}  />
-                            <span className='form--input-icon' onClick={handleToggleShow}>{showPassword ? <ImEye /> : <ImEyeBlocked />}</span>
+                            <input type={!showPassword ? "password" : "text"} name='password' className='form--input' placeholder='Enter password' value={withdrawalData?.password} onChange={handleChangeData}  />
+                            <span className='form--input-icon' onClick={handleToggleShow}>{!showPassword ? <ImEye /> : <ImEyeBlocked />}</span>
                         </div>
 
                         <button className='form--btn btn-next' onClick={handleRequestWithdrawal}>Confirm Withdrawal</button>
@@ -154,7 +159,7 @@ function index() {
                         <div style={{ width: "100%" }}>
                             <NumberInputField prefix placeholder="₦0.00" name="amount" value={withdrawalData?.amount} onChange={handleChangeData} />
                             <span className="form--error-message">
-                                {(user?.balance < withdrawalData?.amount) && "Insufficient balance"}
+                                {(user?.balance < +withdrawalData?.amount) && "Insufficient balance"}
                             </span>
                         </div>
                     </div>
@@ -163,7 +168,7 @@ function index() {
 
                     <div className="form--grid">
                         <label className="form--label" style={{ display: "flex", alignItems: "center", gap: ".4rem" }}>Processing fee <IoIosInformationCircleOutline /></label>
-                        <label className="form--label" style={{ color: "#888", justifySelf: "end" }}>0.1% of ₦10,000</label>
+                        <label className="form--label" style={{ color: "#888", justifySelf: "end" }}>0.1% of ₦{+withdrawalData?.amount ? formatNumber(withdrawalData?.amount) : "Amount"}</label>
                     </div>
 
                     <Line color='#D9D9D9' />

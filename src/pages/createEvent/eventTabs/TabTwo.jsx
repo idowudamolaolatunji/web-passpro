@@ -23,7 +23,7 @@ function TabTwo({ setImages, images }) {
     return (
         <>
             <span className="form__container--headiing">Media & Gallery</span>
-            <form className='form'>
+            <div className='form'>
                 <div className="inform--item">
                     <label className="form--label">
                         <p>Upload Cover Photo <Asterisk /></p>
@@ -46,7 +46,7 @@ function TabTwo({ setImages, images }) {
                     </label>
                     <ImageUpload name="event_image" preview={images?.event_image?.preview} handleChange={handleImageChange} handleRemove={()=>handleImageRemove("event_image")} />
                 </div>
-            </form>
+            </div>
         </>
     )
 }

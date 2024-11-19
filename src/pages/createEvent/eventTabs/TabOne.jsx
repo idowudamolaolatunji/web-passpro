@@ -17,14 +17,15 @@ function TabOne({ eventData, setEventData }) {
     return (
         <>
             <span className="form__container--headiing">Overview</span>
-            <form className='form'>
+            
+            <div className='form'>
                 <div className="inform--item">
                     <label className="form--label">Event Name <Asterisk /></label>
-                    <input type="text" className="form--input" required placeholder='Enter an event name' name="event_name" value={eventData?.event_name} onChange={handleChangeData} />
+                    <input type="text" className="form--input" placeholder='Enter an event name' name="event_name" value={eventData?.event_name} onChange={handleChangeData} />
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Description <Asterisk /></label>
-                    <textarea className="form--input" required placeholder='Enter an event description' name="event_description" value={eventData?.event_description} onChange={handleChangeData} />
+                    <textarea className="form--input" placeholder='Enter an event description' name="event_description" value={eventData?.event_description} onChange={handleChangeData} />
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Type <Asterisk /></label>
@@ -36,7 +37,7 @@ function TabOne({ eventData, setEventData }) {
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Location <Asterisk /></label>
-                    <input type="text" className="form--input" required placeholder='Enter an event location' name="event_location" value={eventData?.event_location} onChange={handleChangeData} />
+                    <input type="text" className="form--input" placeholder='Enter an event location' name="event_location" value={eventData?.event_location} onChange={handleChangeData} />
                 </div>
                 <div className="inform--item">
                     <label className="form--label">Event Category <Asterisk /></label>
@@ -51,25 +52,25 @@ function TabOne({ eventData, setEventData }) {
                 <div className="inform--item">
                     <label className="form--label">Start Date <Asterisk /></label>
                     <span className="form--subitem">
-                        <input type="date" className="form--input" required name='start_date' min={new Date().toISOString().slice(0, 16)} value={eventData?.start_date} onChange={handleChangeData} />
+                        <input type="date" className="form--input" name='start_date' min={new Date().toISOString().slice(0, 16)} value={eventData?.start_date} onChange={handleChangeData} />
 
                         {width < 400 && <br />}
                         <label className="form--label m-top-bottom">Time</label>
-                        <input type="time" className="form--input" required name='start_date_time' value={eventData?.start_date_time} onChange={handleChangeData} />
+                        <input type="time" className="form--input" name='start_date_time' value={eventData?.start_date_time} onChange={handleChangeData} />
                     </span>
                 </div>
 
                 <div className="inform--item">
                     <label className="form--label">End Date <Asterisk /></label>
                     <span className="form--subitem">
-                        <input type="date" className="form--input" required name='end_date' min={eventData?.start_date} value={eventData?.end_date} onChange={handleChangeData} />
+                        <input type="date" className="form--input" name='end_date' min={eventData?.start_date} value={eventData?.end_date} onChange={handleChangeData} />
 
                         {width < 400 && <br />}
                         <label className="form--label m-top-bottom">Time</label>
-                        <input type="time" className="form--input" required name='end_date_time' value={eventData?.end_date_time} onChange={handleChangeData} />
+                        <input type="time" className="form--input" name='end_date_time' value={eventData?.end_date_time} onChange={handleChangeData} />
                     </span>
                 </div>
-            </form>
+            </div>
         </>
     )
 }

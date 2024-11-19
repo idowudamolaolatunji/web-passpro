@@ -17,6 +17,8 @@ function index() {
     const { events, loader, setLoader, error, handleFetchEvents } = useFetchedContext();
     const [tab, setTab] = useState("all");
     const [input, setInput] = useState("");
+    const [searched, setSearched] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const filteredEvents = events?.filter(event => event?.status == (tab));
     let data = tab == "all" ? events : filteredEvents;
@@ -61,13 +63,26 @@ function index() {
         if(!input) return;
         setLoader(true)
 
-        setLoader(false)
+        const searchResult = data?.filter(data => data?.event_name?.includes(input) || data?.status?.includes(input) || data?.event_description?.includes(input) || data?.event_location?.includes(input));
+        setSearchTerm(input);
+        setSearched(searchResult)
+
+        setTimeout(() => {
+            setLoader(false)
+        }, 1000);
     }
 
 
     useEffect(function() {
+        document.title = "Passpro | Manage Events"
+
         handleFetchEvents();
     }, []);
+
+
+    useEffect(function() {
+        !input && setSearched(null)
+    }, [input])
 
     return (
         <>  
@@ -85,14 +100,14 @@ function index() {
             </div>
 
             <TableUI 
-                data={data}
+                data={searched ? searched : data}
                 columns={columns}
                 loader={loader}
                 EmptyComponent={
                     error ? 
                     <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
                     :
-                    <Empty text={`No ${tab == "all" ? "" : tab} events yet`} icon={<BsCalendarEvent />} />
+                    <Empty text={`No ${searched ? "search result for: " + searchTerm : tab == "all" ? "" : tab + " events yet"}`} icon={<BsCalendarEvent />} />
                 }
             />
         </>

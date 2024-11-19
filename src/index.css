@@ -340,6 +340,7 @@ input::-webkit-inner-spin-button {
 	border-radius: 0;
 	border-top-left-radius: .4rem;
 	border-bottom-left-radius: .4rem;
+	min-width: 18rem;
 }
 .table--search-box button {
 	background-color: var(--primary-1);
@@ -398,11 +399,12 @@ a.table--view-btn {
 	.table--top {
 		flex-direction: column;
 		justify-content: flex-start;
-		align-items: flex-start;
+		align-items: flex-start !important;
 		gap: 1rem;
 		margin-bottom: -.5rem;
 	}
 
+	.page__section--top,
 	.table--search-box {
 		width: 100%;
 	}

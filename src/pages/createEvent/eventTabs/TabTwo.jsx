@@ -32,6 +32,7 @@ function TabTwo({ setImages, images }) {
                             <strong>.png, .jpg, .jpeg</strong> Image will be resized into <strong>1300x520</strong> px
                         </span>
                     </label>
+                    
                     <ImageUpload name="cover_photo" preview={images?.cover_photo?.preview} handleChange={handleImageChange} handleRemove={()=>handleImageRemove("cover_photo")} />
                 </div>
 

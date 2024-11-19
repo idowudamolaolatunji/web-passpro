@@ -1062,6 +1062,10 @@ span.item--user-img {
     }
     
 
+    .sold--figure {
+        background-color: var(--primary-1);
+    }
+    
 }
 
 
@@ -1110,10 +1114,12 @@ span.item--user-img {
 
 @media screen and (max-width: 450px) {
     .insight--grid {
-        gap: 2rem;
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
     }
     .page__section--crumbs {
-        width: 80%;
+        /* width: 80%; */
+        width: 100%;
     }
     .organization--card .card--left,
     .organization--card .card--right {
@@ -1139,14 +1145,23 @@ span.item--user-img {
 @media screen and (max-width: 420px) {
 
     .organization--card {
-        flex-direction: column;
+        flex-wrap: nowrap;
         gap: 2rem;
-        align-items: flex-start;
         margin-bottom: -1rem;
+        background-color: var(--primary-1);
+        color: #fff;
     }
 
-    .organization--card button {
+    .organization--card a ,
+    .organization--card a:hover {
         align-self: center;
+        box-shadow: inset 0 0 0 .14rem #fff;
+        color: inherit
+    }
+    .organization--card .item--user-img {
+        background-color: #fff;
+        color: var(--primary-1);
+        font-weight: 600 !important;
     }
 
     .add-file .form--input {
@@ -1179,11 +1194,4 @@ span.item--user-img {
         gap: 1rem;
     }
     
-}
-
-
-@media screen and (max-width: 370px) {
-    .insight--grid {
-        grid-template-columns: 1fr;
-    }
 }

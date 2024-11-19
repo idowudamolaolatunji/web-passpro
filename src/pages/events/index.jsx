@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import PageTop from '../../components/PageTop'
-import DataTable from 'react-data-table-component'
 import { useFetchedContext } from '../../context/FetchedContext'
 import Empty from '../../components/Empty';
 import { BsCalendarEvent } from 'react-icons/bs';

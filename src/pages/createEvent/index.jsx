@@ -44,7 +44,7 @@ function index() {
         // end_date_time: "",
         // tickets: [],
 
-            event_name: "Tech Conference 2024",
+        event_name: "Tech Conference 2024",
         event_description: "A conference for tech enthusiasts, developers, and entrepreneurs to network and learn about the latest trends in technology.",
         status: "Pending",
         event_type: "physical",
@@ -54,19 +54,19 @@ function index() {
         end_date: "2024-12-01",
         end_date_time: "18:00",
         tickets: [
-    {
-        ticket_category: "Single Ticket",
-        ticket_type: "paid",
-        ticket_name: "General Admission",
-        ticket_description: "General access to all sessions and workshops.",
-        ticket_stock: "Limited Stock",
-        ticket_quantity: 500,
-        ticket_price: 99.99,
-        ticket_purchase_limit: 5,
-        transfers_fees_to_guest: false,
-        group_size: null
-    },
-    ]
+            {
+                ticket_category: "Single Ticket",
+                ticket_type: "paid",
+                ticket_name: "General Admission",
+                ticket_description: "General access to all sessions and workshops.",
+                ticket_stock: "Limited Stock",
+                ticket_quantity: 500,
+                ticket_price: 99.99,
+                ticket_purchase_limit: 5,
+                transfers_fees_to_guest: false,
+                group_size: null
+            },
+        ]
     });
 
     const handleShowTicketModal = function () {
@@ -122,6 +122,8 @@ function index() {
     async function handleSubmit() {
         setLoading(true);
 
+        console.log(images.cover_photo.file, images.event_image.file)
+
         const formData = new FormData();
         formData.append('event_name', eventData.event_name);
         formData.append('category_id', eventData.category_id);
@@ -136,7 +138,6 @@ function index() {
 
         formData.append('cover_photo', images.cover_photo.file);
         formData.append('event_image', images.event_image.file);
-
 
 
         try {

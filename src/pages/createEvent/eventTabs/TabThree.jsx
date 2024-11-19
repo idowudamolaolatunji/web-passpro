@@ -25,7 +25,7 @@ const customStyles = {
     },
     rows: {
         style: {
-            minHeight: "6rem",
+            minHeight: "8rem",
             cursor: 'pointer',
             fontSize: "1.32rem",
             fontWeight: 500,

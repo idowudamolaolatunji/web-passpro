@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatNumber, truncateString } from '../../../utils/helper'
+import { formatNumber, truncateString } from '../utils/helper'
 
 function PreviewTicket({ data }) {
     return (

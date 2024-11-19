@@ -9,9 +9,11 @@ import { formatDateTime } from '../../utils/helper';
 import TableUI from '../../components/TableUI';
 import TableSearch from '../../components/TableSearch';
 import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 
 function index() {
+    const navigate = useNavigate()
     const { width } = useWindowSize();
     const { events, loader, setLoader, error, handleFetchEvents } = useFetchedContext();
     const [tab, setTab] = useState("all");
@@ -48,7 +50,7 @@ function index() {
             selector: row => (
                 <div className='event-table-actions'>
                     <button>{row?.featured ? "featured" : "unfeatured"}</button>
-                    <button>details</button>
+                    <button onClick={() => navigate(`/dashboard/events/manage/${row?.id}`)}>details</button>
                     <button>ticket</button>
                 </div>
             ),

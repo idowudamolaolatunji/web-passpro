@@ -483,6 +483,7 @@ span.item--user-img {
 .preview__container {
     display: flex;
     flex-direction: column;
+    background-color: #fff;
 }
 .preview--top {
     height: 26rem;
@@ -548,7 +549,7 @@ span.item--user-img {
 }
 .preview--figure-heading p {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     line-height: 1;
     gap: 0.6rem;
     font-size: 1.5rem;

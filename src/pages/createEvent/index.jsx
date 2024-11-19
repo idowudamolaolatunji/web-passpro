@@ -7,7 +7,7 @@ import TabTwo from './eventTabs/TabTwo';
 import TabThree from './eventTabs/TabThree';
 import Modal from '../../components/Modal';
 import TicketForm from './eventTabs/TicketForm';
-import TabPreview from './eventTabs/TabPreview';
+import EventPreview from '../../components/EventPreview';
 import CustomAlert from '../../components/CustomAlert';
 import { useAuthContext } from '../../context/AuthContext';
 import { validateEventForm } from '../../utils/helper';
@@ -176,7 +176,7 @@ function index() {
 
                 {step == 3 && <TabThree eventData={eventData} handleDelete={handleRemoveTicket} handleShowModal={handleShowTicketModal} />}
 
-                {step == 4 && <TabPreview eventData={eventData} images={images} />}
+                {step == 4 && <EventPreview eventData={eventData} cover_photo={images?.cover_photo?.preview} event_image={images?.event_image?.preview} />}
 
                 <div className="form--actions">
                     {step > 1 && (

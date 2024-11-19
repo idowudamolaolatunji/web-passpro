@@ -361,11 +361,17 @@ a.table--view-btn {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 1.2rem .8rem;
+	padding: 1.6rem 1rem;
 	font-size: 1.6rem;
 	font-weight: 500;
 }
-
+.dashboard--table-head {
+	background-color: #fff;
+	width: 100%;
+	overflow: hidden;
+	overflow-x: auto;
+	border-radius: .4rem;
+}
 
 
 

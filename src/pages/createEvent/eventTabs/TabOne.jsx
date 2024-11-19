@@ -3,6 +3,7 @@ import MainDropdownSelect from '../../../components/MainDropdownSelect'
 import Asterisk from '../../../components/Asterisk';
 import { useFetchedContext } from '../../../context/FetchedContext';
 import { useWindowSize } from 'react-use';
+import moment from 'moment';
 
 function TabOne({ eventData, setEventData }) {
     const { width } = useWindowSize();
@@ -12,7 +13,6 @@ function TabOne({ eventData, setEventData }) {
         const { value, name } = e?.target;
         setEventData({ ...eventData, [name]: value });
     }
-
 
     return (
         <>

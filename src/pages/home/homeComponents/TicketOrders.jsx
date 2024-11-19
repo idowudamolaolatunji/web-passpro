@@ -9,6 +9,7 @@ import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 
 function TicketOrders() {
     const { loader, ticketOrders, error, handleFetchTicketOrders } = useFetchedContext();
+    const data = ticketOrders?.slice(0, 4);
 
     const columns = [
         {
@@ -34,14 +35,14 @@ function TicketOrders() {
     }, []);
 
     return (
-        <div style={{ backgroundColor: "#fff", width: "100%", overflowX: "auto" }}>
+        <div className='dashboard--table-head'>
             <div className='table--head-flex'>
                 <p>Ticket Orders</p>
                 <Link className='table--view-btn' to="">View More</Link>
             </div>
 
             <TableUI
-                data={ticketOrders}
+                data={data}
                 columns={columns}
                 loader={loader}
                 EmptyComponent={

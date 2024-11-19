@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import NumberInputField from '../../../components/NumberInputField';
 import Tab from '../../../components/Tab';
 import { FaCheck } from 'react-icons/fa';
-import MainDropdownSelect from '../../../components/MainDropdownSelect';
 import Asterisk from '../../../components/Asterisk';
 import { validateTicketForm } from '../../../utils/helper';
 
@@ -38,8 +37,8 @@ function TicketForm({ setEventData, handleClose, setResponse }) {
     }
     
     const handleAddTicket = function(e) {
-
         const error = validateTicketForm(ticket);
+        console.log(error)
         if(Object.keys(error).length >= 1) {
             setResponse({ status: "error", message: "Fill required fields to proceed!" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
@@ -99,10 +98,13 @@ function TicketForm({ setEventData, handleClose, setResponse }) {
                                 <option value="Unlimited Stock">Unlimited Stock</option>
                             </select>
                         </div>
-                        <div className="form--item">
-                            <label htmlFor="" className="form--label">Quantity <Asterisk /> </label>
-                            <NumberInputField name="ticket_quantity" placeholder="Enter quantity" onChange={handleSetFormData}/>
-                        </div>
+
+                        {ticket?.ticket_stock == "Limited Stock" && (
+                            <div className="form--item">
+                                <label htmlFor="" className="form--label">Quantity <Asterisk /> </label>
+                                <NumberInputField name="ticket_quantity" placeholder="Enter quantity" onChange={handleSetFormData}/>
+                            </div>
+                        )}
                     </div>
 
                     {ticket?.ticket_type == "paid" && (
@@ -124,10 +126,10 @@ function TicketForm({ setEventData, handleClose, setResponse }) {
                         </select>
                     </div>
 
-                    {ticket?.ticket_category == "Group Size" && (
+                    {ticket?.ticket_category == "Group Ticket" && (
                         <div className="form--item">
                             <label htmlFor="" className="form--label">Group Size <Asterisk /></label>
-                            <select name="ticket_purchagroup_sizese_limit" className='form--select' id="" value={ticket?.group_size} onChange={handleSetFormData}>
+                            <select name="group_size" className='form--select' id="" value={ticket?.group_size} onChange={handleSetFormData}>
                                 <option hidden selected>Select a group size</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

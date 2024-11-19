@@ -6,7 +6,7 @@ import { SlPicture } from 'react-icons/sl'
 function ImageUpload({ name, preview, handleChange, height, handleRemove }) {
     return (
         <span className={`form--img-box ${preview ? "img--preview" : ""}`} style={height}>
-            <input type='file' id={name} name={name} accept="image/*" onChange={handleChange} />
+            <input type='file' id={name} name={name} accept="image/jpeg, image/png, image/jpg, image/svg" onChange={handleChange} />
             <label htmlFor={name}>
                 {preview ? (
                     <img src={preview} alt='Preview' className='img' style={height} />

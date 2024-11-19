@@ -156,7 +156,6 @@ span.item--user-img {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    max-width: 90vw;
 }
 
 
@@ -216,7 +215,8 @@ span.item--user-img {
 .sold--figure {
     padding: 3rem 2rem;
     color: #fff;
-    background-color: var(--primary-2);
+    /* background-color: var(--primary-2); */
+    background-color: var(--primary-1);
     border-radius: .6rem;
 
     display: flex;
@@ -1019,6 +1019,22 @@ span.item--user-img {
 
 
 @media screen and (max-width: 900px) {
+    .organization--card {
+        background-color: var(--primary-1);
+        color: #fff;
+    }
+    .organization--card a ,
+    .organization--card a:hover {
+        align-self: center;
+        box-shadow: inset 0 0 0 .14rem #fff;
+        color: inherit
+    }
+    .organization--card .item--user-img {
+        background-color: #fff;
+        color: var(--primary-1);
+        font-weight: 600 !important;
+    }
+
     .add-file {
         grid-template-columns: 1fr;
     }
@@ -1060,16 +1076,14 @@ span.item--user-img {
     .preview--img {
         left: 10rem;
     }
-    
 
-    .sold--figure {
-        background-color: var(--primary-1);
-    }
-    
 }
 
 
 @media screen and (max-width: 650px) {
+    .dashboard--grid .grid--left {
+        max-width: 90vw;
+    }
     .insight--grid {
         grid-template-columns: 1fr 1fr;
         
@@ -1148,20 +1162,6 @@ span.item--user-img {
         flex-wrap: nowrap;
         gap: 2rem;
         margin-bottom: -1rem;
-        background-color: var(--primary-1);
-        color: #fff;
-    }
-
-    .organization--card a ,
-    .organization--card a:hover {
-        align-self: center;
-        box-shadow: inset 0 0 0 .14rem #fff;
-        color: inherit
-    }
-    .organization--card .item--user-img {
-        background-color: #fff;
-        color: var(--primary-1);
-        font-weight: 600 !important;
     }
 
     .add-file .form--input {

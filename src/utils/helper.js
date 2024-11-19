@@ -59,7 +59,7 @@ export function validateTicketForm(data) {
 	if (!data?.ticket_stock?.trim()) {
 		errors.ticket_stock = "No stock type is selected";
 	}
-	if (!data?.ticket_quantity?.trim()) {
+	if (data?.ticket_stock == "Limited Stock" && !data?.ticket_quantity?.trim()) {
 		errors.ticket_quantity = "Ticket quantity is required";
 	}
 	if (data?.ticket_type == "paid" && !data?.ticket_price?.trim()) {

@@ -9,8 +9,7 @@ import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 
 function RecentEvents() {
     const { events, loader, error, handleFetchEvents } = useFetchedContext();
-
-    console.log(error)
+    const data = events?.slice(0, 4);
 
     const columns = [
         {
@@ -40,14 +39,14 @@ function RecentEvents() {
     }, []);
 
     return (
-        <div style={{ backgroundColor: "#fff", overflowX: "auto" }}>
+        <div className='dashboard--table-head'>
             <div className='table--head-flex'>
                 <p>Recent Events</p>
                 <Link className='table--view-btn' to="/dashboard/events/manage">View More</Link>
             </div>
 
             <TableUI
-                data={events}
+                data={data}
                 columns={columns}
                 loader={loader}
                 EmptyComponent={

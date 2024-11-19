@@ -14,17 +14,23 @@ import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/Spinner';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { useAuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 function DashboardHead() {
     const { width } = useWindowSize();
     const { headers } = useAuthContext();
     const { handleToggleMenu } = useDataContext();
-    const [showSearchBar, setShowSearchBar] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [searchQuery, setSearchQuery] = useState([])
-
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState({ status: "", message: "" });
+
+    ////////////////////////////////////////////////////////////
+    const [showSearchBar, setShowSearchBar] = useState(false);
+    const [searchQuery, setSearchQuery] = useState([]);
+    const [searchResults, setSearchResults] = useState(null);
+    const [showSearchModal, setShowSearchModal] = useState(false);
+    const [searchLoader, setSearchLoader] = useState(false);
+    ////////////////////////////////////////////////////////////
 
     const ref = useOutsideClick(handleClose);
 
@@ -34,27 +40,26 @@ function DashboardHead() {
 
     useEffect(function () {
 		const handleFetchSearchQuery = setTimeout(async function () {
+            if (searchQuery.trim() === '' || !setSearchQuery) {
+                setSearchResults(null);
+                setShowSearchModal(false)
+                return;
+            }
+            
 			try {
-				// if (searchQuery.trim() === '' || !setSearchQuery) {
-				// 	setShowSearchModal(false)
-				// 	setResults({});
-				// 	return;
-				// }
-
-				// setLoading(true);
-				// setShowSearchModal(true);
+				setLoading(true);
+				setShowSearchModal(true);
 
 				const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/search?query=${searchQuery}`, { method: 'GET', headers });
-
 
 				const data = await res.json();
 				console.log(data);
 
 			} catch (err) {
-				// if (err.name !== "AbortError") {
-				// 	setMessage(err.message)
-				// 	setShowSearchModal(false)
-				// }
+				if (err?.name !== "AbortError") {
+					setResponse({ status: "error", message: err?.message })
+					setShowSearchModal(false)
+				}
 			} finally {
 				setLoading(false);
 			}
@@ -78,9 +83,9 @@ function DashboardHead() {
                             <RxHamburgerMenu />
                         </span>
 
-                        <div className="header--logo">
+                        <Link to="/" className="header--logo">
                             <img src={logo} alt='Logo image' />
-                        </div>
+                        </Link>
                     </div>
                 )}
 

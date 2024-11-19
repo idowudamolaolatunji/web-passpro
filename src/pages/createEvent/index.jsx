@@ -13,12 +13,14 @@ import { useAuthContext } from '../../context/AuthContext';
 import { validateEventForm } from '../../utils/helper';
 import Spinner from '../../components/Spinner';
 import { useWindowSize } from 'react-use';
+import { useNavigate } from 'react-router-dom';
 
 
 function index() {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
     const { token } = useAuthContext();
     const { width } = useWindowSize();
+    const navigate = useNavigate();
 
     const [step, setStep] = useState(1);
     const [showTicketModal, setShowTicketModal] = useState(false);
@@ -32,41 +34,17 @@ function index() {
     });
 
     const [eventData, setEventData] = useState({
-        category_id: "1",
-        // event_name: "",
-        // event_description: "",
-        // featured: false,
-        // event_type: "",
-        // event_location: "",
-        // start_date: "",
-        // start_date_time: "",
-        // end_date: "",
-        // end_date_time: "",
-        // tickets: [],
-
-        event_name: "Tech Conference 2024",
-        event_description: "A conference for tech enthusiasts, developers, and entrepreneurs to network and learn about the latest trends in technology.",
-        status: "Pending",
-        event_type: "physical",
-        event_location: "Tech Arena, Downtown City",
-        start_date: "2024-12-01",
-        start_date_time: "09:00",
-        end_date: "2024-12-01",
-        end_date_time: "18:00",
-        tickets: [
-            {
-                ticket_category: "Single Ticket",
-                ticket_type: "paid",
-                ticket_name: "General Admission",
-                ticket_description: "General access to all sessions and workshops.",
-                ticket_stock: "Limited Stock",
-                ticket_quantity: 500,
-                ticket_price: 99.99,
-                ticket_purchase_limit: 5,
-                transfers_fees_to_guest: false,
-                group_size: null
-            },
-        ]
+        category_id: "",
+        event_name: "",
+        event_description: "",
+        featured: false,
+        event_type: "",
+        event_location: "",
+        start_date: "",
+        start_date_time: "",
+        end_date: "",
+        end_date_time: "",
+        tickets: [],
     });
 
     const handleShowTicketModal = function () {
@@ -122,7 +100,7 @@ function index() {
     async function handleSubmit() {
         setLoading(true);
 
-        console.log(images.cover_photo.file, images.event_image.file)
+        console.log(eventData)
 
         const formData = new FormData();
         formData.append('event_name', eventData.event_name);
@@ -131,14 +109,15 @@ function index() {
         formData.append('event_type', eventData.event_type);
         formData.append('event_location', eventData.event_location);
         formData.append('start_date', eventData.start_date);
-        formData.append('start_date_time', eventData.start_date_time + ":00");
+        formData.append('start_date_time', eventData.start_date_time);
         formData.append('end_date', eventData.end_date);
-        formData.append('end_date_time', eventData.end_date_time + ":00");
-        formData.append('tickets', eventData.tickets);
+        formData.append('end_date_time', eventData.end_date_time);
+        formData.append('tickets', JSON.stringify(eventData.tickets));
 
         formData.append('cover_photo', images.cover_photo.file);
         formData.append('event_image', images.event_image.file);
 
+        setResponse({ status: "", message: "" });
 
         try {
             const res = await fetch(`${BASE_URL}/events`, {
@@ -151,7 +130,12 @@ function index() {
             });
 
             const data = await res.json();
-            console.log(res, data)
+            if(!data?.success) {
+                throw new Error(data?.message || data?.error)
+            }
+
+            setResponse({ status: "success", message: data?.success });
+            setTimeout(() => navigate("/dashboard/events/manage"), 2000);
         } catch (err) {
             setResponse({ status: "error", message: err?.message })
         } finally {

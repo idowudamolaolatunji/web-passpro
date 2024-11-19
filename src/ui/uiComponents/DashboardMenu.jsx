@@ -10,6 +10,7 @@ import { event_sub, support_sub, withdrawal_sub } from "../../utils/data";
 import Spinner from '../../components/Spinner';
 import CustomAlert from '../../components/CustomAlert';
 import { useAuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 
 function DashboardMenu() {
@@ -37,9 +38,9 @@ function DashboardMenu() {
 
 
             <div className="dashboard--menu">
-                <div className="header--logo" style={{ width: "14.8rem"}}>
+                <Link to="/" className="header--logo" style={{ width: "14.8rem"}}>
                     <img src={logo} alt='Logo image' />
-                </div>
+                </Link>
 
                 <ul className='menu--list'>
                     <MenuItem icon={home} text="Dashboard" link="/" />
@@ -58,13 +59,14 @@ function DashboardMenu() {
                 <>
                     <Overlay handleClose={handleToggleMenu} />
                     <div className={`dashboard--sidemenu ${closeAnimate ? 'animate-out' : ''}`}>
-                        <div className="header--logo" style={{ width: "14.8rem"}}>
+                        <Link to="/" className="header--logo" style={{ width: "14.8rem"}}>
                             <img src={logo} alt='Logo image' />
-                        </div>
+                        </Link>
 
                         <div className="sidemenu--hamburger" onClick={handleToggleMenu}>
                             <IoCloseSharp />
                         </div>
+                        
                         <ul className='menu--list'>
                             <MenuItem icon={home} text="Dashboard" link="/" />
                             <MenuItem icon={calender} text="Events" link="/events" arrow isBtn sub={event_sub} />

@@ -20,8 +20,7 @@ function index() {
     const [searched, setSearched] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
 
-    const filteredEvents = events?.filter(event => event?.status == (tab));
-    let data = tab == "all" ? events : filteredEvents;
+    const data = tab == "all" ? events : events?.filter(event => event?.status == (tab));
 
     const columns = [
         {
@@ -69,7 +68,7 @@ function index() {
 
         setTimeout(() => {
             setLoader(false)
-        }, 1000);
+        }, 2000);
     }
 
 
@@ -91,9 +90,9 @@ function index() {
             <div className="table--top">
                 <div className="page__tabs">
                     <Tab title={`All ${width > 400 ? "Events" : ""}`} active={tab == "all"} onClick={() => setTab("all")} />
-                    <Tab title="Pending" active={tab == "pending"} onClick={() => setTab("pending")} />
-                    <Tab title="Approved" active={tab == "approved"} onClick={() => setTab("approved")} />
-                    <Tab title="Rejected" active={tab == "rejected"} onClick={() => setTab("rejected")} />
+                    <Tab title="Pending" active={tab == "Pending"} onClick={() => setTab("Pending")} />
+                    <Tab title="Approved" active={tab == "Approved"} onClick={() => setTab("Approved")} />
+                    <Tab title="Rejected" active={tab == "Rejected"} onClick={() => setTab("Rejected")} />
                 </div>
 
                 <TableSearch title="Events" value={input} setValue={setInput} action={handleSearch} />
@@ -107,7 +106,7 @@ function index() {
                     error ? 
                     <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
                     :
-                    <Empty text={`No ${searched ? "search result for: " + searchTerm : tab == "all" ? "" : tab + " events yet"}`} icon={<BsCalendarEvent />} />
+                    <Empty text={`No ${searched ? "search result for: " + searchTerm : tab == "all" ? "" : tab + " events"}`} icon={<BsCalendarEvent />} />
                 }
             />
         </>

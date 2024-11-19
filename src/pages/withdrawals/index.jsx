@@ -72,7 +72,7 @@ function index() {
 
         setTimeout(() => {
             setLoader(false)
-        }, 1000);
+        }, 2000);
     }
 
     useEffect(function() {

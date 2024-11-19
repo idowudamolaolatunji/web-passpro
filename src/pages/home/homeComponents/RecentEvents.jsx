@@ -40,7 +40,7 @@ function RecentEvents() {
     }, []);
 
     return (
-        <div style={{ backgroundColor: "#fff", width: "100%", overflowX: "auto" }}>
+        <div style={{ backgroundColor: "#fff", overflowX: "auto" }}>
             <div className='table--head-flex'>
                 <p>Recent Events</p>
                 <Link className='table--view-btn' to="/dashboard/events/manage">View More</Link>

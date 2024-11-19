@@ -156,6 +156,7 @@ span.item--user-img {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    max-width: 90vw;
 }
 
 
@@ -167,13 +168,12 @@ span.item--user-img {
 
 .insight--figure {
     background-color: #fff;
-    padding: 1rem 1.4rem;
+    padding: 1rem 1.4rem 1.4rem;
     border-radius: .6rem;
-    min-height: 10rem;
 
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 .insight--title {
     font-size: 1.4rem;
@@ -1068,8 +1068,8 @@ span.item--user-img {
 @media screen and (max-width: 650px) {
     .insight--grid {
         grid-template-columns: 1fr 1fr;
+        
     }
-
     .insight--figure .figure--detaills {
         gap: 2rem;
         justify-content: flex-start;
@@ -1110,7 +1110,6 @@ span.item--user-img {
 
 @media screen and (max-width: 450px) {
     .insight--grid {
-        grid-template-columns: 1fr;
         gap: 2rem;
     }
     .page__section--crumbs {
@@ -1180,4 +1179,11 @@ span.item--user-img {
         gap: 1rem;
     }
     
+}
+
+
+@media screen and (max-width: 370px) {
+    .insight--grid {
+        grid-template-columns: 1fr;
+    }
 }

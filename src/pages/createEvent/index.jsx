@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PageTop from '../../components/PageTop'
 import StepsTab from '../../components/StepsTab'
-import MainDropdownSelect from '../../components/MainDropdownSelect';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import TabOne from './eventTabs/TabOne';
 import TabTwo from './eventTabs/TabTwo';
@@ -10,11 +9,13 @@ import Modal from '../../components/Modal';
 import TicketForm from './eventTabs/TicketForm';
 import TabPreview from './eventTabs/TabPreview';
 import CustomAlert from '../../components/CustomAlert';
-import { useFetchedContext } from '../../context/FetchedContext';
 import { useAuthContext } from '../../context/AuthContext';
 import { validateEventForm } from '../../utils/helper';
 import Spinner from '../../components/Spinner';
 import { useWindowSize } from 'react-use';
+
+import { fromByteArray } from 'base64-js';
+
 
 function index() {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
@@ -28,8 +29,8 @@ function index() {
     const [loading, setLoading] = useState(false);
 
     const [images, setImages] = useState({
-        event_image: { file: "", preview: "" },
-        cover_photo: { file: "", preview: "" }
+        event_image: { file: null, preview: null },
+        cover_photo: { file: null, preview: null }
     });
 
     const [eventData, setEventData] = useState({
@@ -115,6 +116,14 @@ function index() {
         setShowTicketModal(false)
     }
 
+
+    function base64ToBlob(base64String, mimeType) {
+        const byteArray = fromByteArray(base64String);
+        return new Blob([byteArray], { type: mimeType });
+    }
+      
+
+
     useEffect(function () {
         window.scrollTo(0, 0);
     }, [step]);
@@ -136,6 +145,8 @@ function index() {
 
         formData.append('cover_photo', images.cover_photo.file);
         formData.append('event_image', images.event_image.file);
+
+
 
         try {
             const res = await fetch(`${BASE_URL}/events`, {

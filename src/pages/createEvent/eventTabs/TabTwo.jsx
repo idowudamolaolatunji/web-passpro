@@ -16,7 +16,7 @@ function TabTwo({ setImages, images }) {
 
 
     const handleImageRemove = function(name) {
-        setImages({ ...images, [name]: { file: "", preview: ""} })
+        setImages({ ...images, [name]: { file: null, preview: null} })
     }
 
 

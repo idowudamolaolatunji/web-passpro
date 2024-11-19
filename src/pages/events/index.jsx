@@ -6,11 +6,10 @@ import Empty from '../../components/Empty';
 import { BsCalendarEvent } from 'react-icons/bs';
 import Tab from '../../components/Tab';
 import { useWindowSize } from 'react-use';
-import Spinner from '../../components/Spinner';
-import SpinnerMini from '../../components/SpinnerMini';
 import { formatDateTime } from '../../utils/helper';
 import TableUI from '../../components/TableUI';
 import TableSearch from '../../components/TableSearch';
+import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 
 
 function index() {
@@ -89,7 +88,12 @@ function index() {
                 data={data}
                 columns={columns}
                 loader={loader}
-                EmptyComponent={<Empty text={`No ${tab == "all" ? "" : tab} events yet`} icon={<BsCalendarEvent />} />}
+                EmptyComponent={
+                    error ? 
+                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    :
+                    <Empty text={`No ${tab == "all" ? "" : tab} events yet`} icon={<BsCalendarEvent />} />
+                }
             />
         </>
     )

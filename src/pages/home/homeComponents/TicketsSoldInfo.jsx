@@ -4,9 +4,10 @@ import img from '../../../assets/png/ion_ticket.png'
 import { Link } from 'react-router-dom';
 
 function TicketsSoldInfo() {
-    const insightPercent = 10;
+    const insightPercent = 0;
+    const value = 0
 
-    const rangePercent = (450000 / 1000000) * 100;
+    const rangePercent = (value / 1000000) * 100;
 
   return (
     <div className='sold--figure'>
@@ -22,7 +23,7 @@ function TicketsSoldInfo() {
 
         <div className="sold--info">
             <img src={img} alt="" />
-            <p><span>450,000</span>ps</p>
+            <p><span>{value}</span>ps</p>
         </div>
 
         <div className="sold--range">

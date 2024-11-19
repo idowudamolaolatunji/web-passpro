@@ -127,6 +127,7 @@ span.item--user-img {
 
 .content--box {
     grid-template-columns: 1fr;
+    width: 100%;
 }
 
 .content--box,
@@ -134,6 +135,7 @@ span.item--user-img {
 .dashboard--grid-1 {
     display: grid;
     gap: 2rem;
+    width: 100%;
 }
 
 .dashboard--grid {
@@ -203,6 +205,7 @@ span.item--user-img {
     font-size: 2.8rem;
     font-weight: 600;
     color: var(--ascent-1);
+    font-family: "Montserrat" sans-serif;
 }
 .insight--value span {
     font-size: 1.8rem;

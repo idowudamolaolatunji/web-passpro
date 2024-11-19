@@ -7,6 +7,7 @@ import { useFetchedContext } from '../../context/FetchedContext';
 import DetailsModal from "./DetailsModal"
 import TableSearch from '../../components/TableSearch';
 import { formatDateTime, formatNumber } from '../../utils/helper';
+import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 
 function index() {
     const { withdrawalsHistory, error, loader, setLoader, handleFetchWithdrawalsHistory } = useFetchedContext();
@@ -89,7 +90,12 @@ function index() {
                 data={withdrawalsHistory}
                 columns={columns}
                 loader={loader}
-                EmptyComponent={<Empty text="No Withdrawal Hsitory Yet" icon={<BiMoneyWithdraw />} />}
+                EmptyComponent={
+                    error ? 
+                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    :
+                    <Empty text="No Withdrawal Hsitory Yet" icon={<BiMoneyWithdraw />} />
+                }
             />
 
         </>

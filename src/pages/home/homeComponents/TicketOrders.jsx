@@ -2,63 +2,57 @@ import React, { useEffect } from 'react'
 import { useFetchedContext } from '../../../context/FetchedContext';
 import TableUI from '../../../components/TableUI';
 import Empty from '../../../components/Empty';
-import { BsCalendarEvent } from 'react-icons/bs';
 import { formatDateTime } from '../../../utils/helper';
 import { Link } from 'react-router-dom';
+import { IoTicketOutline } from 'react-icons/io5';
 import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 
-function RecentEvents() {
-    const { events, loader, error, handleFetchEvents } = useFetchedContext();
-
-    console.log(error)
+function TicketOrders() {
+    const { loader, ticketOrders, error, handleFetchTicketOrders } = useFetchedContext();
 
     const columns = [
         {
-            name: "Event Title",
-            selector: row => row?.event_name
+            name: "",
+            selector: row => {}
         },
         {
-            name: "Event location",
-            selector: row => row?.event_location,
+            name: "",
+            selector: row => {},
         },
         {
-            name: "Featured",
-            selector: row => (
-                <span className={`featured featured--${row?.featured ? "yes" : "no"}`}>
-                    <p>{row?.featured ? "yes" : "no"}</p>
-                </span>
-            )
+            name: "",
+            selector: row => {}
         },
         {
-            name: "Event Date",
-            selector: row => formatDateTime(row?.start_date, row?.start_date_time)
+            name: "",
+            selector: row => {}
         },
     ];
 
     useEffect(function() {
-        handleFetchEvents();
+        handleFetchTicketOrders();
     }, []);
 
     return (
         <div style={{ backgroundColor: "#fff", width: "100%", overflowX: "auto" }}>
             <div className='table--head-flex'>
-                <p>Recent Events</p>
-                <Link className='table--view-btn' to="/dashboard/events/manage">View More</Link>
+                <p>Ticket Orders</p>
+                <Link className='table--view-btn' to="">View More</Link>
             </div>
 
             <TableUI
-                data={events}
+                data={ticketOrders}
                 columns={columns}
                 loader={loader}
                 EmptyComponent={
                     error ? 
                     <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
                     :
-                    <Empty text={`No events yet`} icon={<BsCalendarEvent />} />
+                    <Empty text={`No ticket orders yet`} icon={<IoTicketOutline />} />
                 }
             />
         </div>
     )
 }
 
-export default RecentEvents
+export default TicketOrders

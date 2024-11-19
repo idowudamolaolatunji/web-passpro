@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PageTop from '../../components/PageTop'
 import Empty from '../../components/Empty';
-import { MdOutlineContactSupport } from 'react-icons/md';
+import { MdOutlineContactSupport, MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 import TableUI from '../../components/TableUI';
 import { useFetchedContext } from '../../context/FetchedContext';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -70,7 +70,12 @@ function index() {
             <TableUI
                 data={supportTickets}
                 columns={columns}
-                EmptyComponent={<Empty text="No Ticket Yet" icon={<MdOutlineContactSupport />} />}
+                EmptyComponent={
+                    error ? 
+                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    :
+                    <Empty text="No Ticket Yet" icon={<MdOutlineContactSupport />} />
+                }
                 loader={loader}
             />
         </>

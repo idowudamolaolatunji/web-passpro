@@ -19,6 +19,7 @@ export const FetchedProvider = ({ children }) => {
     const { headers } = useAuthContext();
 
     const [categories, setCategories] = useState([]);
+    const [ticketOrders, setTicketOrders] = useState([]);
     const [events, setEvents] = useState([]);
     const [withdrawalsHistory, setWithdrawalsHistory] = useState([]);
     const [supportTickets, setSupportTickets] = useState([]);
@@ -35,6 +36,22 @@ export const FetchedProvider = ({ children }) => {
         setCategories(data?.data);
     }
 
+
+    async function handleFetchTicketOrders() {
+        setError(false);
+        setLoader(true);
+        setTicketOrders([]);
+        try {
+            const res = await fetch(`${BASE_URL}/orders`, { method: "GET", headers });
+            const data = await res.json();
+            console.log(data)
+            setTicketOrders(data?.data)
+        } catch(err) {
+            setError(true);
+        } finally {
+            setLoader(false);
+        }
+    }
 
     async function handleFetchEvents() {
         setError(false);
@@ -96,6 +113,7 @@ export const FetchedProvider = ({ children }) => {
         setError,
 
         events,
+        ticketOrders,
         withdrawalsHistory,
         supportTickets,
 
@@ -105,6 +123,7 @@ export const FetchedProvider = ({ children }) => {
         ///////////////////////
         handleFetchEvents,
         handleFetchSupportData,
+        handleFetchTicketOrders,
         handleFetchWithdrawalsHistory,
     }
 

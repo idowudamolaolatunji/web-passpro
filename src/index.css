@@ -142,6 +142,17 @@ input::-webkit-inner-spin-button {
 	z-index: 100;
 	animation: zoom-in 1s ease-in-out;
 }
+.search-bar {
+	padding: 2.4rem;
+	background-color: #fff;
+	min-width: 50rem;
+	min-height: 10rem;
+	position: fixed;
+	top: 8rem;
+	left: 28rem;
+	box-shadow: 0 0 2px #00000040, 0 0 10px #0000000d;
+	z-index: 100;
+}
 .modal.modal-add {
 	min-width: 90rem;
 }
@@ -389,15 +400,21 @@ a.table--view-btn {
 	.modal-add .form--clicks {
 		max-width: 40rem;
 	}
+	.search-bar {
+		left: 24rem;
+		min-width: unset;
+		max-width: 40rem;
+		width: 40rem;
+	}
+	
 }
 
 
-@media screen and (max-width: 700px) {
-
-	/* .table--container {
-		width: 20rem;
-	} */
-
+@media screen and (max-width: 750px) {
+	.search-bar {
+		left: 15%;
+		top: 7rem;
+	}
 }
 
 
@@ -414,12 +431,21 @@ a.table--view-btn {
 	.table--search-box {
 		width: 100%;
 	}
-
+	
 	textarea {
 		min-height: 16rem;
 	}
 }
 
+@media screen and (max-width: 600px) {
+	.search-bar {
+		left: 0;
+		width: 100%;
+		max-width: 100%;
+		max-height: 40rem;
+		overflow-y: auto;
+	}
+}
 
 @media screen and (max-width: 550px) {
 	.modal.mini {

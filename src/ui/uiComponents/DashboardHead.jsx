@@ -15,6 +15,7 @@ import Spinner from '../../components/Spinner';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { useAuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
+import SearchModal from '../../components/SearchModal';
 
 function DashboardHead() {
     const { width } = useWindowSize();
@@ -26,16 +27,18 @@ function DashboardHead() {
 
     ////////////////////////////////////////////////////////////
     const [showSearchBar, setShowSearchBar] = useState(false);
-    const [searchQuery, setSearchQuery] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState(null);
     const [showSearchModal, setShowSearchModal] = useState(false);
     const [searchLoader, setSearchLoader] = useState(false);
+    const [searchMessage, setSearchMessage] = useState(false);
     ////////////////////////////////////////////////////////////
 
     const ref = useOutsideClick(handleClose);
 
     function handleClose() {
         setShowSearchBar(false);
+        setSearchQuery("")
     }
 
     useEffect(function () {
@@ -47,13 +50,19 @@ function DashboardHead() {
             }
             
 			try {
-				setLoading(true);
+				setSearchLoader(true);
 				setShowSearchModal(true);
 
 				const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/search?query=${searchQuery}`, { method: 'GET', headers });
 
 				const data = await res.json();
 				console.log(data);
+                if(!data?.success && res.status != 200) {
+                    throw new Error(data?.message || data?.error);
+                }
+
+                setSearchMessage(data?.message);
+                setSearchResults(data?.data);
 
 			} catch (err) {
 				if (err?.name !== "AbortError") {
@@ -61,7 +70,7 @@ function DashboardHead() {
 					setShowSearchModal(false)
 				}
 			} finally {
-				setLoading(false);
+				setSearchLoader(false);
 			}
 		}, 350)
 
@@ -118,9 +127,25 @@ function DashboardHead() {
                         <ProfileImage />
                         <BiChevronDown />
 
-                        {showDropdown && <Dropdown setShow={setShowDropdown} setLoading={setLoading} setResponse={setResponse} />}
+                        {showDropdown && 
+                            <Dropdown 
+                                setShow={setShowDropdown}
+                                setLoading={setLoading}
+                                setResponse={setResponse}
+                            />
+                        }
                     </div>
                 </div>
+
+
+                {showSearchModal && (
+                    <SearchModal
+                        results={searchResults}
+                        loader={searchLoader}
+                        message={searchMessage}
+                        setClose={setShowSearchModal}
+                    />
+                )}
             </header>
 
         </>

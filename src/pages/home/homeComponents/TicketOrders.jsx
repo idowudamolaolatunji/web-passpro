@@ -51,6 +51,7 @@ function TicketOrders() {
                     :
                     <Empty text={`No ticket orders yet`} icon={<IoTicketOutline />} />
                 }
+                pagination={false}
             />
         </div>
     )

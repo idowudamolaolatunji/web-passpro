@@ -42,7 +42,7 @@ const customStyles = {
     }
 };
 
-function TableUI({ title, data, columns, loader, EmptyComponent }) {
+function TableUI({ title, data, columns, loader, EmptyComponent, pagination=true }) {
   return (
     <div className="table--container">
         <DataTable
@@ -51,7 +51,7 @@ function TableUI({ title, data, columns, loader, EmptyComponent }) {
             columns={columns}
             noDataComponent={EmptyComponent}
             fixedHeader
-            pagination
+            pagination={pagination}
             progressComponent={<SpinnerMini />}
             progressPending={loader}
             customStyles={customStyles}

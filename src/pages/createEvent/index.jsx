@@ -14,8 +14,6 @@ import { validateEventForm } from '../../utils/helper';
 import Spinner from '../../components/Spinner';
 import { useWindowSize } from 'react-use';
 
-import { fromByteArray } from 'base64-js';
-
 
 function index() {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
@@ -115,13 +113,6 @@ function index() {
     const handleCloseModal = function () {
         setShowTicketModal(false)
     }
-
-
-    function base64ToBlob(base64String, mimeType) {
-        const byteArray = fromByteArray(base64String);
-        return new Blob([byteArray], { type: mimeType });
-    }
-      
 
 
     useEffect(function () {

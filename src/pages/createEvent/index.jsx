@@ -14,6 +14,7 @@ import { validateEventForm } from '../../utils/helper';
 import Spinner from '../../components/Spinner';
 import { useWindowSize } from 'react-use';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 
 function index() {
@@ -92,7 +93,6 @@ function index() {
         setShowTicketModal(false)
     }
 
-
     useEffect(function () {
         window.scrollTo(0, 0);
     }, [step]);
@@ -109,9 +109,16 @@ function index() {
         formData.append('event_type', eventData.event_type);
         formData.append('event_location', eventData.event_location);
         formData.append('start_date', eventData.start_date);
-        formData.append('start_date_time', eventData.start_date_time);
         formData.append('end_date', eventData.end_date);
+        formData.append('start_date_time', eventData.start_date_time);
         formData.append('end_date_time', eventData.end_date_time);
+        // const formattedStartTime = moment(eventData.start_date_time).format('HH:mm');
+        // const formattedEndTime = moment(eventData.end_date_time).format('HH:mm');
+        
+        // formData.append('start_date_time', formattedStartTime);
+        // formData.append('end_date_time', formattedEndTime);
+
+        
         formData.append('tickets', JSON.stringify(eventData.tickets));
 
         formData.append('cover_photo', images.cover_photo.file);
@@ -130,11 +137,11 @@ function index() {
             });
 
             const data = await res.json();
-            if(!data?.success) {
+            if(res.status != 201) {
                 throw new Error(data?.message || data?.error)
             }
 
-            setResponse({ status: "success", message: data?.success });
+            setResponse({ status: "success", message: data?.message });
             setTimeout(() => navigate("/dashboard/events/manage"), 2000);
         } catch (err) {
             setResponse({ status: "error", message: err?.message })

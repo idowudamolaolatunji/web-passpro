@@ -68,7 +68,7 @@ function TabThree({ eventData, handleDelete, handleShowModal }) {
         {
             name: "Ticket Quantity",
             selector: row => (
-                <p>{row?.ticket_quantity + " / "}{row?.ticket_stock}</p>
+                <p>{row?.ticket_quantity ? row?.ticket_quantity + " / " : ""}{row?.ticket_stock}</p>
             )
         },
         {

@@ -15,7 +15,7 @@ function TicketForm({ setEventData, handleClose, setResponse }) {
         ticket_description: "",
         ticket_stock: null,
         ticket_quantity: null,
-        ticket_price: "",
+        ticket_price: 0.0,
         ticket_purchase_limit: null,
         transfers_fees_to_guest: false,
         group_size: null
@@ -102,7 +102,7 @@ function TicketForm({ setEventData, handleClose, setResponse }) {
                         {ticket?.ticket_stock == "Limited Stock" && (
                             <div className="form--item">
                                 <label htmlFor="" className="form--label">Quantity <Asterisk /> </label>
-                                <NumberInputField name="ticket_quantity" placeholder="Enter quantity" onChange={handleSetFormData}/>
+                                <NumberInputField name="ticket_quantity" placeholder="Enter quantity" value={ticket.ticket_quantity} onChange={handleSetFormData}/>
                             </div>
                         )}
                     </div>
@@ -110,7 +110,7 @@ function TicketForm({ setEventData, handleClose, setResponse }) {
                     {ticket?.ticket_type == "paid" && (
                         <div className="form--item">
                             <label htmlFor="" className="form--label">{ticket?.ticket_category == "Group Size" ? "Group" : "Ticket"} Price <Asterisk /></label>
-                            <NumberInputField name="ticket_price" prefix placeholder="Enter price" onChange={handleSetFormData}/>
+                            <NumberInputField name="ticket_price" prefix placeholder="Enter price" decimalsLimit={2} value={ticket.ticket_price} onChange={handleSetFormData}/>
                         </div>
                     )}
 

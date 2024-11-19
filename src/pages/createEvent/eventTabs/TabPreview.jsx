@@ -7,7 +7,6 @@ import { BiLogoFacebookCircle } from 'react-icons/bi'
 import { AiFillInstagram } from 'react-icons/ai'
 import { FaXTwitter } from 'react-icons/fa6'
 import { HiOutlineGlobeAlt } from 'react-icons/hi'
-import { formatNumber } from '../../../utils/helper'
 import PreviewTicket from './PreviewTicket'
 
 function TabPreview({ eventData, images }) {

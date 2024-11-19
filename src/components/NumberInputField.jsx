@@ -1,7 +1,7 @@
 import React from 'react'
 import CurrencyInput from 'react-currency-input-field'
 
-function NumberInputField({ name, prefix, placeholder, value, onChange, readOnly }) {
+function NumberInputField({ name, prefix, placeholder, value, onChange, readOnly, decimalsLimit=0 }) {
   return (
     <CurrencyInput
     min={1}
@@ -10,7 +10,7 @@ function NumberInputField({ name, prefix, placeholder, value, onChange, readOnly
       className="form--input"
       placeholder={placeholder}
       prefix={prefix ? "₦" : ""}
-      decimalsLimit={0}
+      decimalsLimit={decimalsLimit}
       value={value}
       onValueChange={(value, name, _) => onChange({ target: {value, name} })}
     />

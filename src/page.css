@@ -582,9 +582,9 @@ span.item--user-img {
     padding: 1rem;
     border-radius: .4rem;
     
-    display: flex;
+    display: grid;
+    grid-template-columns: 2.4fr 1rem 1fr;
     align-items: center;
-    justify-content: flex-start;
     gap: 2rem;
 }
 .preview--figure-title {

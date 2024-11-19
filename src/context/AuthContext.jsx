@@ -13,7 +13,7 @@ export default AuthContext;
 //////////////////////////////////////////////
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(Cookies.get('user_obj') ? JSON.parse(Cookies.get('user_obj')) : null);
-    const [token, setToken] = useState(Cookies.get('user_jwt_token') ? Cookies.get('user_jwt_token') : null);
+    const [token, setToken] = useState(Cookies.get('user_token') ? Cookies.get('user_token') : null);
 
     const headers = {
         "Accept": "application/json",
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         setTimeout(function() {
             handleChange(null, null);
             Cookies.remove("user_obj");
-            Cookies.remove("user_jwt_token");
+            Cookies.remove("user_token");
         }, 2000);
 
         return true
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     function shouldKick(e) {
         if (e.response.status === 401 || e.response.status === 403) {
             Cookies.remove("user_obj");
-            Cookies.remove("user_jwt_token");
+            Cookies.remove("user_token");
             window.location.href = "/login";
         }
     };
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(function () {
         Cookies.set("user_obj", JSON.stringify(user), { expires: 365 });
-        Cookies.set("user_jwt_token", token, { expires: 365 });
+        Cookies.set("user_token", token, { expires: 365 });
     }, [user, token]);
 
     // CREATE CONTEXT DATA

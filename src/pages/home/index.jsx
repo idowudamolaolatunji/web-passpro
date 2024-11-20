@@ -7,18 +7,23 @@ import TicketsSoldInfo from './homeComponents/TicketsSoldInfo'
 import AttendeesChart from './homeComponents/AttendeesChart'
 import RecentEvents from './homeComponents/RecentEvents'
 import TicketOrders from './homeComponents/TicketOrders'
+import { useWindowSize } from 'react-use'
 
 
 function index() {
+    const { width } = useWindowSize()
+    
     return (
         <>
             <PageTop title="Dashboard" />
             <OrganizationCard />
 
             <div className='content--box'>
+                {width <= 600 && <HomeInsightGrid />}
+
                 <div className="dashboard--grid">
                     <div className="grid--left">
-                        <HomeInsightGrid />
+                        {width > 600 && <HomeInsightGrid />}
                         <RecentEvents />
                         <TicketOrders />
                     </div>

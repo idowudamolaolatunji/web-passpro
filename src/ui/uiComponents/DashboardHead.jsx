@@ -143,7 +143,7 @@ function DashboardHead() {
                         results={searchResults}
                         loader={searchLoader}
                         message={searchMessage}
-                        setClose={setShowSearchModal}
+                        setShow={setShowSearchModal}
                     />
                 )}
             </header>

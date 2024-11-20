@@ -4,18 +4,20 @@ import { useWindowSize } from 'react-use';
 import { Badge, Calendar, HStack, List } from 'rsuite';
 import { useFetchedContext } from '../../../context/FetchedContext';
 import SpinnerMini from '../../../components/SpinnerMini';
+import { useNavigate } from 'react-router-dom';
 
 
 function UpcomingCalender() {
-    const { events, loader, error, handleFetchEvents } = useFetchedContext()
-    const { width } = useWindowSize()
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [avail, setAvail] = useState(false);
+    const navigate = useNavigate()
+    const { events, loader } = useFetchedContext()
 
 
     // SELECT AN UPCOMING
     const handleSelect = function(date) {
-        setSelectedDate(date);
+        const eventDate = moment(date).format('YYYY-MM-DD');
+        const currentEvent = events?.find(el => el?.start_date == eventDate);
+        if(!currentEvent) return;
+        navigate(`/dashboard/events/manage/${currentEvent?.id}`)
     };
 
 
@@ -65,54 +67,13 @@ function UpcomingCalender() {
         return null;
     }
 
-    // UPCOMING LIST COMPONENT
-    const UpcomingList = function({ date }) {
-        const list = getUpcomingList(date);
-
-        useEffect(() => {
-            console.log(date, list, selectedDate)
-            if(!list.length) {
-                setAvail(false)
-            } else {
-                setAvail(true)
-            }
-        }, [date]);
-
-
-        if (!list.length) {
-            return null;
-        }
-
-        return (
-            <List style={{ flex: 1 }} bordered>
-                {list.map(item => (
-                    <List.Item key={item?.time}>
-                        <div>
-                            <span>Name:</span> 
-                            <p>{item?.name}</p>
-                        </div>
-                        <div>
-                            <span>Time:</span> 
-                            <p>{item?.time}</p>
-                        </div>
-                        <div>
-                            <span>Location:</span> 
-                            <p>{item?.location}</p>
-                        </div>
-                    </List.Item>
-                ))}
-            </List>
-        );
-    };
-
     return (
         <div className="dashboard--card" style={{ position: "relative" }}>
             {loader && <SpinnerMini />}
             
             {!loader && (
-                <HStack spacing={0} style={ (width < 1030 && width > 550 && avail) ? { gridTemplateColumns: "2fr 1fr" } : (width < 1030 && width > 550 && !avail) && { gridTemplateColumns: "1fr"}} alignItems="flex-start" wrap>
+                <HStack spacing={0} alignItems="flex-start" wrap>
                     <Calendar onSelect={handleSelect} bordered compact renderCell={renderCell} style={{ width: "auto", height: "auto" }} />
-                    <UpcomingList date={selectedDate} />
                 </HStack>
             )}
         </div>

@@ -9,7 +9,7 @@ import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 
 function RecentEvents() {
     const { events, loader, error, handleFetchEvents } = useFetchedContext();
-    const data = events?.slice(0, 4);
+    const data = events?.slice(0, 3);
 
     const columns = [
         {

@@ -10,6 +10,9 @@ import TableUI from '../../components/TableUI';
 import TableSearch from '../../components/TableSearch';
 import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../components/Modal';
+import { AiOutlineClose } from 'react-icons/ai';
+import PreviewTicket from '../../components/PreviewTicket';
 
 
 function index() {
@@ -20,6 +23,9 @@ function index() {
     const [input, setInput] = useState("");
     const [searched, setSearched] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
+
+    const [selected, setSelected] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     const data = tab == "all" ? events : events?.filter(event => event?.status == (tab));
 
@@ -51,13 +57,17 @@ function index() {
                 <div className='event-table-actions'>
                     <button>{row?.featured ? "featured" : "unfeatured"}</button>
                     <button onClick={() => navigate(`/dashboard/events/manage/${row?.id}`)}>details</button>
-                    <button>ticket</button>
+                    <button onClick={() => handleShowModal(row)}>ticket</button>
                 </div>
             ),
             width: "25rem"
         }
     ];
 
+    const handleShowModal = function(data) {
+        setSelected(data);
+        setShowModal(!showModal)
+    }
 
     const handleSearch = function() {
         if(!input) return;
@@ -86,6 +96,23 @@ function index() {
 
     return (
         <>  
+            {(showModal && selected) && (
+                <Modal className="mini" handleClose={() => setShowModal(false)}>
+                    <div className="modal--head">
+                        <h3>{selected?.event_name}'s Tickets</h3>
+                        <span onClick={() => setShowModal(false)}>
+                            <AiOutlineClose />
+                        </span>
+                    </div>
+
+                    <div className='preview--tickets'>
+                        {selected?.tickets?.map(ticket => (
+                            <PreviewTicket data={ticket} key={ticket?.ticket_name} />
+                        ))}
+                    </div>
+                </Modal>
+            )}
+
             <PageTop title="All Events" />
 
             <div className="table--top">

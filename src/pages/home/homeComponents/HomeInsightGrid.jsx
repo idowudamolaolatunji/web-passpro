@@ -1,11 +1,11 @@
 import React from 'react'
 import Insight from './Insight'
 import { MdOutlineBarChart } from 'react-icons/md'
-import { HiMiniArrowTrendingUp } from 'react-icons/hi2'
-import { FaMoneyBillWave } from 'react-icons/fa'
+import { FaMoneyBillWave, FaUsers } from 'react-icons/fa'
 import { useAuthContext } from '../../../context/AuthContext'
 import { useFetchedContext } from '../../../context/FetchedContext'
 import { BsCalendarEvent } from 'react-icons/bs'
+import { AiFillCalendar } from 'react-icons/ai'
 
 function HomeInsightGrid() {
     const { user, } = useAuthContext();
@@ -13,9 +13,9 @@ function HomeInsightGrid() {
 
     return (
         <div className='insight--grid'>
-            <Insight title="Income" icon={<MdOutlineBarChart />} value={user?.balance} sign />
-            <Insight title="Customers" icon={<HiMiniArrowTrendingUp />} value={0} />
-            <Insight title="Events" icon={<BsCalendarEvent />} value={events?.length || 0} />
+            <Insight title="Income" icon={<MdOutlineBarChart />} value={user?.balance || 0} sign />
+            <Insight title="Customers" icon={<FaUsers />} value={0} />
+            <Insight title="Events" icon={<AiFillCalendar />} value={events?.length || 0} />
         </div>
     )
 }

@@ -9,7 +9,7 @@ import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 
 function TicketOrders() {
     const { loader, ticketOrders, error, handleFetchTicketOrders } = useFetchedContext();
-    const data = ticketOrders?.slice(0, 4);
+    const data = ticketOrders?.slice(0, 3);
 
     const columns = [
         {

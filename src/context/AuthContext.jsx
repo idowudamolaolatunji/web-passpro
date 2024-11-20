@@ -45,10 +45,10 @@ export const AuthProvider = ({ children }) => {
         return true
     }
 
-    function shouldKick(e) {
-        if (e.response.status === 401 || e.response.status === 403) {
+    function shouldKick(res) {
+        if (res?.status === 401 || res?.status === 403) {
             Cookies.remove("user_obj");
-            Cookies.remove("user_token");
+            Cookies.remove("user_jwt_token");
             window.location.href = "/login";
         }
     };

@@ -7,7 +7,7 @@ import { useAuthContext } from '../../context/AuthContext';
 
 function index() {
     const { id } = useParams();
-    const { headers } = useAuthContext();
+    const { headers, shouldKick } = useAuthContext();
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
 
     const [event, setEvent] = useState(null)
@@ -21,6 +21,7 @@ function index() {
 
         try {
             const res = await fetch(`${BASE_URL}/events/${id}`, { method: "GET", headers });
+            shouldKick(res)
             const data = await res.json();
             setEvent(data?.data)
         } catch(err) {
@@ -48,8 +49,8 @@ function index() {
                 customStyle={{ padding: "2rem", borderRadius: ".4rem" }}
                 noHead={true}
                 eventData={event}
-                cover_photo={event?.cover_photo} 
-                event_image={event?.event_image}
+                cover_photo={"https://sub.passpro.africa/storage/" + event?.gallery?.cover_photo} 
+                event_image={"https://sub.passpro.africa/storage/" + event?.gallery?.event_image}
             />
         )}
     </>

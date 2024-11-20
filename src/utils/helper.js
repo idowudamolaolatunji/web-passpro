@@ -80,6 +80,12 @@ export function formatDateTime(date, time) {
 	return dateTime.format("YYYY-MM-DD  h:mmA");
 }
 
+
+export function formatStringDateTime(date, time) {
+	return moment(`${date} ${time}`, "YYYY-MM-DD HH:mm").format("Do MMMM, YYYY - h:mm A");
+}
+  
+
 export function truncateString(input, num = 30) {
 	if (input?.length > num) {
 		return input?.substring(0, num) + "...";

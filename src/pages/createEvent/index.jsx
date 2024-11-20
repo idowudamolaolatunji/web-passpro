@@ -19,7 +19,7 @@ import moment from 'moment';
 
 function index() {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
-    const { token } = useAuthContext();
+    const { token, shouldKick } = useAuthContext();
     const { width } = useWindowSize();
     const navigate = useNavigate();
 
@@ -135,6 +135,7 @@ function index() {
                 },
                 body: formData
             });
+            shouldKick(res);
 
             const data = await res.json();
             if(res.status != 201) {

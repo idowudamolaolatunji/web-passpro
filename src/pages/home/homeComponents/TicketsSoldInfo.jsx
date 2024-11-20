@@ -6,7 +6,7 @@ import { useFetchedContext } from '../../../context/FetchedContext';
 
 function TicketsSoldInfo() {
     const { ticketOrders } = useFetchedContext();
-    const soldValue = 0;
+    const soldValue = ticketOrders?.reduce((acc, order) => acc + order?.ticket_quantity, 0);
     const rangePercent = (soldValue / 1000000) * 100;
 
   return (

@@ -138,7 +138,12 @@ span.item--user-img {
 }
 
 .dashboard--grid {
-    grid-template-columns: 2.3fr 1fr;
+    width: 100%;
+    /* grid-template-columns: 2.3fr 1fr; */
+    /* this, because the table wants 100% of the screen by default */
+    grid-template-columns: 69.7% 28.3%;
+    overflow-x: hidden;
+    
 }
 .dashboard--grid-1 {
     grid-template-columns: 1fr 1fr;
@@ -1007,14 +1012,14 @@ span.item--user-img {
 }
 .search--figure {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	gap: .8rem;
 	color: inherit;
 }
-.search--figure img {
-	width: 4.8rem;
-	height: 4.8rem;
-	border-radius: .3rem;
+.search--figure svg {
+	width: 2.8rem;
+	height: 2.8rem;
+    color: var(--primary-1);
 }
 .search--figure .item--details {
 	gap: .4rem;
@@ -1039,26 +1044,10 @@ span.item--user-img {
 
 @media screen and (max-width: 1030px) {
     .dashboard--grid {
-        grid-template-columns: 1fr;
+        /* grid-template-columns: 1fr; */
+        grid-template-columns: 100%;
     }
 
-    .rs-stack {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 1rem !important;
-    }
-    .rs-list {
-        border: none;
-        box-shadow: unset !important;
-        margin: 0;
-
-    }
-    
-    .rs-list-item {
-        padding: 2rem 0;
-        height: 100%;
-        min-height: 10rem;
-    }
     .inform--item {
         grid-template-columns: 20rem 1fr;
     }

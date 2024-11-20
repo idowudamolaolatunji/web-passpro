@@ -39,7 +39,7 @@ function RecentEvents() {
     }, []);
 
     return (
-        <div className='dashboard--table-head'>
+        <div className='dashboard--table'>
             <div className='table--head-flex'>
                 <p>Recent Events</p>
                 <Link className='table--view-btn' to="/dashboard/events/manage">View More</Link>

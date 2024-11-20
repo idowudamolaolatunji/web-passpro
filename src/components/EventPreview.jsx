@@ -8,6 +8,7 @@ import { AiFillInstagram } from 'react-icons/ai'
 import { FaXTwitter } from 'react-icons/fa6'
 import { HiOutlineGlobeAlt } from 'react-icons/hi'
 import PreviewTicket from './PreviewTicket'
+import { formatStringDateTime, truncateString } from '../utils/helper'
 
 function EventPreview({ noHead=false, eventData, cover_photo, event_image, customStyle={} }) {
 
@@ -23,12 +24,12 @@ function EventPreview({ noHead=false, eventData, cover_photo, event_image, custo
             <div className="preview--grid">
                 <div className="preview--figure">
                     <span className="preview--figure-heading">
-                        <h4 className='heading'>Techup Training</h4>
-                        <p className='location'><GrLocation /> Guzape Centre, Gwagwalada, Abuja</p>
-                        <p className='date'><FaRegCalendarAlt /> 2nd November, 2024</p>
+                        <h4 className='heading'>{eventData?.event_name}</h4>
+                        <p className='location'><GrLocation />{eventData?.event_location}</p>
+                        <p className='date'><FaRegCalendarAlt />{formatStringDateTime(eventData?.start_date, eventData?.start_date_time)}</p>
                     </span>
 
-                    <p className='preview--figure-description'>{eventData?.event_description}</p>
+                    <p className='preview--figure-description'>{truncateString(eventData?.event_description, 200)}</p>
 
                     {/* <span className='preview--figure-socials'>
                         <HiOutlineGlobeAlt />

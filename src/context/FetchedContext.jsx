@@ -16,7 +16,7 @@ export default FetchedContext;
 
 export const FetchedProvider = ({ children }) => {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
-    const { headers } = useAuthContext();
+    const { headers, shouldKick } = useAuthContext();
 
     const [categories, setCategories] = useState([]);
     const [ticketOrders, setTicketOrders] = useState([]);
@@ -32,6 +32,7 @@ export const FetchedProvider = ({ children }) => {
         const res = await fetch(`${BASE_URL}/categories`, {
             method: "GET", headers
         });
+        
         const data = await res.json();
         setCategories(data?.data);
     }
@@ -43,6 +44,8 @@ export const FetchedProvider = ({ children }) => {
         setTicketOrders([]);
         try {
             const res = await fetch(`${BASE_URL}/orders`, { method: "GET", headers });
+            shouldKick(res)
+
             const data = await res.json();
             console.log(data)
             setTicketOrders(data?.data)
@@ -59,6 +62,8 @@ export const FetchedProvider = ({ children }) => {
         setEvents([]);
         try {
             const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
+            shouldKick(res)
+
             const data = await res.json();
             setEvents(data?.data)
         } catch(err) {
@@ -74,6 +79,8 @@ export const FetchedProvider = ({ children }) => {
         setWithdrawalsHistory([]);
         try {
             const res = await fetch(`${BASE_URL}/transactions`, { method: "GET", headers });
+            shouldKick(res)
+
             const data = await res.json();
             setWithdrawalsHistory(data?.data)
         } catch(err) {
@@ -90,6 +97,8 @@ export const FetchedProvider = ({ children }) => {
         setSupportTickets([]);
         try {
             // const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
+            // shouldKick(res)
+
             // const data = await res.json();
             // setSupportTickets(data?.data)
         } catch(err) {

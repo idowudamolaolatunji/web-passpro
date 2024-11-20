@@ -11,7 +11,7 @@ import { useWindowSize } from 'react-use'
 
 
 function index() {
-    const { width } = useWindowSize()
+    const { width } = useWindowSize();
     
     return (
         <>

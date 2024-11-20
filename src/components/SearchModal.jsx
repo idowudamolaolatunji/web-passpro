@@ -4,6 +4,8 @@ import SpinnerMini from './SpinnerMini'
 import { useOutsideClick } from '../hooks/useOutsideClick'
 import { truncateString } from '../utils/helper'
 import { Link, useLocation } from 'react-router-dom'
+import { BiCalendarEvent } from 'react-icons/bi'
+import { IoTicketOutline } from 'react-icons/io5'
 
 function SearchModal({ setShow, results, loader, message }) {
     const isData = results?.events?.length > 0 || results?.tickets?.length > 0
@@ -29,14 +31,14 @@ function SearchModal({ setShow, results, loader, message }) {
 
                         {results?.events?.length > 0 ? (
                             <div className='search--items'>
-                                {results?.events?.slice(0, 5).map(el => (
-                                    <Link to={"/dashboard/events/manage/" + el?.id} className='search--figure' key={el?.id}>
-                                        <img src="../../favicon.png" alt={el?.id} />
+                                {results?.events?.slice(0, 5)?.map(el => (
+                                    <a href={"/dashboard/events/manage/" + el?.id} className='search--figure' key={el?.id}>
+                                        <BiCalendarEvent />
                                         <div className='item--details'>
                                             <p className='title'>{el?.event_name}</p>
-                                            <p className='description'>{truncateString(el?.event_description, 60)}</p>
+                                            <span className='description'>{truncateString(el?.event_description, 60)}</span>
                                         </div>
-                                    </Link>
+                                    </a>
                                 ))}
                             </div>
                         ) : (
@@ -49,10 +51,14 @@ function SearchModal({ setShow, results, loader, message }) {
 
                         {results?.tickets?.length > 0 ? (
                             <div className='search--items'>
-                                {results?.tickets?.map(el => (
-                                    <div className='item--details'>
-                                        <p className='title'>{el?.ticket_name}</p>
-                                    </div>
+                                {results?.tickets?.slice(0, 5)?.map(el => (
+                                    <a href={"/dashboard/events/manage/" + el?.event_id} className='search--figure' key={el?.id}>
+                                        <IoTicketOutline />
+                                        <div className='item--details'>
+                                            <p className='title'>{el?.ticket_name}</p>
+                                            <span className='description'>{el?.ticket_description}</span>
+                                        </div>
+                                    </a>
                                 ))}
                             </div>
                         ) : (

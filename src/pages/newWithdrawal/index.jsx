@@ -20,7 +20,7 @@ import { formatNumber } from '../../utils/helper'
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { user, headers, token } = useAuthContext();
+    const { user, headers, shouldKick } = useAuthContext();
 
     const [withdrawalData, setWithdrawalData] = useState({
         amount: "", amount_receivable: "", password: ""
@@ -83,6 +83,7 @@ function index() {
                 method: "POST", headers,
                 body: JSON.stringify(withdrawalData)
             });
+            shouldKick(res)
 
             const data = await res.json();
             if(!data?.success) {

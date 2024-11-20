@@ -13,20 +13,37 @@ function TicketOrders() {
 
     const columns = [
         {
-            name: "",
-            selector: row => {}
+            name: "Order ID",
+            selector: row => "#"+row?.order_code
         },
         {
-            name: "",
-            selector: row => {},
+            name: "Customer",
+            selector: row => row?.first_name + " " + row?.last_name,
         },
         {
-            name: "",
-            selector: row => {}
+            name: "Event",
+            selector: row => row?.event_title,
         },
         {
-            name: "",
-            selector: row => {}
+            name: "Ticket Purchased",
+            selector: row => row?.ticket_name
+        },
+        {
+            name: "Quantity",
+            selector: row => row?.ticket_quantity,
+            width: "7rem"
+        },
+        {
+            name: "Payment Status",
+            selector: row => (
+                <div className="status status--pending">
+                    <p>{row?.status}</p>
+                </div>
+            )
+        },
+        {
+            name: "Date Purchased",
+            selector: row => formatDateTime(row?.created_at)
         },
     ];
 
@@ -35,7 +52,7 @@ function TicketOrders() {
     }, []);
 
     return (
-        <div className='dashboard--table-head'>
+        <div className='dashboard--table'>
             <div className='table--head-flex'>
                 <p>Ticket Orders</p>
                 <Link className='table--view-btn' to="">View More</Link>

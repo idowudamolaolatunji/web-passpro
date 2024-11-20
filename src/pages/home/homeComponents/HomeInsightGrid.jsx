@@ -9,12 +9,14 @@ import { AiFillCalendar } from 'react-icons/ai'
 
 function HomeInsightGrid() {
     const { user, } = useAuthContext();
-    const { events } = useFetchedContext();
+    const { events, ticketOrders } = useFetchedContext();
+    const uniqueCustomers = new Set(ticketOrders.map(order => order.user_name || order.email)).size;
+
 
     return (
         <div className='insight--grid'>
             <Insight title="Income" icon={<MdOutlineBarChart />} value={user?.balance || 0} sign />
-            <Insight title="Customers" icon={<FaUsers />} value={0} />
+            <Insight title="Customers" icon={<FaUsers />} value={uniqueCustomers || 0} />
             <Insight title="Events" icon={<AiFillCalendar />} value={events?.length || 0} />
         </div>
     )

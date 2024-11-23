@@ -16,31 +16,37 @@ function index() {
     const columns = [
         {
             name: "Subject",
-            selector: row => {},
+            selector: row => row?.subject,
             width: "25rem"
         },
         {
             name: "Status",
-            selector: row => {}
+            selector: row => (
+                <p className={`text--status text--${row?.status}`}>{row?.status}</p>
+            )
         },
         {
             name: "Priority",
-            selector: row => {}
+            selector: row => row?.priority
         },
         {
             name: "Last reply",
-            selector: row => {},
+            selector: row => (
+                <div style={{ width: "100%", wordBreak: "break-word" }}>
+                    <p>{row?.last_message}</p>
+                </div>
+            ),
             width: "35rem"
         },
-        {
-            name: "Action",
-            selector: row => (
-                <div className='table--actions'>
-                    <button><FiEdit /></button>
-                    <button><RiDeleteBinLine style={{ color: "red" }} /></button>
-                </div>
-            )
-        },
+        // {
+        //     name: "Action",
+        //     selector: row => (
+        //         <div className='table--actions'>
+        //             <button><FiEdit /></button>
+        //             <button><RiDeleteBinLine style={{ color: "red" }} /></button>
+        //         </div>
+        //     )
+        // },
     ];
 
 

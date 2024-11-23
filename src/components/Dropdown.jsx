@@ -24,7 +24,7 @@ function Dropdown({ setShow, setResponse, setLoading }) {
 
   return (
     <div className='dropdown--box' ref={ref}>
-      <Link to="/dashboard/profile">Profile</Link>
+      {/* <Link to="/dashboard/profile">Profile</Link> */}
       <div onClick={handleLogout}>Logout</div>
     </div>
   )

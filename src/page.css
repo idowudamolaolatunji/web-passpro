@@ -495,6 +495,9 @@ span.item--user-img {
     position: relative;
     margin-bottom: 10rem;
 }
+.preview--top img {
+    background-color: #ddd;
+}
 .preview--cover {
     height: 26rem;
 }

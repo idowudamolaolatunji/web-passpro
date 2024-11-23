@@ -96,11 +96,11 @@ export const FetchedProvider = ({ children }) => {
         setLoader(true);
         setSupportTickets([]);
         try {
-            // const res = await fetch(`${BASE_URL}/events`, { method: "GET", headers });
-            // shouldKick(res)
+            const res = await fetch(`${BASE_URL}/support-tickets`, { method: "GET", headers });
+            shouldKick(res)
 
-            // const data = await res.json();
-            // setSupportTickets(data?.data)
+            const data = await res.json();
+            setSupportTickets(data?.data);
         } catch(err) {
             setError(true);
         } finally {

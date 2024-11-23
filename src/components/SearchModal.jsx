@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
-import Modal from './Modal'
 import SpinnerMini from './SpinnerMini'
 import { useOutsideClick } from '../hooks/useOutsideClick'
 import { truncateString } from '../utils/helper'
-import { Link, useLocation } from 'react-router-dom'
 import { BiCalendarEvent } from 'react-icons/bi'
 import { IoTicketOutline } from 'react-icons/io5'
 

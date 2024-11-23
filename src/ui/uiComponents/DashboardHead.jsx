@@ -38,7 +38,6 @@ function DashboardHead() {
 
     function handleClose() {
         setShowSearchBar(false);
-        setSearchQuery("")
     }
 
     useEffect(function () {

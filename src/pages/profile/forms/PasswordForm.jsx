@@ -12,7 +12,7 @@ function PasswordForm({ setLoading, setResponse, handleClose }) {
 
     const handleChangeData = function (e) {
         const { name, value } = e?.target;
-        setPersonalData({ ...personalData, [name]: value });
+        setPasswordData({ ...passwordData, [name]: value });
     }
 
 

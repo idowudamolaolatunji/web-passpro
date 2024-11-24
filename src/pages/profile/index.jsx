@@ -5,6 +5,7 @@ import { IoCameraOutline } from 'react-icons/io5';
 import ProfileImage from '../../components/ProfileImage';
 import Asterisk from '../../components/Asterisk';
 import MainDropdownSelect from '../../components/MainDropdownSelect';
+import { FiEdit3 } from 'react-icons/fi';
 
 function index() {
     const [image, setImage] = useState({ preview: "", file: "" });
@@ -40,45 +41,14 @@ function index() {
 
 
                 <div className="form__container">
-                    <form className='form'>
+                    <span className="form__container--headiing profile--heading">
+                        Overview
+                        <button className='profile--btn'>Edit <FiEdit3 /></button>
+                    </span>
 
-                        <div className="form--grid">
-                            <div className="form--item">
-                                <label className="form--label">Subject <Asterisk /></label>
-                                <input type="text" required className="form--input" placeholder='Your subject' name="subject" />
-                            </div>
-
-                            <div className="form--item">
-                                <label className="form--label">Priority <Asterisk /></label>
-                                <input type="text" required className="form--input" placeholder='Your subject' name="subject" />
-                            </div>
-                        </div>
-
-                        <div className="form--grid">
-                            <div className="form--item">
-                                <label className="form--label">Subject <Asterisk /></label>
-                                <input type="text" required className="form--input" placeholder='Your subject' name="subject" />
-                            </div>
-
-                            <div className="form--item">
-                                <label className="form--label">Priority <Asterisk /></label>
-                                <input type="text" required className="form--input" placeholder='Your subject' name="subject" />
-                            </div>
-                        </div>
-
-                        <div className="form--grid">
-                            <div className="form--item">
-                                <label className="form--label">Subject <Asterisk /></label>
-                                <MainDropdownSelect />
-                            </div>
-
-                            <div className="form--item">
-                                <label className="form--label">Priority <Asterisk /></label>
-                                <input type="text" required className="form--input" placeholder='Your subject' name="subject" />
-                            </div>
-                        </div>
-
-                    </form>
+                    <div className="profile--item">
+                        
+                    </div>
 
                 </div>
             </div>

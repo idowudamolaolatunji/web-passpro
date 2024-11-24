@@ -931,14 +931,14 @@ span.item--user-img {
 
 .profile--head {
     display: grid;
-    grid-template-columns: 16rem 1fr;
+    grid-template-columns: 10rem 1fr;
     align-items: center;
     gap: 2.8rem;
 }
 
 .profile--image {
-    width: 16rem;
-    height: 16rem;
+    width: 10rem;
+    height: 10rem;
     position: relative;
 }
 
@@ -956,8 +956,8 @@ span.item--user-img {
     right: 2%;
     background-color: #fff;
 
-    width: 3rem;
-    height: 3rem;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -967,18 +967,42 @@ span.item--user-img {
 }
 
 .profile--icon svg {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--primary-1);
 }
 
+.profile--heading,
 .profile--title {
-    font-size: 1.8rem;
+    color: var(--primary-1);
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.profile--title {
     font-weight: 500;
 }
-
 .profile--text {
     font-size: 1.4rem;
 }
+.profile--btn {
+    background-color: var(--primary-1);
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: 1.4rem;
+    padding: .62rem;
+    border-radius: .24rem;
+}
+.profile--item {
+    padding-top: 4rem;
+
+    border: 1px solid #000;
+}
+
+
+
+
 
 
 

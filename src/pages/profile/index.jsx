@@ -16,6 +16,7 @@ import AddressForm from './forms/AddressForm';
 import BankForm from './forms/BankForm';
 import SocialsForm from './forms/SocialsForm';
 import PersonalForm from './forms/PersonalForm';
+import PasswordForm from './forms/PasswordForm';
 
 function index() {
     const { width } = useWindowSize();
@@ -30,7 +31,8 @@ function index() {
         address: false,
         bank: false,
         social: false,
-        personal: false
+        personal: false,
+        password: false,
     });
 
 
@@ -146,6 +148,19 @@ function index() {
 
                 <div className="form__container">
                     <span className="form__container--headiing profile--heading">
+                        Password Update
+                        <button className='profile--btn' onClick={() => handleShowModal("password")}>Edit <FiEdit3 /></button>
+                    </span>
+
+                    <div className="profile--container">
+                        <ProfileItem label="password" value={"***************"} />
+                        <ProfileItem label="confirm password" value={"***************"} />
+                    </div>
+                </div>
+
+
+                <div className="form__container">
+                    <span className="form__container--headiing profile--heading">
                         Social media {width > 400 ? "Information" : ""}
                         <button className='profile--btn' onClick={() => handleShowModal("social")}>Edit <FiEdit3 /></button>
                     </span>
@@ -218,6 +233,17 @@ function index() {
                         setLoading={setLoading}
                         setResponse={setResponse}
                         handleClose={() => handleCloseModal("personal")}
+                    />
+                </Modal>
+            )}
+
+
+            {(showModal.password) && (
+                <Modal handleClose={() => handleCloseModal("password")} className="modal-add-sm">
+                    <PasswordForm 
+                        setLoading={setLoading}
+                        setResponse={setResponse}
+                        handleClose={() => handleCloseModal("password")}
                     />
                 </Modal>
             )}

@@ -37,7 +37,9 @@ function BankForm({ setLoading, setResponse, handleClose }) {
     }, []);
 
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault();
+
 
     }
 
@@ -73,8 +75,8 @@ function BankForm({ setLoading, setResponse, handleClose }) {
 
 
             <div className="form--actions">
-                <button className='form--btn btn-prev' onClick={handleClose}>Cancel</button>
-                <button className='form--btn btn-next' onClick={handleSubmit}>Submit </button>
+                <button className='form--btn btn-prev' type='button' onClick={handleClose}>Cancel</button>
+                <button className='form--btn btn-next' type='submit' onClick={handleSubmit}>Submit </button>
             </div>
 
         </form>

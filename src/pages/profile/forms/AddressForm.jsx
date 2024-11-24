@@ -22,7 +22,9 @@ function AddressForm({ setLoading, setResponse, handleClose }) {
     }, []);
 
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault();
+
 
     }
 

@@ -994,15 +994,66 @@ span.item--user-img {
     padding: .62rem;
     border-radius: .24rem;
 }
-.profile--item {
-    padding-top: 4rem;
+.profile--container {
+    padding-top: 2rem;
+    max-width: 80rem;
 
-    border: 1px solid #000;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
 }
 
+.profile--form .form__container {
+    padding: 2rem 4rem 2.8rem;
+}
+.profile--item {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.profile--label {
+    font-size: 1.34rem;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+.profile--value {
+    font-weight: 500;
+    font-size: 1.68rem;
+}
 
+.profile--socials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 2.4rem;
+}
+.profile--social {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: .4rem;
+    align-items: center;
+}
 
+.social--icon,
+.social--name {
+    border: 1.4px solid #eee;
+    border-radius: .24rem;
+}
+.social--icon {
+    height: 4rem;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.social--icon img {
+    width: 2.4rem;
+    height: 2.4rem;
+}
 
+.social--name {
+    padding: 1.1rem 1.2rem;
+}
 
 
 
@@ -1174,7 +1225,16 @@ span.item--user-img {
         max-width: 100%;
         margin: 4rem 0 2rem 0;
     }
-    
+
+    .profile--form .form__container {
+        padding: 2.4rem 2.4rem 3rem;
+    }
+    .profile--container {
+        padding-top: 0;
+    }
+    .profile--socials {
+        grid-template-columns: 1fr;
+    }    
 }
 
 
@@ -1195,6 +1255,12 @@ span.item--user-img {
         padding: 0 0 2rem;
         height: auto;
         min-height: auto;
+    }
+
+    .profile--container {
+        grid-template-columns: 1fr 1fr;
+        max-width: 100%;
+        column-gap: 2rem;
     }
 }
 
@@ -1270,4 +1336,19 @@ span.item--user-img {
         grid-template-columns: 1fr;
     }
     
+}
+
+
+@media screen and (max-width: 400px) {
+    .profile--head {
+        grid-template-columns: 8rem 1fr;
+        gap: 1.4rem;
+    }
+    .profile--image {
+        width: 8rem;
+        height: 8rem;
+    }
+    .profile--container {
+        grid-template-columns: 1fr;
+    }
 }

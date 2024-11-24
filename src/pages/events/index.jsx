@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
 import PreviewTicket from '../../components/PreviewTicket';
+import { TbServerCog } from 'react-icons/tb';
 
 
 function index() {
@@ -132,7 +133,7 @@ function index() {
                 loader={loader}
                 EmptyComponent={
                     error ? 
-                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    <Empty text={error} icon={error?.startsWith("Server") ? <TbServerCog /> : <MdSignalWifiConnectedNoInternet0 />} />
                     :
                     <Empty text={`No ${searched ? "search result for: " + searchTerm : tab == "all" ? "" : tab + " events"}`} icon={<BsCalendarEvent />} />
                 }

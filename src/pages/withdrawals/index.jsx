@@ -8,6 +8,7 @@ import DetailsModal from "./DetailsModal"
 import TableSearch from '../../components/TableSearch';
 import { formatDateTime, formatNumber } from '../../utils/helper';
 import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
+import { TbServerCog } from 'react-icons/tb';
 
 function index() {
     const { withdrawalsHistory, error, loader, setLoader, handleFetchWithdrawalsHistory } = useFetchedContext();
@@ -102,7 +103,7 @@ function index() {
                 loader={loader}
                 EmptyComponent={
                     error ? 
-                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    <Empty text={error} icon={error?.startsWith("Server") ? <TbServerCog /> : <MdSignalWifiConnectedNoInternet0 />} />
                     :
                     <Empty text={`No ${searched ? "search result for: " + searchTerm : "Withdrawal Hsitory Yet"}`} icon={<BiMoneyWithdraw />} />
                 }

@@ -7,6 +7,7 @@ import { useFetchedContext } from '../../context/FetchedContext';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { FiEdit } from 'react-icons/fi';
 import TableSearch from '../../components/TableSearch';
+import { TbServerCog } from 'react-icons/tb';
 
 
 function index() {
@@ -76,7 +77,7 @@ function index() {
                 columns={columns}
                 EmptyComponent={
                     error ? 
-                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    <Empty text={error} icon={error?.startsWith("Server") ? <TbServerCog /> : <MdSignalWifiConnectedNoInternet0 />} />
                     :
                     <Empty text="No Ticket Yet" icon={<MdOutlineContactSupport />} />
                 }

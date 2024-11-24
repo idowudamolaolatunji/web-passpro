@@ -6,6 +6,7 @@ import { formatDateTime } from '../../../utils/helper';
 import { Link } from 'react-router-dom';
 import { IoTicketOutline } from 'react-icons/io5';
 import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
+import { TbServerCog } from 'react-icons/tb';
 
 function TicketOrders() {
     const { loader, ticketOrders, error, handleFetchTicketOrders } = useFetchedContext();
@@ -64,7 +65,7 @@ function TicketOrders() {
                 loader={loader}
                 EmptyComponent={
                     error ? 
-                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    <Empty text={error} icon={error?.startsWith("Server") ? <TbServerCog /> : <MdSignalWifiConnectedNoInternet0 />} />
                     :
                     <Empty text={`No ticket orders yet`} icon={<IoTicketOutline />} />
                 }

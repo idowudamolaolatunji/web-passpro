@@ -6,6 +6,7 @@ import { BsCalendarEvent } from 'react-icons/bs';
 import { formatDateTime } from '../../../utils/helper';
 import { Link } from 'react-router-dom';
 import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
+import { TbServerCog } from 'react-icons/tb';
 
 function RecentEvents() {
     const { events, loader, error, handleFetchEvents } = useFetchedContext();
@@ -51,7 +52,7 @@ function RecentEvents() {
                 loader={loader}
                 EmptyComponent={
                     error ? 
-                    <Empty text={`Check internet connection`} icon={<MdSignalWifiConnectedNoInternet0 />} />
+                    <Empty text={error} icon={error?.startsWith("Server") ? <TbServerCog /> : <MdSignalWifiConnectedNoInternet0 />} />
                     :
                     <Empty text={`No events yet`} icon={<BsCalendarEvent />} />
                 }

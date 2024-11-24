@@ -12,49 +12,48 @@ function index() {
 
     const [event, setEvent] = useState(null)
     const [loader, setLoader] = useState(false)
-    const [error, setError] = useState(false)
+    const [error, setError] = useState("")
 
     async function handleFetchEvent() {
-        setError(false);
+        setError("");
         setLoader(true);
         setEvent(null);
 
         try {
             const res = await fetch(`${BASE_URL}/events/${id}`, { method: "GET", headers });
             shouldKick(res)
+            if (res.status == 500) throw new Error("Server is Busy")
             const data = await res.json();
             setEvent(data?.data)
-        } catch(err) {
-            setError(true);
+        } catch (err) {
+            const message = err?.message == "Failed to fetch" ? "Server is Busy" : "Check internet connection"
+            setError(message);
         } finally {
             setLoader(false);
         }
     }
 
-    useEffect(function() {
-
+    useEffect(function () {
         handleFetchEvent()
     }, [id])
 
-    console.log(id, loader, event)
+    return (
+        <>
+            <PageTop title="Details" prev="All Events" />
 
-  return (
-    <>
-        <PageTop title="Details" prev="All Events" />
+            {(loader && !event) && <Spinner />}
 
-        {(loader && !event) && <Spinner />} 
-
-        {(!loader && !error && event) && (
-            <EventPreview 
-                customStyle={{ padding: "2rem", borderRadius: ".4rem" }}
-                noHead={true}
-                eventData={event}
-                cover_photo={"https://sub.passpro.africa/storage/" + event?.gallery?.cover_photo} 
-                event_image={"https://sub.passpro.africa/storage/" + event?.gallery?.event_image}
-            />
-        )}
-    </>
-  )
+            {(!loader && !error && event) && (
+                <EventPreview
+                    customStyle={{ padding: "2rem", borderRadius: ".4rem" }}
+                    noHead={true}
+                    eventData={event}
+                    cover_photo={"https://sub.passpro.africa/storage/" + event?.gallery?.cover_photo}
+                    event_image={"https://sub.passpro.africa/storage/" + event?.gallery?.event_image}
+                />
+            )}
+        </>
+    )
 }
 
 export default index

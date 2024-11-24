@@ -76,7 +76,8 @@ function index() {
             }, 2000);
 
         } catch (err) {
-            setResponse({ status: 'error', message: err.message })
+            const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message
+            setResponse({ status: "error", message });
         } finally {
             setLoading(false);
         }

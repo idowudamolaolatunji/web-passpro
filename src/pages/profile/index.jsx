@@ -1,30 +1,41 @@
 import React, { useState } from 'react';
 import PageTop from '../../components/PageTop';
-import { IoCameraOutline } from 'react-icons/io5';
+import { IoCameraOutline, IoTrashBin } from 'react-icons/io5';
 
 import ProfileImage from '../../components/ProfileImage';
 import { FiEdit3 } from 'react-icons/fi';
 import { useAuthContext } from '../../context/AuthContext';
 import ProfileItem from '../../components/ProfileItem';
 import ProfileSocialItem from '../../components/ProfileSocialItem';
-import { Fb, X, Tk, Ig, Sc } from "../../assets/png"
 import { useWindowSize } from 'react-use';
+import Spinner from '../../components/Spinner'
+import CustomAlert from '../../components/CustomAlert'
+import { Fb, X, Tk, Ig, Sc } from "../../assets/png"
+import Modal from '../../components/Modal';
 
 function index() {
     const { width } = useWindowSize();
     const { user } = useAuthContext();
 
-    const [image, setImage] = useState({ preview: "", file: "" });
+    const [response, setResponse] = useState({ status: "", message: "" });
+    const [loading, setLoading] = useState(false);
+
+    const [image, setImage] = useState({ preview: null, file: null });
     const [showModal, setShowModal] = useState({
-        image: false,
+        photo: false,
         address: false,
         bank: false,
         social: false,
+        personal: false
     });
 
 
     const handleShowModal = function(name) {
-        setShowModal({ ...showModal, [name]: !showModal[name]})
+        setShowModal({ ...showModal, [name]: true })
+    }
+
+    const handleCloseModal = function(name) {
+        setShowModal({ ...showModal, [name]: false })
     }
 
     const handleChangeImage = function (e) {
@@ -35,10 +46,18 @@ function index() {
         }
     }
 
+    const handleRomoveImage = function() {
+        setImage({ file: null, preview: null })
+    }
+
 
     return (
         <>
-            
+            {loading && <Spinner />}
+
+            {(response.status || response.message) && (
+                <CustomAlert type={response.status} message={response.message} />
+            )}
 
             <PageTop title="Update Profile" />
 
@@ -48,8 +67,7 @@ function index() {
                     <div className="profile--head">
                         <span className='profile--image'>
                             {image?.file ? <img src={image?.preview} /> : <ProfileImage />}
-                            <label htmlFor='profile-img' className='profile--icon'><IoCameraOutline /></label>
-                            <input type="file" id="profile-img" onChange={handleChangeImage} />
+                            <label onClick={() => handleShowModal("photo")} className='profile--icon'><IoCameraOutline /></label>
                         </span>
 
                         <div className='profile--user'>
@@ -64,6 +82,7 @@ function index() {
                 <div className="form__container">
                     <span className="form__container--headiing profile--heading">
                         Personal {width > 400 ? "Information" : ""}
+                        <button className='profile--btn' onClick={() => handleShowModal("personal")}>Edit <FiEdit3 /></button>
                     </span>
 
                     <div className="profile--container">
@@ -119,6 +138,53 @@ function index() {
                     </div>
                 </div>
             </div>
+
+
+            {showModal?.photo && (
+                <Modal className="mini" handleClose={() => handleCloseModal("photo")}>
+                    <div className="modal--details">
+
+                        <span className='profile--image' style={{ width: "12rem", height: "12rem", border: "1.4px solid #eee", borderRadius: "50%" }}>
+                            {image?.file ? <img src={image?.preview} /> : <ProfileImage />}
+                            
+                            {image?.file ? (
+                                <label className='profile--icon' onClick={handleRomoveImage}><IoTrashBin /></label>
+                            ) : (
+                                <label htmlFor='profile-img' className='profile--icon'><IoCameraOutline /></label>
+                            )}
+
+                            <input type="file" id="profile-img" onChange={handleChangeImage} />
+                        </span>
+
+                        <button className='form--btn btn-next' onClick={() => {}}>Upload Photo</button>
+                    </div>
+                </Modal>
+            )}
+
+            {(showModal.address) && (
+                <Modal handleClose={handleCloseModal} className="modal-add">
+                    {}
+                </Modal>
+            )}
+
+            {(showModal.bank) && (
+                <Modal handleClose={handleCloseModal} className="modal-add">
+                    {}
+                </Modal>
+            )}
+
+            {(showModal.social) && (
+                <Modal handleClose={handleCloseModal} className="modal-add">
+                    {}
+                </Modal>
+            )}
+
+
+            {(showModal.personal) && (
+                <Modal handleClose={handleCloseModal} className="modal-add">
+                    {}
+                </Modal>
+            )}
         </>
     )
 }

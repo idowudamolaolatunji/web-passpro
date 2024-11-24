@@ -12,6 +12,10 @@ import Spinner from '../../components/Spinner'
 import CustomAlert from '../../components/CustomAlert'
 import { Fb, X, Tk, Ig, Sc } from "../../assets/png"
 import Modal from '../../components/Modal';
+import AddressForm from './forms/AddressForm';
+import BankForm from './forms/BankForm';
+import SocialsForm from './forms/SocialsForm';
+import PersonalForm from './forms/PersonalForm';
 
 function index() {
     const { width } = useWindowSize();
@@ -51,6 +55,23 @@ function index() {
     }
 
 
+    async function handleUploadImage() {
+        const formData = new FormData();
+        formData.append("image", Imgfile);
+        
+        const res = await fetch(`${BASE_API_URL}/${url}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: formData,
+        });
+        shouldKick(res);
+
+        const data = await res.json();
+        return data
+    }
+
     return (
         <>
             {loading && <Spinner />}
@@ -66,7 +87,7 @@ function index() {
 
                     <div className="profile--head">
                         <span className='profile--image'>
-                            {image?.file ? <img src={image?.preview} /> : <ProfileImage />}
+                            <ProfileImage />
                             <label onClick={() => handleShowModal("photo")} className='profile--icon'><IoCameraOutline /></label>
                         </span>
 
@@ -156,33 +177,48 @@ function index() {
                             <input type="file" id="profile-img" onChange={handleChangeImage} />
                         </span>
 
-                        <button className='form--btn btn-next' onClick={() => {}}>Upload Photo</button>
+                        <button style={{ backgroundColor: "#333", marginTop: "2rem" }} className='form--btn btn-next' onClick={handleUploadImage}>Upload Photo</button>
                     </div>
                 </Modal>
             )}
 
             {(showModal.address) && (
-                <Modal handleClose={handleCloseModal} className="modal-add">
-                    {}
+                <Modal handleClose={() => handleCloseModal("address")} className="modal-add-sm">
+                    <AddressForm 
+                        setLoading={setLoading}
+                        setResponse={setResponse}
+                        handleClose={() => handleCloseModal("address")}
+                    />
                 </Modal>
             )}
 
             {(showModal.bank) && (
-                <Modal handleClose={handleCloseModal} className="modal-add">
-                    {}
+                <Modal handleClose={() => handleCloseModal("bank")} className="modal-add-sm">
+                    <BankForm 
+                        setLoading={setLoading}
+                        setResponse={setResponse}
+                        handleClose={() => handleCloseModal("bank")}
+                    />
                 </Modal>
             )}
 
             {(showModal.social) && (
-                <Modal handleClose={handleCloseModal} className="modal-add">
-                    {}
+                <Modal handleClose={() => handleCloseModal("social")} className="modal-add-sm">
+                    <SocialsForm 
+                        setLoading={setLoading}
+                        setResponse={setResponse}
+                        handleClose={() => handleCloseModal("social")}
+                    />
                 </Modal>
             )}
 
-
             {(showModal.personal) && (
-                <Modal handleClose={handleCloseModal} className="modal-add">
-                    {}
+                <Modal handleClose={() => handleCloseModal("personal")} className="modal-add-sm">
+                    <PersonalForm 
+                        setLoading={setLoading}
+                        setResponse={setResponse}
+                        handleClose={() => handleCloseModal("personal")}
+                    />
                 </Modal>
             )}
         </>

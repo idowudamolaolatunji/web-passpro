@@ -48,7 +48,8 @@ export const FetchedProvider = ({ children }) => {
             console.log(data)
             setTicketOrders(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : "Check internet connection"
+            const message = (err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server is Busy" : err?.message;
+
             setError(message);
         } finally {
             setLoader(false);
@@ -66,7 +67,8 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setEvents(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : "Check internet connection"
+            const message = (err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server is Busy" : err?.message;
+
             setError(message);
         } finally {
             setLoader(false);
@@ -84,7 +86,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setWithdrawalsHistory(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : "Check internet connection"
+            const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -103,7 +105,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setSupportTickets(data?.data);
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : "Check internet connection"
+            const message = (err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server is Busy" : err?.message;
             setError(message);
         } finally {
             setLoader(false);

@@ -421,6 +421,12 @@ span.item--user-img {
     color: #fff;
 }
 
+.form--title {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
 
 
 .form--img-box {

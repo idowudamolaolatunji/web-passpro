@@ -158,6 +158,13 @@ input::-webkit-inner-spin-button {
 .modal.modal-add {
 	min-width: 90rem;
 }
+.modal.modal-add-sm {
+	min-width: 70rem;
+}
+.modal-add-sm .form--actions {
+	width: 100%;
+	gap: 2rem;
+}
 .modal-add .form--actions {
 	max-width: 40rem;
 }
@@ -399,6 +406,7 @@ a.table--view-btn {
 
 
 @media screen and (max-width: 900px) {
+	.modal.modal-add-sm,
 	.modal.modal-add {
 		min-width: unset;
 		width: 100%;
@@ -426,6 +434,12 @@ a.table--view-btn {
 	.search--modal {
 		left: 15%;
 		top: 7rem;
+	}
+
+
+	.modal-add-sm .form--grid {
+		grid-template-columns: 1fr;
+		gap: 2rem;
 	}
 }
 

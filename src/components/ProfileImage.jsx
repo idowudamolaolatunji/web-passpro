@@ -5,6 +5,7 @@ import { useAuthContext } from '../context/AuthContext';
 function ProfileImage() {
     const { user } = useAuthContext();
     const fullname = `${user?.first_name} ${user?.last_name}`;
+    
     return (
         <>
             {user?.image ? (

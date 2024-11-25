@@ -316,6 +316,7 @@ input::-webkit-inner-spin-button {
 	line-height: 1.3;
 	color: #777;
 	text-transform: capitalize;
+	text-align: center;
 }
 
 

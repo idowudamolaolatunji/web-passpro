@@ -28,9 +28,16 @@ function index({ handleClose, data }) {
                     <p>{data?.status}</p>
                   </span>
                 </div>
+
                 {data?.status == "rejected" && (
-                  <div className='modal--item'>{data?.remark}</div>
+                  <div className='modal--item' style={{ flexDirection: "column", alignItems: "flex-start", gap: "2rem" }}>
+                    Rejection Remark
+                    <span className="modal--value">
+                      {data?.remark}
+                    </span>
+                  </div>
                 )}
+                
                 <div className='modal--item'>Date Initiated <span className='modal--value'>{formatDateTime(data?.initiated_at)}</span></div>
             </div>
     </Modal>

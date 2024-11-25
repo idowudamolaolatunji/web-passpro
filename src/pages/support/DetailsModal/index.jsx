@@ -24,8 +24,8 @@ function index({ handleClose, data }) {
                 </div>
                 
                 {data?.last_message && (
-                  <div className='modal--item' style={{ flexDirection: "column", alignItems: "flex-start", gap: "2rem" }}>Last Message
-                    <span className="modal--value">
+                  <div className='modal--item' style={{ flexWrap: "wrap", alignItems: "flex-start", gap: "2rem" }}>Last Message
+                    <span className="modal--value" style={{ lineHeight: "1.3" }}>
                       {data?.last_message}
                     </span>
                   </div>

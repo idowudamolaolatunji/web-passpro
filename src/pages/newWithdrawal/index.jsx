@@ -24,7 +24,7 @@ function index() {
     const { user, headers, shouldKick } = useAuthContext();
 
     const [withdrawalData, setWithdrawalData] = useState({
-        amount: "", amount_receivable: "", password: ""
+        amount: "", amount_receivable: "", fee_num: "", password: ""
     });
     const [showPassword, setShowPassword] = useState(false);
 
@@ -61,10 +61,27 @@ function index() {
 
     useEffect(function() {
         if(withdrawalData?.amount && +user?.balance >= +withdrawalData?.amount) {
-            const fee = (+withdrawalData?.amount * 0.1) / 100;
-            const amount_receivable = Math.floor(withdrawalData?.amount - fee);
+            // const fee = (+withdrawalData?.amount * 0.1) / 100;
+            // const amount_receivable = Math.floor(withdrawalData?.amount - fee);
+
+            let amount_receivable, fee_num;
+
+            if(+withdrawalData?.amount > 1000 && +withdrawalData?.amount <= 5000) {
+                fee_num = 100;
+                amount_receivable = +withdrawalData?.amount - fee_num;
+            }
+
+            if(+withdrawalData?.amount > 5000 && +withdrawalData?.amount <= 50000) {
+                fee_num = 150;
+                amount_receivable = +withdrawalData?.amount - fee_num;
+            }
+
+            if(+withdrawalData?.amount > 50000) {
+                fee_num = 200;
+                amount_receivable = +withdrawalData?.amount - fee_num;
+            }
             
-            setWithdrawalData((prevData) => ({ ...prevData, amount_receivable }));
+            setWithdrawalData((prevData) => ({ ...prevData, amount_receivable, fee_num  }));
         }
 
     }, [withdrawalData?.amount]);
@@ -171,7 +188,8 @@ function index() {
 
                     <div className="form--grid">
                         <label className="form--label" style={{ display: "flex", alignItems: "center", gap: ".4rem" }}>Processing fee <IoIosInformationCircleOutline /></label>
-                        <label className="form--label" style={{ color: "#888", justifySelf: "end" }}>0.1% of ₦{+withdrawalData?.amount ? formatNumber(withdrawalData?.amount) : "Amount"}</label>
+                        {/* <label className="form--label" style={{ color: "#888", justifySelf: "end" }}>0.1% of {+withdrawalData?.amount ? "₦"+formatNumber(withdrawalData?.amount) : "Amount"}</label> */}
+                        <label className="form--label" style={{ color: "#888", justifySelf: "end" }}>Fee for {+withdrawalData?.amount ? "₦"+formatNumber(withdrawalData?.amount) : "Amount"} = ₦{withdrawalData.fee_num || 0}</label>
                     </div>
 
                     <Line color='#D9D9D9' />

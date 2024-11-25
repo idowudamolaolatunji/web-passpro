@@ -30,9 +30,9 @@ function index({ handleClose, data }) {
                 </div>
 
                 {data?.status == "rejected" && (
-                  <div className='modal--item' style={{ flexDirection: "column", alignItems: "flex-start", gap: "2rem" }}>
+                  <div className='modal--item' style={{ flexWrap: "wrap", alignItems: "flex-start", gap: "2rem" }}>
                     Rejection Remark
-                    <span className="modal--value">
+                    <span className="modal--value" style={{ lineHeight: "1.3" }}>
                       {data?.remark}
                     </span>
                   </div>

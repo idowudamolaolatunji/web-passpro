@@ -8,7 +8,6 @@ import { BiChevronRight } from 'react-icons/bi'
 import { useAuthContext } from '../../context/AuthContext'
 import Modal from '../../components/Modal'
 import { ImEye, ImEyeBlocked } from 'react-icons/im'
-import { AiFillCloseCircle } from 'react-icons/ai'
 import { IoCloseCircleOutline } from 'react-icons/io5'
 import Spinner from '../../components/Spinner'
 import CustomAlert from '../../components/CustomAlert'
@@ -16,10 +15,12 @@ import { FiCheckCircle } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { useWindowSize } from 'react-use'
 import { formatNumber } from '../../utils/helper'
+import { useFetchedContext } from '../../context/FetchedContext'
 
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
+    const { handleFetchUserData } = useFetchedContext();
     const { user, headers, shouldKick } = useAuthContext();
 
     const [withdrawalData, setWithdrawalData] = useState({
@@ -90,6 +91,7 @@ function index() {
                 throw new Error(data?.message || data?.error)
             }
 
+            handleFetchUserData()
             setResponse({ status: "success", message: data?.success });
             setShowModal({ success: true })
 

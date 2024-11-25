@@ -20,7 +20,7 @@ import PasswordForm from './forms/PasswordForm';
 
 function index() {
     const { width } = useWindowSize();
-    const { user } = useAuthContext();
+    const { user, token } = useAuthContext();
 
     const [response, setResponse] = useState({ status: "", message: "" });
     const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ function index() {
 
     async function handleUploadImage() {
         const formData = new FormData();
-        formData.append("image", Imgfile);
+        formData.append("image", image.file);
         
         const res = await fetch(`${BASE_API_URL}/${url}`, {
             method: 'POST',
@@ -78,8 +78,8 @@ function index() {
         <>
             {loading && <Spinner />}
 
-            {(response.status || response.message) && (
-                <CustomAlert type={response.status} message={response.message} />
+            {(response?.status || response?.message) && (
+                <CustomAlert type={response?.status} message={response?.message} />
             )}
 
             <PageTop title="Update Profile" />
@@ -178,6 +178,8 @@ function index() {
 
             {showModal?.photo && (
                 <Modal className="mini" handleClose={() => handleCloseModal("photo")}>
+                    <span className="form--title">Choose a photo</span>
+                    
                     <div className="modal--details">
 
                         <span className='profile--image' style={{ width: "12rem", height: "12rem", border: "1.4px solid #eee", borderRadius: "50%" }}>
@@ -192,7 +194,7 @@ function index() {
                             <input type="file" id="profile-img" onChange={handleChangeImage} />
                         </span>
 
-                        <button style={{ backgroundColor: "#333", marginTop: "2rem" }} className='form--btn btn-next' onClick={handleUploadImage}>Upload Photo</button>
+                        {image?.file && <button style={{ marginTop: "2rem" }} className='form--btn btn-next' onClick={handleUploadImage}>Upload Photo</button>}
                     </div>
                 </Modal>
             )}

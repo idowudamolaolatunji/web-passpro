@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Asterisk from '../../../components/Asterisk'
 import { truncateString } from '../../../utils/helper';
 import { useAuthContext } from '../../../context/AuthContext';
+import { useFetchedContext } from '../../../context/FetchedContext';
 
 function BankForm({ setLoading, setResponse, handleClose }) {
-    const { user } = useAuthContext();
+    const { handleFetchUserData } = useFetchedContext();
+    const { user, headers, shouldKick } = useAuthContext();
 
     const [banks, setBanks] = useState([]);
     const [bankData, setBankData] = useState({
@@ -39,14 +41,39 @@ function BankForm({ setLoading, setResponse, handleClose }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
+        
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/contact-info`, {
+                method: "PUT", headers,
+                body: JSON.stringify(addressData)
+            });
+            shouldKick(res)
 
+            const data = await res.json();
+            if (res.status != 200) {
+                if(!data?.status && data?.errors) {
+                    const error = Object.values(data?.errors);
+                    throw new Error(error[0][0])
+                }
+                throw new Error(data?.message || data?.error)
+            }
+            
+            handleFetchUserData()
+            setResponse({ status: "success", message: data?.message });
+            handleClose()
 
+        } catch(err) {
+            setResponse({ status: "error", message: err?.message });
+        } finally {
+            setLoading(false)
+        }
     }
 
 
     return (
 
-        <form className='form'>
+        <form className='form' onSubmit={handleSubmit}>
             <span className="form--title">Edit Bank Information</span>
 
             <div className="form">
@@ -76,7 +103,7 @@ function BankForm({ setLoading, setResponse, handleClose }) {
 
             <div className="form--actions">
                 <button className='form--btn btn-prev' type='button' onClick={handleClose}>Cancel</button>
-                <button className='form--btn btn-next' type='submit' onClick={handleSubmit}>Submit </button>
+                <button className='form--btn btn-next' type='submit'>Submit </button>
             </div>
 
         </form>

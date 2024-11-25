@@ -413,6 +413,10 @@ a.table--view-btn {
 		height: 100vh;
 		overflow-y: auto;
 	}
+	.modal.modal-add-sm {
+		padding-top: 4rem;
+	}
+
 	.modal-add .form--grid {
 		grid-template-columns: 1fr;
 		gap: 2rem;

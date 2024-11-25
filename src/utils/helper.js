@@ -75,6 +75,30 @@ export function validateTicketForm(data) {
 	return errors;
 }
 
+export function validatePasswordUpdateForm(data) {
+	const errors = {};
+
+	if (!data.current_password) {
+		errors.current_password = "Password is required";
+	} else if (data.current_password.length < 8) {
+		errors.current_password = "Password must be at least 8 characters long";
+	}
+
+	if (!data.new_password) {
+		errors.password = "New password is required";
+	} else if (data.new_password.length < 8) {
+		errors.new_password = "new Password must be at least 8 characters long";
+	}
+
+	if (!data.new_password_confirmation) {
+		errors.new_password_confirmation = "New password comfirmation is required";
+	} else if (data.new_password_confirmation !== data.new_password) {
+		errors.new_password_confirmation = "New passwords do not match";
+	}
+	
+	return errors;
+}
+
 export function formatDateTime(date, time) {
 	const dateTime = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm");
 	return dateTime.format("YYYY-MM-DD  h:mmA");

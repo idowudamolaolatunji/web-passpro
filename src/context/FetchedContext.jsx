@@ -16,7 +16,7 @@ export default FetchedContext;
 
 export const FetchedProvider = ({ children }) => {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
-    const { headers, shouldKick } = useAuthContext();
+    const { headers, shouldKick, handleUser } = useAuthContext();
 
     const [categories, setCategories] = useState([]);
     const [ticketOrders, setTicketOrders] = useState([]);
@@ -28,12 +28,20 @@ export const FetchedProvider = ({ children }) => {
     const [error, setError] = useState("");
 
 
+    async function handleFetchUserData() {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user`, { method: "GET", headers });
+        shouldKick(res)
+
+        const data = await res.json();
+        handleUser(data)
+    }
+
+
     async function handleFetchCategoryList() {
         const res = await fetch(`${BASE_URL}/categories`, { method: "GET", headers });
         const data = await res.json();
         setCategories(data?.data);
     }
-
 
     // const message = err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server is Busy" : err?.message;
 
@@ -43,11 +51,9 @@ export const FetchedProvider = ({ children }) => {
         setTicketOrders([]);
         try {
             const res = await fetch(`${BASE_URL}/orders`, { method: "GET", headers });
-
             shouldKick(res)
 
             const data = await res.json();
-            console.log(data)
             setTicketOrders(data?.data)
         } catch(err) {
             const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message;
@@ -135,6 +141,7 @@ export const FetchedProvider = ({ children }) => {
 
         ///////////////////////
         handleFetchEvents,
+        handleFetchUserData,
         handleFetchSupportData,
         handleFetchTicketOrders,
         handleFetchWithdrawalsHistory,

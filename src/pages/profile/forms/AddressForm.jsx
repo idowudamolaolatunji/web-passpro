@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useAuthContext } from '../../../context/AuthContext'
+import { useFetchedContext } from '../../../context/FetchedContext';
 import Asterisk from '../../../components/Asterisk';
 
 function AddressForm({ setLoading, setResponse, handleClose }) {
-    const { user } = useAuthContext();
+    const { handleFetchUserData } = useFetchedContext();
+    const { user, headers, shouldKick } = useAuthContext();
+
     const [addressData, setAddressData] = useState({ country: "", state: "", city: "" });
 
 
@@ -24,12 +27,37 @@ function AddressForm({ setLoading, setResponse, handleClose }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
+        
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/contact-info`, {
+                method: "PUT", headers,
+                body: JSON.stringify(addressData)
+            });
+            shouldKick(res)
 
+            const data = await res.json();
+            if (res.status != 200) {
+                if(!data?.status && data?.errors) {
+                    const error = Object.values(data?.errors);
+                    throw new Error(error[0][0])
+                }
+                throw new Error(data?.message || data?.error)
+            }
+            
+            handleFetchUserData()
+            setResponse({ status: "success", message: data?.message });
+            handleClose()
 
+        } catch(err) {
+            setResponse({ status: "error", message: err?.message });
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
-        <form className='form'>
+        <form className='form' onSubmit={handleSubmit}>
             <span className="form--title">Edit Address Information</span>
 
             <div className="form--item">
@@ -49,7 +77,7 @@ function AddressForm({ setLoading, setResponse, handleClose }) {
 
             <div className="form--actions">
                 <button className='form--btn btn-prev' type='button' onClick={handleClose}>Cancel</button>
-                <button className='form--btn btn-next' type='submit' onClick={handleSubmit}>Submit </button>
+                <button className='form--btn btn-next' type='submit'>Submit </button>
             </div>
         </form>
     )

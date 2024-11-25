@@ -111,7 +111,7 @@ function index() {
                         </span>
 
                         <div className='profile--user'>
-                            <h4 className='profile--title'>Taiwo Mujaideen</h4>
+                            <h4 className='profile--title'>{user?.first_name} {user?.last_name}</h4>
                             <p className='profile--text'>vendor</p>
                             <p className='profile--text'>{user?.state} {user?.country}</p>
                         </div>

@@ -4,9 +4,11 @@ import PageTop from '../../components/PageTop';
 import EventPreview from '../../components/EventPreview';
 import Spinner from '../../components/Spinner';
 import { useAuthContext } from '../../context/AuthContext';
+import { useWindowSize } from 'react-use';
 
 function index() {
     const { id } = useParams();
+    const { width } = useWindowSize();
     const { headers, shouldKick } = useAuthContext();
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
 
@@ -22,11 +24,11 @@ function index() {
         try {
             const res = await fetch(`${BASE_URL}/events/${id}`, { method: "GET", headers });
             shouldKick(res)
-            if (res.status == 500) throw new Error("Server is Busy")
+
             const data = await res.json();
             setEvent(data?.data)
         } catch (err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : "Check internet connection"
+            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -45,7 +47,7 @@ function index() {
 
             {(!loader && !error && event) && (
                 <EventPreview
-                    customStyle={{ padding: "2rem", borderRadius: ".4rem" }}
+                    customStyle={{ padding: width < 450 ? "2rem 1.2rem" : "2rem", borderRadius: ".4rem" }}
                     noHead={true}
                     eventData={event}
                     cover_photo={`https://sub.passpro.africa/storage/${event?.gallery?.cover_photo}`}

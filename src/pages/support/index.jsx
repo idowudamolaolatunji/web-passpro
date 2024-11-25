@@ -4,15 +4,24 @@ import Empty from '../../components/Empty';
 import { MdOutlineContactSupport, MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
 import TableUI from '../../components/TableUI';
 import { useFetchedContext } from '../../context/FetchedContext';
-import { RiDeleteBinLine } from 'react-icons/ri';
-import { FiEdit } from 'react-icons/fi';
 import TableSearch from '../../components/TableSearch';
 import { TbServerCog } from 'react-icons/tb';
+import DetailsModal from "./DetailsModal";
 
 
 function index() {
     const { supportTickets, error, loader, setLoader, handleFetchSupportData } = useFetchedContext();
+    
+    const [showDetails, setShowDetails] = useState(false);
+    const [selectedData, setSelectedData] = useState(null);
     const [input, setInput] = useState("");
+    const [searched, setSearched] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleToggle = function(data) {
+        setShowDetails(!showDetails);
+        setSelectedData(data)
+    }
 
     const columns = [
         {
@@ -39,15 +48,12 @@ function index() {
             ),
             width: "35rem"
         },
-        // {
-        //     name: "Action",
-        //     selector: row => (
-        //         <div className='table--actions'>
-        //             <button><FiEdit /></button>
-        //             <button><RiDeleteBinLine style={{ color: "red" }} /></button>
-        //         </div>
-        //     )
-        // },
+        {
+            name: "Action",
+            selector: row => (
+                <button className='table--view-btn' onClick={() => handleToggle(row)}>View Details</button>
+            )
+        },
     ];
 
 
@@ -55,7 +61,16 @@ function index() {
         if(!input) return;
         setLoader(true)
 
-        setLoader(false)
+        const value = input?.toLowerCase()
+
+        const searchResult = supportTickets?.filter(data => data?.subject?.toLowerCase()?.includes(value) || data?.status?.toLowerCase()?.includes(value) || data?.priority?.toLowerCase()?.includes(value));
+
+        setSearchTerm(input);
+        setSearched(searchResult)
+
+        setTimeout(() => {
+            setLoader(false)
+        }, 2000);
     }
 
     useEffect(function() {
@@ -66,6 +81,8 @@ function index() {
 
     return (
         <>
+            {(showDetails && selectedData) && <DetailsModal data={selectedData} handleClose={handleToggle} />}
+
             <div className="table--top" style={{ alignItems: "flex-end" }}>
                 <PageTop title="All Tickets" />
 
@@ -73,13 +90,13 @@ function index() {
             </div>
 
             <TableUI
-                data={supportTickets}
+                data={searched ? searched : supportTickets}
                 columns={columns}
                 EmptyComponent={
                     error ? 
                     <Empty text={error} icon={error?.startsWith("Server") ? <TbServerCog /> : <MdSignalWifiConnectedNoInternet0 />} />
                     :
-                    <Empty text="No Ticket Yet" icon={<MdOutlineContactSupport />} />
+                    <Empty text={`No ${searched ? "search result for: " + searchTerm : "Ticket Yet"}`} icon={<MdOutlineContactSupport />} />
                 }
                 loader={loader}
             />

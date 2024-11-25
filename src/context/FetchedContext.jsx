@@ -27,7 +27,6 @@ export const FetchedProvider = ({ children }) => {
     const [loader, setLoader] = useState(true);
     const [error, setError] = useState("");
 
-
     async function handleFetchUserData() {
         const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user`, { method: "GET", headers });
         shouldKick(res)
@@ -43,7 +42,6 @@ export const FetchedProvider = ({ children }) => {
         console.log(res, data)
         handleFetchEvents();
     }
-
 
     async function handleFetchCategoryList() {
         const res = await fetch(`${BASE_URL}/categories`, { method: "GET", headers });
@@ -106,7 +104,6 @@ export const FetchedProvider = ({ children }) => {
             setLoader(false);
         }
     }
-
 
     async function handleFetchSupportData() {
         setError("");

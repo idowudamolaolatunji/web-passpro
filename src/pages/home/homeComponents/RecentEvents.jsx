@@ -57,6 +57,7 @@ function RecentEvents() {
                     <Empty text={`No events yet`} icon={<BsCalendarEvent />} />
                 }
                 pagination={false}
+                pointerOnHover={false}
             />
         </div>
     )

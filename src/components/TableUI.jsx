@@ -42,22 +42,23 @@ const customStyles = {
     }
 };
 
-function TableUI({ title, data, columns, loader, EmptyComponent, pagination=true }) {
-  return (
-    <div className="table--container">
-        <DataTable
-            title={title}
-            data={data}
-            columns={columns}
-            noDataComponent={EmptyComponent}
-            fixedHeader
-            pagination={pagination}
-            progressComponent={<SpinnerMini />}
-            progressPending={loader}
-            customStyles={customStyles}
-        />
-    </div>
-  )
+function TableUI({ title, data, columns, loader, EmptyComponent, pagination = true, pointerOnHover = true }) {
+    return (
+        <div className="table--container">
+            <DataTable
+                title={title}
+                data={data}
+                columns={columns}
+                noDataComponent={EmptyComponent}
+                fixedHeader
+                pagination={pagination}
+                progressComponent={<SpinnerMini />}
+                progressPending={loader}
+                customStyles={customStyles}
+                pointerOnHover={pointerOnHover}
+            />
+        </div>
+    )
 }
 
 export default TableUI

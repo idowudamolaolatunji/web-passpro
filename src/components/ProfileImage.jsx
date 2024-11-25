@@ -9,7 +9,7 @@ function ProfileImage() {
     return (
         <>
             {user?.profile_image ? (
-                <img className='item--user-img' src={`${import.meta.env.VITE_STORAGE_URL}/${user?.profile_image}`} alt={user.first_name} />
+                <img className='item--user-img' src={`https://sub.passpro.africa/storage/${user?.profile_image}`} alt={user.first_name} />
             ) : (
                 <span className='item--user-img'>{getInitials(fullname)}</span>
             )}

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useAuthContext } from '../../../context/AuthContext';
+import { useFetchedContext } from '../../../context/FetchedContext';
+import Spinner from '../../../components/Spinner'
+import CustomAlert from '../../../components/CustomAlert'
 
 function SocialsForm({ setLoading, setResponse, handleClose }) {
-    const { user } = useAuthContext();
+    const { user, headers, shouldKick } = useAuthContext();
+    const { handleFetchUserData } = useFetchedContext();
 
     const [socialData, setSocialData] = useState({
         facebook_name: "",
@@ -30,14 +34,36 @@ function SocialsForm({ setLoading, setResponse, handleClose }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
+        setResponse({ status: "", message: "" });
+        
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/update-social-media`, {
+                method: "PUT", headers,
+                body: JSON.stringify(socialData)
+            });
+            shouldKick(res)
 
+            const data = await res.json();
+            if (res.status != 200) {
+                throw new Error(data?.message || data?.error)
+            }
+            
+            setResponse({ status: "success", message: data?.message });
+            handleFetchUserData();
+            handleClose();
 
+        } catch(err) {
+            setResponse({ status: "error", message: err?.message });
+        } finally {
+            setLoading(false)
+        }
     }
 
 
     return (
 
-        <form>
+        <form onSubmit={handleSubmit}>
             <span className="form--title">Edit Social Media Information</span>
 
             <div className="form">
@@ -65,7 +91,7 @@ function SocialsForm({ setLoading, setResponse, handleClose }) {
 
             <div className="form--actions">
                 <button className='form--btn btn-prev' type='button' onClick={handleClose}>Cancel</button>
-                <button className='form--btn btn-next' type='submit' onClick={handleSubmit}>Submit </button>
+                <button className='form--btn btn-next' type='submit'>Submit </button>
             </div>
         </form>
     )

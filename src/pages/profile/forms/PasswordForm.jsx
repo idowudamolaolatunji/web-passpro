@@ -5,6 +5,7 @@ import { useFetchedContext } from '../../../context/FetchedContext';
 import { validatePasswordUpdateForm } from '../../../utils/helper';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 
+
 function PasswordForm({ setLoading, setResponse, handleClose }) {
     const { headers, shouldKick } = useAuthContext();
     const { handleFetchUserData } = useFetchedContext();
@@ -39,6 +40,8 @@ function PasswordForm({ setLoading, setResponse, handleClose }) {
             setTimeout(() => setResponse({ status: "", message: "" }), 2000);
             return;
         };
+
+        setResponse({ status: "", message: "" });
         
         setLoading(true);
         try {
@@ -46,20 +49,15 @@ function PasswordForm({ setLoading, setResponse, handleClose }) {
                 method: "PUT", headers,
                 body: JSON.stringify(passwordData)
             });
-            shouldKick(res)
 
             const data = await res.json();
-            if (res.status != 200) {
-                if(!data?.status && data?.errors) {
-                    const error = Object.values(data?.errors);
-                    throw new Error(error[0][0])
-                }
-                throw new Error(data?.message || data?.error)
+            if (!data?.status) {
+                throw new Error(data?.message)
             }
             
             handleFetchUserData()
-            setResponse({ status: "success", message: data?.message });
             handleClose()
+            setResponse({ status: "success", message: data?.message });
 
         } catch(err) {
             setResponse({ status: "error", message: err?.message });

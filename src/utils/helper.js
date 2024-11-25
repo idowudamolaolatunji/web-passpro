@@ -117,3 +117,8 @@ export function truncateString(input, num = 30) {
 		return input;
 	}
 }
+
+export function splitLink(link) {
+	const splitted = link?.split("/");
+	return splitted?.at(-1)
+}

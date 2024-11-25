@@ -9,6 +9,7 @@ function BankForm({ setLoading, setResponse, handleClose }) {
     const { user, headers, shouldKick } = useAuthContext();
 
     const [banks, setBanks] = useState([]);
+    const [numError, setNumError] = useState("")
     const [bankData, setBankData] = useState({
         bank_name: "", account_number: "", account_name: "", 
     })
@@ -41,26 +42,28 @@ function BankForm({ setLoading, setResponse, handleClose }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        if(bankData?.account_number.trim().length < 10) {
+            setNumError("Account number must be upto to 10 digits");
+            return;
+        }
+
         setLoading(true);
+        setResponse({ status: "", message: "" });
         
         try {
-            const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/contact-info`, {
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/update-bank-info`, {
                 method: "PUT", headers,
-                body: JSON.stringify(addressData)
+                body: JSON.stringify(bankData)
             });
             shouldKick(res)
 
             const data = await res.json();
             if (res.status != 200) {
-                if(!data?.status && data?.errors) {
-                    const error = Object.values(data?.errors);
-                    throw new Error(error[0][0])
-                }
                 throw new Error(data?.message || data?.error)
             }
             
-            handleFetchUserData()
             setResponse({ status: "success", message: data?.message });
+            handleFetchUserData()
             handleClose()
 
         } catch(err) {
@@ -91,6 +94,9 @@ function BankForm({ setLoading, setResponse, handleClose }) {
                 <div className="form--item">
                     <label htmlFor="" className="form--label">Account Number <Asterisk /> </label>
                     <input className='form--input' type='number' required placeholder='Enter account number' name='account_number' value={bankData.account_number} onChange={handleChangeData}  />
+                    <span className="form--error-message">
+                        {numError && numError}
+                    </span>
                 </div>
 
 

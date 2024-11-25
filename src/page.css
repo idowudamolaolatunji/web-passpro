@@ -1060,6 +1060,10 @@ span.item--user-img {
 .social--name {
     padding: 1.1rem 1.2rem;
 }
+.social--name p {
+    font-size: 1.48rem;
+    font-weight: 600;
+}
 
 
 

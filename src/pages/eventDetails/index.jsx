@@ -48,8 +48,8 @@ function index() {
                     customStyle={{ padding: "2rem", borderRadius: ".4rem" }}
                     noHead={true}
                     eventData={event}
-                    cover_photo={"https://sub.passpro.africa/storage/" + event?.gallery?.cover_photo}
-                    event_image={"https://sub.passpro.africa/storage/" + event?.gallery?.event_image}
+                    cover_photo={`${import.meta.env.VITE_STORAGE_URL}/${event?.gallery?.cover_photo}`}
+                    event_image={`${import.meta.env.VITE_STORAGE_URL}/${event?.gallery?.event_image}`}
                 />
             )}
         </>

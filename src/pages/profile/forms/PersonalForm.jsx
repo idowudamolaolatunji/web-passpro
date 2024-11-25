@@ -34,6 +34,7 @@ function PersonalForm({ setLoading, setResponse, handleClose }) {
     async function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
+        setResponse({ status: "", message: "" });
         
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/personal-info`, {
@@ -50,9 +51,9 @@ function PersonalForm({ setLoading, setResponse, handleClose }) {
                 }
                 throw new Error(data?.message || data?.error)
             }
-            
+
+            setResponse({ status: "success", message: data?.message });
             handleFetchUserData()
-            setResponse({ status: "success", message: data?.success });
             handleClose()
 
         } catch(err) {
@@ -82,7 +83,7 @@ function PersonalForm({ setLoading, setResponse, handleClose }) {
             <div className="form--grid">
                 <div className="form--item">
                     <label htmlFor="" className="form--label">Email <Asterisk /></label>
-                    <input className='form--input' placeholder='Enter your email' required name='email' value={personalData.email} onChange={handleChangeData} />
+                    <input className='form--input' placeholder='Enter your email' name='email' value={personalData.email} readOnly disabled />
                 </div>
 
                 <div className="form--item">
@@ -94,7 +95,7 @@ function PersonalForm({ setLoading, setResponse, handleClose }) {
             <div className="form--grid">
                 <div className="form--item">
                     <label htmlFor="" className="form--label">Username</label>
-                    <input className='form--input' readOnly name='username' value={personalData.username} onChange={handleChangeData} disabled />
+                    <input className='form--input' name='username' value={personalData.username} readOnly disabled />
                 </div>
 
                 <div className="form--item">

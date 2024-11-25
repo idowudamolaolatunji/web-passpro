@@ -28,6 +28,7 @@ function AddressForm({ setLoading, setResponse, handleClose }) {
     async function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
+        setResponse({ status: "", message: "" });
         
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/contact-info`, {
@@ -45,8 +46,8 @@ function AddressForm({ setLoading, setResponse, handleClose }) {
                 throw new Error(data?.message || data?.error)
             }
             
-            handleFetchUserData()
             setResponse({ status: "success", message: data?.message });
+            handleFetchUserData()
             handleClose()
 
         } catch(err) {

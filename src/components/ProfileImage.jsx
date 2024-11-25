@@ -8,8 +8,8 @@ function ProfileImage() {
     
     return (
         <>
-            {user?.image ? (
-                <img className='item--user-img' src={`${user.profile_image}`} alt={user.username} />
+            {user?.profile_image ? (
+                <img className='item--user-img' src={`${import.meta.env.VITE_STORAGE_URL}/${user?.profile_image}`} alt={user.username} />
             ) : (
                 <span className='item--user-img'>{getInitials(fullname)}</span>
             )}

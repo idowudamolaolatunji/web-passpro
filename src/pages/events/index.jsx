@@ -19,7 +19,7 @@ import { TbServerCog } from 'react-icons/tb';
 function index() {
     const navigate = useNavigate()
     const { width } = useWindowSize();
-    const { events, loader, setLoader, error, handleFetchEvents } = useFetchedContext();
+    const { events, loader, setLoader, error, handleFetchEvents, handleToggleFeaturedEvent } = useFetchedContext();
     const [tab, setTab] = useState("all");
     const [input, setInput] = useState("");
     const [searched, setSearched] = useState("");
@@ -56,7 +56,7 @@ function index() {
             name: "Actions",
             selector: row => (
                 <div className='event-table-actions'>
-                    <button>{row?.featured ? "featured" : "unfeatured"}</button>
+                    <button onClick={() => handleToggleFeaturedEvent(row?.id)}>{row?.featured ? "unfeature" : "feature"}</button>
                     <button onClick={() => navigate(`/dashboard/events/manage/${row?.id}`)}>details</button>
                     <button onClick={() => handleShowModal(row)}>ticket</button>
                 </div>

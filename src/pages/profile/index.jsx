@@ -17,10 +17,13 @@ import BankForm from './forms/BankForm';
 import SocialsForm from './forms/SocialsForm';
 import PersonalForm from './forms/PersonalForm';
 import PasswordForm from './forms/PasswordForm';
+import { splitLink } from '../../utils/helper';
+import { useFetchedContext } from '../../context/FetchedContext';
 
 function index() {
     const { width } = useWindowSize();
-    const { user, token } = useAuthContext();
+    const { handleFetchUserData } = useFetchedContext();
+    const { user, token, shouldKick } = useAuthContext();
 
     const [response, setResponse] = useState({ status: "", message: "" });
     const [loading, setLoading] = useState(false);
@@ -36,11 +39,11 @@ function index() {
     });
 
 
-    const handleShowModal = function(name) {
+    const handleShowModal = function (name) {
         setShowModal({ ...showModal, [name]: true })
     }
 
-    const handleCloseModal = function(name) {
+    const handleCloseModal = function (name) {
         setShowModal({ ...showModal, [name]: false })
     }
 
@@ -52,26 +55,40 @@ function index() {
         }
     }
 
-    const handleRomoveImage = function() {
+    const handleRomoveImage = function () {
         setImage({ file: null, preview: null })
     }
 
 
     async function handleUploadImage() {
-        const formData = new FormData();
-        formData.append("image", image.file);
-        
-        const res = await fetch(`${BASE_API_URL}/${url}`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            body: formData,
-        });
-        shouldKick(res);
+        setLoading(true)
+        try {
+            const formData = new FormData();
+            formData.append("profile_image", image.file);
 
-        const data = await res.json();
-        return data
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/profile/profile-picture-update`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData,
+            });
+            shouldKick(res);
+
+            const data = await res.json();
+            if (res.status != 200) {
+                throw new Error(data?.message || data?.error)
+            }
+
+            handleFetchUserData()
+            setResponse({ status: "success", message: data?.message });
+            handleCloseModal("photo")
+
+        } catch (err) {
+            setResponse({ status: "error", message: err?.message })
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -166,11 +183,11 @@ function index() {
                     </span>
 
                     <div className="profile--socials">
-                        <ProfileSocialItem imgSrc={Fb} link={user?.facebook_name} />
-                        <ProfileSocialItem imgSrc={Ig} link={user?.insta_name} />
-                        <ProfileSocialItem imgSrc={X} link={user?.twitter_x_name} />
-                        <ProfileSocialItem imgSrc={Tk} link={user?.tiktok_name} />
-                        <ProfileSocialItem imgSrc={Sc} link={user?.snapchat_name} />
+                        <ProfileSocialItem imgSrc={Fb} link={splitLink(user?.facebook_name)} />
+                        <ProfileSocialItem imgSrc={Ig} link={splitLink(user?.insta_name)} />
+                        <ProfileSocialItem imgSrc={X} link={splitLink(user?.twitter_x_name)} />
+                        <ProfileSocialItem imgSrc={Tk} link={splitLink(user?.tiktok_name)} />
+                        <ProfileSocialItem imgSrc={Sc} link={splitLink(user?.snapchat_name)} />
                     </div>
                 </div>
             </div>
@@ -179,12 +196,12 @@ function index() {
             {showModal?.photo && (
                 <Modal className="mini" handleClose={() => handleCloseModal("photo")}>
                     <span className="form--title">Choose a photo</span>
-                    
+
                     <div className="modal--details">
 
                         <span className='profile--image' style={{ width: "12rem", height: "12rem", border: "1.4px solid #eee", borderRadius: "50%" }}>
                             {image?.file ? <img src={image?.preview} /> : <ProfileImage />}
-                            
+
                             {image?.file ? (
                                 <label className='profile--icon' onClick={handleRomoveImage}><IoTrashBin /></label>
                             ) : (
@@ -201,7 +218,7 @@ function index() {
 
             {(showModal.address) && (
                 <Modal handleClose={() => handleCloseModal("address")} className="modal-add-sm">
-                    <AddressForm 
+                    <AddressForm
                         setLoading={setLoading}
                         setResponse={setResponse}
                         handleClose={() => handleCloseModal("address")}
@@ -211,7 +228,7 @@ function index() {
 
             {(showModal.bank) && (
                 <Modal handleClose={() => handleCloseModal("bank")} className="modal-add-sm">
-                    <BankForm 
+                    <BankForm
                         setLoading={setLoading}
                         setResponse={setResponse}
                         handleClose={() => handleCloseModal("bank")}
@@ -221,7 +238,7 @@ function index() {
 
             {(showModal.social) && (
                 <Modal handleClose={() => handleCloseModal("social")} className="modal-add-sm">
-                    <SocialsForm 
+                    <SocialsForm
                         setLoading={setLoading}
                         setResponse={setResponse}
                         handleClose={() => handleCloseModal("social")}
@@ -231,7 +248,7 @@ function index() {
 
             {(showModal.personal) && (
                 <Modal handleClose={() => handleCloseModal("personal")} className="modal-add-sm">
-                    <PersonalForm 
+                    <PersonalForm
                         setLoading={setLoading}
                         setResponse={setResponse}
                         handleClose={() => handleCloseModal("personal")}
@@ -242,7 +259,7 @@ function index() {
 
             {(showModal.password) && (
                 <Modal handleClose={() => handleCloseModal("password")} className="modal-add-sm">
-                    <PasswordForm 
+                    <PasswordForm
                         setLoading={setLoading}
                         setResponse={setResponse}
                         handleClose={() => handleCloseModal("password")}

@@ -36,6 +36,14 @@ export const FetchedProvider = ({ children }) => {
         handleUser(data)
     }
 
+    async function handleToggleFeaturedEvent(eventId) {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL_V1}/event/${eventId}/toggle-feature`, { method: "PUT", headers });
+        shouldKick(res)
+        const data = await res.json();
+        console.log(res, data)
+        handleFetchEvents();
+    }
+
 
     async function handleFetchCategoryList() {
         const res = await fetch(`${BASE_URL}/categories`, { method: "GET", headers });
@@ -43,7 +51,7 @@ export const FetchedProvider = ({ children }) => {
         setCategories(data?.data);
     }
 
-    // const message = err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server is Busy" : err?.message;
+    // const message = err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server busy or Check your internet connection" : err?.message;
 
     async function handleFetchTicketOrders() {
         setError("");
@@ -56,7 +64,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setTicketOrders(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -74,7 +82,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setEvents(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -92,7 +100,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setWithdrawalsHistory(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -111,7 +119,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setSupportTickets(data?.data);
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -144,6 +152,7 @@ export const FetchedProvider = ({ children }) => {
         handleFetchUserData,
         handleFetchSupportData,
         handleFetchTicketOrders,
+        handleToggleFeaturedEvent,
         handleFetchWithdrawalsHistory,
     }
 

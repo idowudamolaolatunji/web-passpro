@@ -2,15 +2,17 @@ import React from 'react'
 import PreviewDetailsTop from './PreviewDetailsTop'
 import { IoTicketOutline } from 'react-icons/io5'
 import { GrLocation } from 'react-icons/gr'
-import { FaRegCalendarAlt } from 'react-icons/fa'
+import { FaRegCalendarAlt, FaSnapchat, FaTiktok } from 'react-icons/fa'
 import { BiLogoFacebookCircle } from 'react-icons/bi'
 import { AiFillInstagram } from 'react-icons/ai'
 import { FaXTwitter } from 'react-icons/fa6'
 import { HiOutlineGlobeAlt } from 'react-icons/hi'
 import PreviewTicket from './PreviewTicket'
 import { formatStringDateTime, truncateString } from '../utils/helper'
+import { useAuthContext } from '../context/AuthContext'
 
 function EventPreview({ noHead=false, eventData, cover_photo, event_image, customStyle={} }) {
+    const { user } = useAuthContext();
 
   return (
     <>
@@ -31,12 +33,38 @@ function EventPreview({ noHead=false, eventData, cover_photo, event_image, custo
 
                     <p className='preview--figure-description'>{truncateString(eventData?.event_description, 200)}</p>
 
-                    {/* <span className='preview--figure-socials'>
-                        <HiOutlineGlobeAlt />
-                        <BiLogoFacebookCircle />
-                        <AiFillInstagram />
-                        <FaXTwitter />
-                    </span> */}
+                    <span className='preview--figure-socials'>
+                        {user?.facebook_name && (
+                            <a href={
+                                !user?.facebook_name.startsWith("https")
+                                ? `https://${user?.facebook_name}` : user?.facebook_name 
+                            } target='_blank'><BiLogoFacebookCircle /></a>
+                        )}
+                        {user?.insta_name && (
+                            <a href={
+                                !user?.insta_name.startsWith("https")
+                                ? `https://${user?.insta_name}` : user?.insta_name 
+                            } target='_blank'><AiFillInstagram /></a>
+                        )}
+                        {user?.twitter_x_name && (
+                            <a href={
+                                !user?.twitter_x_name.startsWith("https") 
+                                ? `https://${user?.twitter_x_name}` : user?.twitter_x_name
+                            } target='_blank'><FaXTwitter /></a>
+                        )}
+                        {user?.tiktok_name && (
+                            <a href={
+                                !user?.tiktok_name.startsWith("https")
+                                ? `https://${user?.tiktok_name}` : user?.tiktok_name
+                            } target='_blank'><FaTiktok /></a>
+                        )}
+                        {user?.snapchat_name && (
+                            <a href={
+                                !user?.snapchat_name.startsWith("https")
+                                ? `https://${user?.snapchat_name}` : user?.snapchat_name
+                            } target='_blank'><FaSnapchat /></a>
+                        )}
+                    </span>
                 </div>
 
 

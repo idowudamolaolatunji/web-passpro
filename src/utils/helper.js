@@ -119,6 +119,6 @@ export function truncateString(input, num = 30) {
 }
 
 export function splitLink(link) {
-	const splitted = link?.split("/");
-	return splitted?.at(-1)
+	const splitted = link?.includes("@") ? link?.split("@") : link?.split("/");
+	return splitted?.at(-1);
 }

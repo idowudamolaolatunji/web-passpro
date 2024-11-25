@@ -579,7 +579,8 @@ span.item--user-img {
     color: #555;
 }
 
-.preview--figure-socials {
+.preview--figure-socials,
+.preview--figure-socials a {
     display: flex;
     align-items: center;
     gap: 1rem;

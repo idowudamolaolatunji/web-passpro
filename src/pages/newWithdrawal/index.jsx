@@ -144,7 +144,7 @@ function index() {
                 <Modal className="mini" handleClose={() => setShowModal({ success: false })}>
                     <div className="modal--details">
                         <span className='close--icon' onClick={() => setShowModal({ confirm: false })}>
-                            <IoCloseCircleOutline  />
+                            <IoCloseCircleOutline />
                         </span>
 
                         <span className='modal--top'>

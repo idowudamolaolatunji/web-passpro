@@ -93,7 +93,7 @@ function index() {
 
     useEffect(function() {
         !input && setSearched(null)
-    }, [input])
+    }, [input]);
 
     return (
         <>  

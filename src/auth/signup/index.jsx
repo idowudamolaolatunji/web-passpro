@@ -48,6 +48,7 @@ function index() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        handleResetResponse();
 
         if (!isChecked) {
             // IF THE CHECKED IS NOT CHECKED

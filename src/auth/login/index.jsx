@@ -43,6 +43,7 @@ function index() {
     async function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
+        setResponse({ status: "", message: "" });
 
         try {
             const { password, email } = formData;

@@ -13,19 +13,19 @@ import { useAuthContext } from '../../context/AuthContext';
 import { validateEventForm } from '../../utils/helper';
 import Spinner from '../../components/Spinner';
 import { useWindowSize } from 'react-use';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 
 
 function index() {
     const BASE_URL = import.meta.env.VITE_BASE_URL_V1;
-    const { token, shouldKick } = useAuthContext();
+    const { token, shouldKick, headers } = useAuthContext();
     const { width } = useWindowSize();
     const navigate = useNavigate();
+    const { id } = useParams();
 
     const [step, setStep] = useState(1);
     const [showTicketModal, setShowTicketModal] = useState(false);
-    const [selectedTicketId, setSelectedTicketId] = useState(null);
     const [response, setResponse] = useState({ status: "", message: "" });
     const [loading, setLoading] = useState(false);
 
@@ -67,16 +67,22 @@ function index() {
         if (step == 1 && Object.keys(error).length > 1) {
             setResponse({ status: "error", message: "Fill required fields to proceed!" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
-        } else if(Object.keys(error).length == 1) {
+        } else if (Object.keys(error).length == 1) {
             const errMessage = Object.values(error)[0];
             setResponse({ status: "error", message: errMessage });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
 
-        if (step == 2 && (!images?.cover_photo.file && !images?.event_image.file)) {
+        if (step == 2 && (!images?.cover_photo.preview || !images?.event_image.preview)) {
             setResponse({ status: "error", message: "Choose both images for the event" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
         }
+
+        // EDIT THE IMAGE WHEN THERE ARE NEW FILES
+        if (step == 2 && id && (images?.cover_photo.file || images?.event_image.file)) {
+            handleUploadEventImage();
+        }
+
         if (step == 3 && eventData.tickets.length == 0) {
             setResponse({ status: "error", message: "There must be at least 1 ticket" });
             return setTimeout(() => setResponse({ status: "", message: "" }), 2000);
@@ -97,10 +103,91 @@ function index() {
         window.scrollTo(0, 0);
     }, [step]);
 
+
+    // GET THE CURRENT PRODUCT, BASED ON THE ID
+    useEffect(function () {
+        async function handleGetEvent() {
+            setLoading(true);
+
+            const res = await fetch(`${BASE_URL}/events/${id}`, { method: "GET", headers });
+            shouldKick(res)
+
+            const data = await res.json();
+            if (res.status != 200) {
+                setResponse({ message: "Connection Error", status: "error" });
+                setTimeout(() => navigate(-1), 2000);
+            }
+
+            if (data?.data) {
+                const event = data?.data;
+                setEventData({
+                    category_id: event?.category_id,
+                    event_name: event?.event_name,
+                    event_description: event?.event_description,
+                    featured: event?.featured,
+                    event_type: event?.event_type,
+                    event_location: event?.event_location,
+                    start_date: event?.start_date,
+                    start_date_time: event?.start_date_time,
+                    end_date: event?.end_date,
+                    end_date_time: event?.end_date_time,
+                    tickets: [...event?.tickets],
+                });
+
+                setImages({
+                    ...images,
+                    cover_photo: { file: null, preview: `https://sub.passpro.africa/storage/${event?.gallery?.cover_photo}` },
+                    event_image: { file: null, preview: `https://sub.passpro.africa/storage/${event?.gallery?.event_image}` }
+                })
+
+                setLoading(false);
+            }
+        }
+
+        if (id) handleGetEvent();
+    }, [id])
+
+    // UPDATE EVENT IMAGES
+    async function handleUploadEventImage() {
+        setStep(2);
+        setLoading(true);
+        setResponse({ status: "", message: "" });
+
+        const formData = new FormData();
+        images.cover_photo.file && formData.append('cover_photo', images.cover_photo.file);
+        images.event_image.file && formData.append('event_image', images.event_image.file);
+
+        try {
+            const res = await fetch(`${BASE_URL}/events/${id}/update-gallery`, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            });
+            shouldKick(res);
+
+            const data = await res.json();
+            if (res?.status != 200) throw new Error(data?.message || data?.error)
+
+            setResponse({ status: "success", message: data?.message });
+            setImages({
+                cover_photo: { ...images.cover_photo, file: null, },
+                event_image: { ...images.event_image, file: null, }
+            })
+            setStep(step + 1)
+        } catch (err) {
+            setResponse({ status: "error", message: err?.message })
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // HANDLE SUBMIT NEW / UPDATE EVENT
     async function handleSubmit() {
         setLoading(true);
-
-        console.log(eventData)
+        setResponse({ status: "", message: "" });
 
         const formData = new FormData();
         formData.append('event_name', eventData.event_name);
@@ -112,38 +199,40 @@ function index() {
         formData.append('end_date', eventData.end_date);
         formData.append('start_date_time', eventData.start_date_time);
         formData.append('end_date_time', eventData.end_date_time);
-        // const formattedStartTime = moment(eventData.start_date_time).format('HH:mm');
-        // const formattedEndTime = moment(eventData.end_date_time).format('HH:mm');
-        
-        // formData.append('start_date_time', formattedStartTime);
-        // formData.append('end_date_time', formattedEndTime);
-
-        
         formData.append('tickets', JSON.stringify(eventData.tickets));
-
         formData.append('cover_photo', images.cover_photo.file);
         formData.append('event_image', images.event_image.file);
 
-        setResponse({ status: "", message: "" });
+        // IF THERE IS AN ID, IT MEANS WE ARE TRYING TO EDIT
+        const end_point_url = id ? `${BASE_URL}/events/${id}/update-events-tickets` : `${BASE_URL}/events`;
+        const method = id ? "PATCH" : "POST";
+        const formDataHeaders = {
+            "Accept": "application/json",
+            Authorization: `Bearer ${token}`
+        }
 
         try {
-            const res = await fetch(`${BASE_URL}/events`, {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: formData
+            const res = await fetch(end_point_url, {
+                method,
+                headers: !id ? formDataHeaders : headers,
+                body: !id ? formData : JSON.stringify(eventData)
             });
             shouldKick(res);
 
             const data = await res.json();
-            if(res.status != 201) {
+            if (res?.status != (!id ? 201 : 200)) {
                 throw new Error(data?.message || data?.error)
             }
 
             setResponse({ status: "success", message: data?.message });
-            setTimeout(() => navigate("/dashboard/events/manage"), 2000);
+
+            // NAGIGATE BACK TO THE EVENT MANAGE OR DETAIL PAGE DEPENDING ON IF THERE'S ID OR NOT.
+            if (id) {
+                setTimeout(() => navigate(`/dashboard/events/manage/${id}`), 2000);
+            } else {
+                setTimeout(() => navigate("/dashboard/events/manage"), 2000);
+            }
+
         } catch (err) {
             setResponse({ status: "error", message: err?.message })
         } finally {
@@ -162,28 +251,61 @@ function index() {
 
             {showTicketModal && (
                 <Modal handleClose={handleCloseModal} className="modal-add">
-                    <TicketForm setEventData={setEventData} handleClose={handleCloseModal} setResponse={setResponse} />
+                    <TicketForm
+                        setEventData={setEventData}
+                        handleClose={handleCloseModal}
+                        setResponse={setResponse}
+                    />
                 </Modal>
             )}
 
-            <PageTop title="Create Event" />
+            {}
+
+            <PageTop title={id ? "Edit Event" : "Create Event"} prev="Manage Events" />
 
             <div className="form__container event--form">
                 <StepsTab step={step} />
 
-                {step == 1 && <TabOne setEventData={setEventData} eventData={eventData} />}
+                {step == 1 && (
+                    <TabOne
+                        setEventData={setEventData}
+                        eventData={eventData}
+                    />
+                )}
 
-                {step == 2 && <TabTwo setImages={setImages} images={images} />}
+                {step == 2 && (
+                    <TabTwo
+                        setImages={setImages}
+                        images={images}
+                    />
+                )}
 
-                {step == 3 && <TabThree eventData={eventData} handleDelete={handleRemoveTicket} handleShowModal={handleShowTicketModal} />}
+                {step == 3 && (
+                    <TabThree
+                        eventData={eventData}
+                        handleDelete={handleRemoveTicket}
+                        handleShowModal={handleShowTicketModal}
+                    />
+                )}
 
-                {step == 4 && <EventPreview eventData={eventData} cover_photo={images?.cover_photo?.preview} event_image={images?.event_image?.preview} />}
+                {step == 4 && (
+                    <EventPreview
+                        eventData={eventData}
+                        cover_photo={images?.cover_photo?.preview}
+                        event_image={images?.event_image?.preview}
+                    />
+                )}
 
                 <div className="form--actions">
                     {step > 1 && (
-                        <button className='form--btn btn-prev' type='button' onClick={handlePrevStep}><BiChevronLeft /> Previous </button>
+                        <button className='form--btn btn-prev' type='button' onClick={handlePrevStep}>
+                            <BiChevronLeft /> Previous
+                        </button>
                     )}
-                    <button className='form--btn btn-next' type='button' onClick={handleNextStep}>{step == 4 ? "Submit" : (width < 600 && step != 1) ? "Continue" : "Save and Continue"} <BiChevronRight /></button>
+                    <button className='form--btn btn-next' type='button' onClick={handleNextStep}>
+                        {step == 4 ? "Submit" : (width < 600 && step != 1) ? "Continue" : "Save and Continue"}
+                        <BiChevronRight />
+                    </button>
                 </div>
             </div>
         </>

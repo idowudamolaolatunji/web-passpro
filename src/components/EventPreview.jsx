@@ -6,17 +6,19 @@ import { FaRegCalendarAlt, FaSnapchat, FaTiktok } from 'react-icons/fa'
 import { BiLogoFacebookCircle } from 'react-icons/bi'
 import { AiFillInstagram } from 'react-icons/ai'
 import { FaXTwitter } from 'react-icons/fa6'
-import { HiOutlineGlobeAlt } from 'react-icons/hi'
 import PreviewTicket from './PreviewTicket'
 import { formatStringDateTime, truncateString } from '../utils/helper'
 import { useAuthContext } from '../context/AuthContext'
+import { RiDeleteBin3Line, RiEdit2Line } from 'react-icons/ri'
+import { useNavigate } from 'react-router-dom'
 
-function EventPreview({ noHead=false, eventData, cover_photo, event_image, customStyle={} }) {
+function EventPreview({ eventData, cover_photo, event_image, customStyle, fetchedPreview=false, setShowModal }) {
+    const navigate = useNavigate();
     const { user } = useAuthContext();
 
   return (
     <>
-        {!noHead && (
+        {!fetchedPreview && (
             <span className="form__container--headiing">Review & Submit</span>
         )}
 
@@ -82,6 +84,14 @@ function EventPreview({ noHead=false, eventData, cover_photo, event_image, custo
                     )}
                 </div>
             </div>
+
+
+            {fetchedPreview && (
+                <div className='form--actions' style={{ gap: "2rem" }}>
+                    <button className='preview--btn edit-btn' onClick={() => navigate(`/dashboard/events/edit/${eventData?.id}`)}><RiEdit2Line />Edit</button>
+                    <button className='preview--btn delete-btn' onClick={() => setShowModal(true)}><RiDeleteBin3Line />Delete</button>
+                </div>
+            )}
         </div>
     </>
   )

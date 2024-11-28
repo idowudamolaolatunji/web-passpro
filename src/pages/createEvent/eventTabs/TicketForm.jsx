@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NumberInputField from '../../../components/NumberInputField';
 import Tab from '../../../components/Tab';
 import { FaCheck } from 'react-icons/fa';

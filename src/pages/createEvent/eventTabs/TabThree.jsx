@@ -81,7 +81,7 @@ function TabThree({ eventData, handleDelete, handleShowModal }) {
             name: "Actions",
             selector: row => (
                 <div className='table--actions'>
-                    <button><FiEdit /></button>
+                    {/* <button onClick={() => handleEdit(row)}><FiEdit /></button> */}
                     <button onClick={() => handleDelete(row?.ticket_id)}><RiDeleteBinLine style={{ color: "red" }} /></button>
                 </div>
             )

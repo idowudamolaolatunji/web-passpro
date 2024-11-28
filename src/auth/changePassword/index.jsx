@@ -47,6 +47,7 @@ function index() {
 
     async function handleChangePassword() {
         setLoading(true);
+        handleResetResponse();
 
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/reset-password`, {

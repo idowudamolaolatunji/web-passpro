@@ -31,6 +31,7 @@ function index() {
 
     async function handleForgotPassword() {
         setLoading(true);
+        handleResetResponse()
 
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/forgot-password`, {

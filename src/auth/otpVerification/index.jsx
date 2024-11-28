@@ -35,6 +35,7 @@ function index() {
 
     async function handleSubmitOtp() {
         setLoading(true);
+        handleResetResponse()
 
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/verify-otp`, {
@@ -68,6 +69,8 @@ function index() {
 
     async function handleRequestOtp() {
         setLoading(true);
+        handleResetResponse();
+
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/send-otp`, {
                 method: 'POST', headers,

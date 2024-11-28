@@ -420,6 +420,29 @@ span.item--user-img {
     background-color: var(--primary-1);
     color: #fff;
 }
+.preview--btn {
+    padding: .8rem 1.2rem;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    grid-area: .8rem;
+    border-radius: .24rem;
+    font-weight: 600;
+    font-size: 1.48rem;
+}
+.preview--btn svg {
+    font-size: 2rem;
+}
+.preview--btn.edit-btn {
+    box-shadow: 0 0 0 .14rem var(--primary-1);
+    color: var(--primary-1);
+}
+.preview--btn.delete-btn {
+    background-color: red;
+    color: #fff;
+}
+
 
 .form--title {
     display: inline-block;

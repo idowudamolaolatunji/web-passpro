@@ -40,6 +40,7 @@ function App() {
           <Route path='/dashboard' element={<HomePage />}></Route>
           <Route path='/dashboard/events/create' element={<CreateEvents />}></Route>
           <Route path='/dashboard/events/manage' element={<Events />}></Route>
+          <Route path='/dashboard/events/edit/:id' element={<CreateEvents />}></Route>
           <Route path='/dashboard/events/manage/:id' element={<EventDetails />}></Route>
 
           <Route path='/dashboard/withdrawals/new' element={<NewWithdrawal />}></Route>

@@ -33,7 +33,7 @@ function EventPreview({ eventData, cover_photo, event_image, customStyle, fetche
                         <p className='date'><FaRegCalendarAlt />{formatStringDateTime(eventData?.start_date, eventData?.start_date_time)}</p>
                     </span>
 
-                    <p className='preview--figure-description'>{truncateString(eventData?.event_description, 200)}</p>
+                    <p className='preview--figure-description'>{eventData?.event_description}</p>
 
                     <span className='preview--figure-socials'>
                         {user?.facebook_name && (

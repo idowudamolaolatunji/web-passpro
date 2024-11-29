@@ -50,6 +50,7 @@ const customStyles = {
 function TabThree({ eventData, handleDelete, handleShowModal }) {
 
     const { tickets } = eventData;
+    console.log(tickets)
 
     const columns = [
         {
@@ -82,7 +83,7 @@ function TabThree({ eventData, handleDelete, handleShowModal }) {
             selector: row => (
                 <div className='table--actions'>
                     {/* <button onClick={() => handleEdit(row)}><FiEdit /></button> */}
-                    <button onClick={() => handleDelete(row?.ticket_id)}><RiDeleteBinLine style={{ color: "red" }} /></button>
+                    <button onClick={() => handleDelete(row?.id || row?.ticket_id)}><RiDeleteBinLine style={{ color: "red" }} /></button>
                 </div>
             )
         }

@@ -53,10 +53,12 @@ function index() {
 
             const data = await res.json();
             if (res.status != 200) throw new Error(data?.message || data?.error);
-            setShowDeleteModal(false);
-
+            
             setResponse({ status: "success", message: data?.message });
-            setTimeout(() => navigate("/dashboard/events/manage"), 2000);
+            setTimeout(() => {
+                setShowDeleteModal(false);
+                navigate("/dashboard/events/manage");
+            }, 1000);
 
         } catch (err) {
             setResponse({ status: "error", message: err?.message })

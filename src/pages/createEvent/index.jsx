@@ -52,8 +52,13 @@ function index() {
         setShowTicketModal(!showTicketModal);
     }
 
-    const handleRemoveTicket = function (id) {
-        setEventData({ ...eventData, tickets: eventData.tickets.filter(ticket => ticket?.ticket_id != id) });
+    const handleCloseModal = function () {
+        setShowTicketModal(false)
+    }
+
+    const handleRemoveTicket = function (ticketId) {
+        console.log(ticketId)
+        setEventData({ ...eventData, tickets: eventData.tickets.filter(ticket => ticket?.id ? ticket?.id != ticketId : ticket?.ticket_id != ticketId) });
     }
 
     const handlePrevStep = function () {
@@ -93,10 +98,6 @@ function index() {
         } else {
             handleSubmit()
         }
-    }
-
-    const handleCloseModal = function () {
-        setShowTicketModal(false)
     }
 
     useEffect(function () {
@@ -258,8 +259,6 @@ function index() {
                     />
                 </Modal>
             )}
-
-            {}
 
             <PageTop title={id ? "Edit Event" : "Create Event"} prev="Manage Events" />
 

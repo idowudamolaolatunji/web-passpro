@@ -205,7 +205,7 @@ function index() {
 
         // IF THERE IS AN ID, IT MEANS WE ARE TRYING TO EDIT
         const end_point_url = id ? `${BASE_URL}/events/${id}/update-events-tickets` : `${BASE_URL}/events`;
-        const method = id ? "PATCH" : "POST";
+        const method = id ? "PUT" : "POST";
         const formDataHeaders = {
             "Accept": "application/json",
             Authorization: `Bearer ${token}`

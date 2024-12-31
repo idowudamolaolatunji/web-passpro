@@ -31,6 +31,10 @@ export const withdrawal_sub = [
     { text: "Withdraw Now", link: "/dashboard/withdrawals/new" },
     { text: "Withdrawal History", link: "/dashboard/withdrawals/history" }
 ]
+export const transaction_sub = [
+    { text: "Ticket Orders", link: "/dashboard/transactions/ticket-order" },
+    { text: "Withdrawals", link: "/dashboard/transactions/withdrawal" }
+]
 export const support_sub = [
     { text: "Create ticket", link: "/dashboard/support-tickets/create" },
     { text: "Manage ticket", link: "/dashboard/support-tickets/manage" }

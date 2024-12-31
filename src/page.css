@@ -1235,6 +1235,14 @@ span.item--user-img {
 }
 
 
+@media screen and (max-width: 750px) {
+    .table--top {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+
 @media screen and (max-width: 650px) {
     .dashboard--grid .grid--left {
         max-width: 90vw;
@@ -1295,6 +1303,18 @@ span.item--user-img {
         grid-template-columns: 1fr 1fr;
         max-width: 100%;
         column-gap: 2rem;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .page__tabs {
+        width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+    .page--tab {
+        min-width: fit-content;
     }
 }
 

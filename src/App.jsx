@@ -17,6 +17,7 @@ import Withdrawals from './pages/withdrawals';
 import Supports from './pages/support';
 import CreateSupport from './pages/createSupport';
 import Transactions from './pages/transactions';
+import Coupons from './pages/coupon';
 import Profile from './pages/profile';
 import ProtectedRoute from './utils/ProtectedRoute';
 
@@ -49,6 +50,7 @@ function App() {
           <Route path='/dashboard/support-tickets/create' element={<CreateSupport />}></Route>
           <Route path='/dashboard/support-tickets/manage' element={<Supports />}></Route>
 
+          <Route path='/dashboard/coupons' element={<Coupons />}></Route>
           <Route path='/dashboard/transactions' element={<Transactions />}></Route>
           <Route path='/dashboard/profile' element={<Profile />}></Route>
         </Route>

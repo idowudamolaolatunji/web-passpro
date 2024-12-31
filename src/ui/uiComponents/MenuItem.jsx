@@ -56,6 +56,8 @@ function MenuItem({ link, icon, text, arrow, isBtn, sub, action }) {
                         <img src={icon} alt={text} />
                     </span>
                     <p className='menu--text'>{text}</p>
+                    {arrow && <img className='menu--arrow' src={right_arrow} />}
+
                 </Link>
 
 

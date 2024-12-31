@@ -9,7 +9,7 @@ import { formatDateTime } from '../../utils/helper';
 import TableUI from '../../components/TableUI';
 import TableSearch from '../../components/TableSearch';
 import { MdSignalWifiConnectedNoInternet0 } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
 import PreviewTicket from '../../components/PreviewTicket';
@@ -17,10 +17,15 @@ import { TbServerCog } from 'react-icons/tb';
 
 
 function index() {
-    const navigate = useNavigate()
     const { width } = useWindowSize();
+    const navigate = useNavigate()
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const tabParams = queryParams.get("tab")
+    ///////////////////////////////////////
+
     const { events, loader, setLoader, error, handleFetchEvents, handleToggleFeaturedEvent } = useFetchedContext();
-    const [tab, setTab] = useState("all");
+    const [tabShown, setTabShown] = useState("all");
     const [input, setInput] = useState("");
     const [searched, setSearched] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
@@ -28,7 +33,7 @@ function index() {
     const [selected, setSelected] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-    const data = tab == "all" ? events : events?.filter(event => event?.status == (tab));
+    const data = tabShown == "all" ? events : events?.filter(event => event?.status == (tabShown));
 
     const columns = [
         {
@@ -90,6 +95,16 @@ function index() {
         handleFetchEvents();
     }, []);
 
+    // SET THE SHOWN TABS DIRECTLY FROM THE PARAMS ROUTE
+    useEffect(function () {
+        if (tabParams) {
+            setTabShown(tabParams)
+        } else {
+            navigate("?tab=all")
+        }
+        // setSearch("")
+    }, [tabParams]);
+
 
     useEffect(function() {
         !input && setSearched(null)
@@ -118,10 +133,10 @@ function index() {
 
             <div className="table--top">
                 <div className="page__tabs">
-                    <Tab title={`All ${width > 400 ? "Events" : ""}`} active={tab == "all"} onClick={() => setTab("all")} />
-                    <Tab title="Pending" active={tab == "Pending"} onClick={() => setTab("Pending")} />
-                    <Tab title="Approved" active={tab == "Approved"} onClick={() => setTab("Approved")} />
-                    <Tab title="Rejected" active={tab == "Rejected"} onClick={() => setTab("Rejected")} />
+                    <Tab title={`All ${width > 400 ? "Events" : ""}`} onClick={() => navigate("?tab=all")} active={tabShown == "all"} />
+                    <Tab title="Pending" onClick={() => navigate("?tab=pending")} active={tabShown == "pending"} />
+                    <Tab title="Approved" onClick={() => navigate("?tab=approved")} active={tabShown == "approved"} />
+                    <Tab title="Rejected" onClick={() => navigate("?tab=rejected")} active={tabShown == "rejected"} />
                 </div>
 
                 <TableSearch title="Events" value={input} setValue={setInput} action={handleSearch} />
@@ -135,7 +150,7 @@ function index() {
                     error ? 
                     <Empty text={error} icon={error?.startsWith("Server") ? <TbServerCog /> : <MdSignalWifiConnectedNoInternet0 />} />
                     :
-                    <Empty text={`No ${searched ? "search result for: " + searchTerm : tab == "all" ? "" : tab + " events"}`} icon={<BsCalendarEvent />} />
+                    <Empty text={`No ${searched ? "search result for: " + searchTerm : tabShown == "all" ? "" : tabShown + " events"}`} icon={<BsCalendarEvent />} />
                 }
             />
         </>

@@ -3,10 +3,10 @@ import MenuItem from './MenuItem'
 import Overlay from '../../components/Overlay'
 import logo from '../../assets/logo/logo-img-white.png';
 
-import { transfer, withdrawal, signout, support_ticket, home, right_arrow, calender } from "../../assets/svg";
+import { transfer, withdrawal, signout, support_ticket, home, right_arrow, calender, coupon } from "../../assets/svg";
 import { useDataContext } from '../../context/DataContext';
 import { IoCloseSharp } from 'react-icons/io5';
-import { event_sub, support_sub, withdrawal_sub } from "../../utils/data";
+import { event_sub, support_sub, withdrawal_sub, transaction_sub } from "../../utils/data";
 import Spinner from '../../components/Spinner';
 import CustomAlert from '../../components/CustomAlert';
 import { useAuthContext } from '../../context/AuthContext';
@@ -46,8 +46,9 @@ function DashboardMenu() {
                     <MenuItem icon={home} text="Dashboard" link="/" />
                     <MenuItem icon={calender} text="Events" link="/events" arrow isBtn sub={event_sub} />
                     <MenuItem icon={withdrawal} text="Withdrawals" link="/withdrawals" arrow isBtn sub={withdrawal_sub} />
-                    {/* <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow isBtn /> */}
                     <MenuItem icon={support_ticket} text="Support Tickets" link="/support-tickets" arrow isBtn sub={support_sub} />
+                    <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow />
+                    <MenuItem icon={coupon} text="Coupons" link="/coupons" arrow />
                     <MenuItem icon={signout} text="Logout" isBtn action={handleLogout}  />
                 </ul>
             </div>
@@ -71,8 +72,9 @@ function DashboardMenu() {
                             <MenuItem icon={home} text="Dashboard" link="/" />
                             <MenuItem icon={calender} text="Events" link="/events" arrow isBtn sub={event_sub} />
                             <MenuItem icon={withdrawal} text="Withdrawals" link="/withdrawals" arrow isBtn sub={withdrawal_sub} />
-                            {/* <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow isBtn /> */}
                             <MenuItem icon={support_ticket} text="Support Tickets" link="/support-tickets" arrow isBtn sub={support_sub} />
+                            <MenuItem icon={transfer} text="Transactions" link="/transactions" arrow />
+                            <MenuItem icon={coupon} text="Coupons" link="/coupons" arrow />
                             <MenuItem icon={signout} text="Logout" isBtn action={handleLogout} />
                         </ul>
                     </div>

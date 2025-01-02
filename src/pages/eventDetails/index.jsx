@@ -35,7 +35,7 @@ function index() {
             setEvent(data?.data);
             setResponse({ status: "success", message: "success" });
         } catch (err) {
-            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server or Connection Error!!" : err?.message;
             setResponse({ status: "success", message });
             setError(message);
         } finally {

@@ -405,9 +405,15 @@ span.item--user-img {
 .form--btn.btn-prev {
     color: var(--primary-1);
 }
-.form--btn.btn-next {
+.form--btn.btn-next, .coupon-btn {
     background-color: var(--primary-1);
     color: #fff;
+}
+.coupon-btn {
+    max-width: max-content;
+    padding: 1rem 1.8rem;
+    margin-left: auto;
+    margin-right: 10%;
 }
 
 .form--btn svg {

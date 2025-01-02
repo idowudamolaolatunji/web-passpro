@@ -80,7 +80,7 @@ function index() {
             setTimeout(() => navigate('/verify-otp'), 1000);
 
         } catch (err) {
-            const message = err?.message == "Failed to fetch" ? "Server is Busy" : err?.message
+            const message = err?.message == "Failed to fetch" ? "Server or Connection Error!!" : err?.message
             setResponse({ status: "error", message });
         } finally {
             setLoading(false);

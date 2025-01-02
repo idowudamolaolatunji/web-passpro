@@ -49,7 +49,7 @@ export const FetchedProvider = ({ children }) => {
         setCategories(data?.data);
     }
 
-    // const message = err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server busy or Check your internet connection" : err?.message;
+    // const message = err?.message?.includes("CONNECTION") && err?.message == "Failed to fetch") ? "Server or Connection Error!!" : err?.message;
 
     async function handleFetchTicketOrders() {
         setError("");
@@ -62,7 +62,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setTicketOrders(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server or Connection Error!!" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -80,7 +80,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setEvents(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server or Connection Error!!" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -98,7 +98,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setWithdrawalsHistory(data?.data)
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server or Connection Error!!" : err?.message;
             setError(message);
         } finally {
             setLoader(false);
@@ -116,7 +116,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             setSupportTickets(data?.data);
         } catch(err) {
-            const message = err?.message == "Failed to fetch" ? "Server busy or Check your internet connection" : err?.message;
+            const message = err?.message == "Failed to fetch" ? "Server or Connection Error!!" : err?.message;
             setError(message);
         } finally {
             setLoader(false);

@@ -102,7 +102,7 @@ function index() {
         } else {
             navigate("?tab=all")
         }
-        // setSearch("")
+        // setSearched(null)
     }, [tabParams]);
 
 
